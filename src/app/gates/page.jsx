@@ -1,3 +1,4 @@
+import Head from "@/components/gates/Head";
 import React from "react";
 
 const Gates = () => {
@@ -7,26 +8,8 @@ const Gates = () => {
       style={{ position: "relative" }}
     >
       <div>
-        <header className="px-1 pt-40 md:-mb-3 md:block md:pt-[7.6rem]">
-          <h1 className="text-4xl font-bold text-center md:text-5xl">
-            <div className="uppercase inline-block px-1.5">
-              <span className="text-6xl md:text-7xl">c</span>
-              <span className="text-5xl md:text-6xl">ustom</span>
-            </div>
-            <div className="uppercase inline-block px-1.5">
-              <span className="text-6xl md:text-7xl">G</span>
-              <span className="text-5xl md:text-6xl">ate</span>
-            </div>
-          </h1>
-
-          <div className="mx-auto flex min-h-[4.5rem] items-center justify-center px-2 md:min-h-[3rem] md:py-6 md:text-lg lg:max-w-[70%]">
-            <h2>
-              21ft 4in Wide, Swing Kit, Solo Panel, Both Style, Single Pickets,
-              DIY Wood, Manual Access, ~360lbs
-            </h2>
-          </div>
-        </header>{" "}
-        <div
+        <Head />
+        {/* <div
           className="sticky top-[45px] z-[9] rounded-br-lg rounded-bl-lg pb-1 backdrop-blur md:hidden"
           style={{ backgroundColor: "rgba(255,255,255,.6)" }}
         >
@@ -246,7 +229,7 @@ Z"
                       textAnchor="middle"
                       style={{}}
                     >
-                      21' 4"{" "}
+                      21&apos; 4&quot;{" "}
                     </text>
                   </svg>
                 </div>{" "}
@@ -268,7 +251,7 @@ Z"
                     x="49.6%"
                     y={4}
                   >
-                    20' 3"{" "}
+                    20&apos; 3&quot;{" "}
                   </text>
                 </svg>
               </div>{" "}
@@ -312,7 +295,7 @@ Z"
               </svg>{" "}
             </div>
           </div>
-        </div>{" "}
+        </div> */}
         <div className="grid grid-cols-2 pt-0 pb-6 contain md:pt-4">
           <div className="hidden col-span-2 row-span-1 mb-8 md:col-span-1 md:mt-0 md:mb-0 md:block md:pr-3 lg:pr-4">
             <div className="sticky top-14 md:top-28">
@@ -540,7 +523,7 @@ Z"
                             textAnchor="middle"
                             style={{}}
                           >
-                            21' 4"{" "}
+                            21&apos; 4&quot;{" "}
                           </text>
                         </svg>
                       </div>{" "}
@@ -565,7 +548,7 @@ Z"
                           x="49.6%"
                           y={4}
                         >
-                          20' 3"{" "}
+                          20&apos; 3&quot;{" "}
                         </text>
                       </svg>
                     </div>{" "}
@@ -591,7 +574,7 @@ Z"
                         x={-15}
                         y="50%"
                       >
-                        6'
+                        6&apos;
                       </text>
                     </svg>{" "}
                     <svg
@@ -1099,7 +1082,8 @@ Z"
                 <div className="marker">
                   <p>
                     <strong>
-                      Every StandardGates' gate is first custom designed by you
+                      Every StandardGates&apos; gate is first custom designed by
+                      you
                     </strong>
                     , and then our team of experienced ironworkers will use
                     heavy duty steel to handcraft it to the highest industry
@@ -1136,9 +1120,9 @@ Z"
                   <div className="marker">
                     <p>
                       <strong>Width</strong> | <strong>Size:</strong> If the
-                      size you need isn't shown, let us know. Unless requested
-                      otherwise, all gates are 6ft tall when set on v-track
-                      (slide) or 2 inches above the ground (swing).
+                      size you need isn&apos;t shown, let us know. Unless
+                      requested otherwise, all gates are 6ft tall when set on
+                      v-track (slide) or 2 inches above the ground (swing).
                     </p>
                   </div>
                 </li>
@@ -1163,8 +1147,9 @@ Z"
                 <li className="pb-2">
                   <div className="marker">
                     <p>
-                      <strong>Style</strong> | <strong>Both:</strong> There's
-                      nothing more stylish than an arch with finials.
+                      <strong>Style</strong> | <strong>Both:</strong>{" "}
+                      There&apos;s nothing more stylish than an arch with
+                      finials.
                     </p>
                   </div>
                 </li>
@@ -1189,7 +1174,7 @@ Z"
                     <p>
                       <strong>Access</strong> | <strong>Manual:</strong> Comes
                       with large gate cane bolt(s) and/or a gate latch depending
-                      on the type of gate you're ordering
+                      on the type of gate you&apos;re ordering
                     </p>
                   </div>
                 </li>
@@ -1214,8 +1199,8 @@ Z"
                     contact you on the day of delivery. Please be advised that
                     it is your responsibility to unload your products safely and
                     with assistance. If you require the use of the freight
-                    truck's lift-gate, an additional fee of $85 will apply. It
-                    is important to carefully inspect your shipment for any
+                    truck&apos;s lift-gate, an additional fee of $85 will apply.
+                    It is important to carefully inspect your shipment for any
                     concealed damages and missing items before signing the proof
                     of delivery slip. Failure to do so may result in you being
                     held responsible for any replacements or repairs needed.
