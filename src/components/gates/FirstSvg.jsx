@@ -1,46 +1,153 @@
-import * as React from "react";
-import { useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { GatesContext } from "../GatesContext";
+import { gsap } from "gsap";
 
+function FirstSvg() {
+  const { width } = useContext(GatesContext);
+  const [mainPath, setMainPath] = useState("");
+  const [picketsPath, setPicketsPath] = useState("");
 
-function FirstSvg({ weight }) {
-  const svgRef = useRef(null);
+  useEffect(() => {
+    const currentWidth = width - 36;
+    const increment = currentWidth * 0.5;
 
-  // Function to calculate path values based on the weight
-  
+    // Update path data based on the current width
+    const newMainPath = `
+      M ${142 + increment},12 
+      ${142 + increment},82 
+      ${106 - increment},82 
+      ${106 - increment},12 
+      C ${115 - currentWidth * 0.25},12 
+      ${133 + currentWidth * 0.25},12 
+      ${142 + increment},12 Z`;
+
+    const newPicketsPath = `
+      M ${142 + increment},12 
+      ${142 + increment},82 
+      ${106 - increment},82 
+      ${106 - increment},12 
+      C ${115 - currentWidth * 0.25},12 
+      ${133 + currentWidth * 0.25},12 
+      ${142 + increment},12 Z`;
+
+    // Set the new paths
+    setMainPath(newMainPath);
+    setPicketsPath(newPicketsPath);
+  }, [width]);
+
+  // Animate the SVG paths with GSAP
+  useEffect(() => {
+    gsap.to("#mainPath", {
+      attr: { d: mainPath },
+      duration: 1.5,
+      ease: "elastic.out(1, 0.3)",
+    });
+
+    gsap.to("#picketsPath", {
+      attr: { d: picketsPath },
+      duration: 1.5,
+      ease: "elastic.out(1, 0.3)",
+    });
+  }, [mainPath, picketsPath]);
 
   return (
-    <svg
+    <motion.svg
       viewBox="-1 -1 250 96"
       xmlns="http://www.w3.org/2000/svg"
       className="w-full"
     >
-      <mask id="a" x={0} y={0}>
-        <path
-          fill="none"
-          stroke="#fff"
+      <mask id="finialMask" x={0} y={0} />
+      <mask id="picketMask" x={0} y={0}>
+        <motion.path
+          id="picketPath" // Set id for GSAP animation
+          d={`M ${142 + (width - 36) * 0.5},66 ${106 - (width - 36) * 0.5},66`}
           strokeWidth={2}
-          d={`M142 62h-36`}
+          fill="none"
+          stroke="white"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { pathLength: 0, opacity: 0 },
+            visible: {
+              pathLength: 1,
+              opacity: 1,
+              transition: { duration: 1, ease: "easeInOut" },
+            },
+          }}
         />
       </mask>
-      <mask id="finialscnbrle7useufw1gir8p9k0m0" x="0" y="0"></mask>
-      <g mask="url(#ironwoodasdxy34dc0l9jzqyiuw0j3ix)">
-        <path
-          d="M142 12v70h-36V12h36z"
-          className="fill-transparent text-c-brown"
+      <mask id="ironwoodMask" x={0} y={0} />
+
+      <g mask="url(#ironwoodMask)">
+        <motion.path
+          id="mainPath" // Set id for GSAP animation
+          d={mainPath}
+          className="fill-current text-c-brown"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { pathLength: 0, opacity: 0 },
+            visible: {
+              pathLength: 1,
+              opacity: 1,
+              transition: { duration: 1, ease: "easeInOut" },
+            },
+          }}
         />
       </g>
 
-      <g mask="url(#a)">
-        <path d="M142 12v70h-36V12h36z" />
+      <g mask="url(#picketMask)">
+        <motion.path
+          id="picketsPath" // Set id for GSAP animation
+          d={picketsPath}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { pathLength: 0, opacity: 0 },
+            visible: {
+              pathLength: 1,
+              opacity: 1,
+              transition: { duration: 1, ease: "easeInOut" },
+            },
+          }}
+        />
       </g>
-      <path
-        d="M142 12v70h-36V12h36z"
-        className="stroke-current text-c-1000"
-        fill="none"
-        strokeWidth={2}
-        stroke="black"
+
+      <motion.path
+        d={`M ${142 + (width - 36) * 0.5},12 C ${
+          133 + (width - 36) * 0.25
+        },12 ${115 - (width - 36) * 0.25},12 ${106 - (width - 36) * 0.5},12`}
+        mask="url(#finialMask)"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { pathLength: 0, opacity: 0 },
+          visible: {
+            pathLength: 1,
+            opacity: 1,
+            transition: { duration: 1, ease: "easeInOut" },
+          },
+        }}
       />
-    </svg>
+
+      <motion.path
+        d={picketsPath}
+        className="stroke-current text-c-1000"
+        fillOpacity={0}
+        strokeWidth={2}
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { pathLength: 0, opacity: 0 },
+          visible: {
+            pathLength: 1,
+            opacity: 1,
+            transition: { duration: 1, ease: "easeInOut" },
+          },
+        }}
+      />
+    </motion.svg>
   );
 }
 
