@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 // Panel Component
-const Panel = ({ panelValue, setPanelValue }) => {
+const Panel = ({ panelValue, setPanelValue, isOpen, setIsOpen }) => {
   const handlePanelSelection = (value) => {
     setPanelValue({
       ...panelValue,
@@ -23,8 +24,13 @@ const Panel = ({ panelValue, setPanelValue }) => {
           <button
             type="button"
             className="col-span-1 cursor-pointer rounded-full px-2 text-xl text-[1.3rem] font-bold"
+            onClick={() => setIsOpen({ ...isOpen, panel: !isOpen.panel })}
           >
-            <div className="false mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue">
+            <div
+              className={`${
+                isOpen.panel ? "!bg-c-blue" : ""
+              } mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue`}
+            >
               <svg
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -32,7 +38,9 @@ const Panel = ({ panelValue, setPanelValue }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%"
                 height="100%"
-                className="false h-[1.6rem] w-[1.6rem] text-c-blue transition-colors md:hover:text-c-0"
+                className={`${
+                  isOpen.panel ? "text-c-0" : "text-c-blue"
+                } h-[1.6rem] w-[1.6rem]  transition-colors md:hover:text-c-0`}
               >
                 <path
                   fillRule="evenodd"
@@ -80,6 +88,51 @@ const Panel = ({ panelValue, setPanelValue }) => {
           Dual
         </label>
       </div>
+      <AnimatePresence>
+        {isOpen.panel && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{
+              height: 0,
+              opacity: 0,
+              transition: { duration: 0.5, ease: "easeOut" },
+            }}
+            transition={{
+              duration: 3,
+              type: "spring",
+              stiffness: 100,
+              damping: 5,
+            }}
+            className="pl-4 pr-1 overflow-hidden text-left rounded-b-md bg-c-50 md:mx-2"
+            style={{}}
+          >
+            <div className="pb-2">
+              <div className="py-2 text-lg font-semibold text-center capitalize">
+                Steel thick enough to screw into
+              </div>{" "}
+              <hr />{" "}
+              <ul className="mt-2">
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Solo:</strong> Gate opens from the side. 10ft+
+                      wide panels ship in 2 bolt connectable sections.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Dual:</strong> Gate opens from the center.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
-const Style = ({ selectedStyle, setSelectedStyle }) => {
+const Style = ({ selectedStyle, setSelectedStyle, isOpen, setIsOpen }) => {
   const handleSelection = (value) => {
     setSelectedStyle({
       ...selectedStyle, // Retain the current state
@@ -22,8 +23,13 @@ const Style = ({ selectedStyle, setSelectedStyle }) => {
           <button
             type="button"
             className="col-span-1 cursor-pointer rounded-full px-2 text-xl text-[1.3rem] font-bold"
+            onClick={() => setIsOpen({ ...isOpen, style: !isOpen.style })}
           >
-            <div className="false mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue">
+            <div
+              className={`${
+                isOpen.style ? "!bg-c-blue" : ""
+              } mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue`}
+            >
               <svg
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -31,7 +37,9 @@ const Style = ({ selectedStyle, setSelectedStyle }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%"
                 height="100%"
-                className="false h-[1.6rem] w-[1.6rem] text-c-blue transition-colors md:hover:text-c-0"
+                className={`${
+                  isOpen.style ? "text-c-0" : "text-c-blue"
+                } h-[1.6rem] w-[1.6rem]  transition-colors md:hover:text-c-0`}
               >
                 <path
                   fillRule="evenodd"
@@ -116,16 +124,68 @@ const Style = ({ selectedStyle, setSelectedStyle }) => {
         </label>
       </div>
 
-      <style jsx>{`
-        .selected {
-          background-color: #e0f7fa;
-          border-color: #00bcd4;
-        }
-        .unselected {
-          background-color: transparent;
-          border-color: #e0e0e0;
-        }
-      `}</style>
+      <AnimatePresence>
+        {isOpen.style && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{
+              height: 0,
+              opacity: 0,
+              transition: { duration: 0.5, ease: "easeOut" },
+            }}
+            transition={{
+              duration: 3,
+              type: "spring",
+              stiffness: 100,
+              damping: 5,
+            }}
+            className="pl-4 pr-1 overflow-hidden text-left rounded-b-md bg-c-50 md:mx-2"
+            style={{}}
+          >
+            <div className="pb-2">
+              <div className="py-2 text-lg font-semibold text-center capitalize">
+                Classic styles on modern gates
+              </div>{" "}
+              <hr />{" "}
+              <ul className="mt-2">
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>None:</strong> Sometimes a flat top is all you
+                      need.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Arch:</strong> Rounds the shoulders of your gate
+                      down approximately 1ft for a luxurious sunrise shape.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Finials:</strong> Makes your gate even more
+                      intimidating. Adds 2 inches to the total height.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Both:</strong> There's nothing more stylish than
+                      an arch with finials.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

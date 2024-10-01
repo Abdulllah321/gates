@@ -110,8 +110,13 @@ body {
   font-weight: 700 !important;
   text-align: center;
 }
- .unselected {
-          background-color: transparent;
-          border-color: #e0e0e0;
-          text-align:center;
-        }
+.unselected {
+  background-color: transparent;
+  border-color: #e0e0e0;
+  text-align: center;
+}
+.marker a {
+  font-weight: 600;
+  color: var(--c-prime-dark);
+  text-decoration-line: underline;
+}

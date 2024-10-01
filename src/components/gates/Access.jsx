@@ -1,6 +1,7 @@
-import React from "react";
+import React from "react";import { AnimatePresence, motion } from "framer-motion";
 
-const Access = ({ selectedAccess, setSelectedAccess }) => {
+
+const Access = ({ selectedAccess, setSelectedAccess ,isOpen, setIsOpen}) => {
   const handleSelection = (value) => {
     setSelectedAccess({
       ...selectedAccess, // Keep other properties intact
@@ -22,8 +23,13 @@ const Access = ({ selectedAccess, setSelectedAccess }) => {
           <button
             type="button"
             className="col-span-1 cursor-pointer rounded-full px-2 text-xl text-[1.3rem] font-bold"
+            onClick={() => setIsOpen({ ...isOpen, access: !isOpen.access })}
           >
-            <div className="false mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue">
+            <div
+              className={`${
+                isOpen.access ? "!bg-c-blue" : ""
+              } mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue`}
+            >
               <svg
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -31,7 +37,9 @@ const Access = ({ selectedAccess, setSelectedAccess }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%"
                 height="100%"
-                className="false h-[1.6rem] w-[1.6rem] text-c-blue transition-colors md:hover:text-c-0"
+                className={`${
+                  isOpen.access ? "text-c-0" : "text-c-blue"
+                } h-[1.6rem] w-[1.6rem]  transition-colors md:hover:text-c-0`}
               >
                 <path
                   fillRule="evenodd"
@@ -98,16 +106,66 @@ const Access = ({ selectedAccess, setSelectedAccess }) => {
           Automatic
         </label>
       </div>
-      <style jsx>{`
-        .selected {
-          background-color: #e0f7fa;
-          border-color: #00bcd4;
-        }
-        .unselected {
-          background-color: transparent;
-          border-color: #e0e0e0;
-        }
-      `}</style>
+      <AnimatePresence>
+        {isOpen.access && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{
+              height: 0,
+              opacity: 0,
+              transition: { duration: 0.5, ease: "easeOut" },
+            }}
+            transition={{
+              duration: 3,
+              type: "spring",
+              stiffness: 100,
+              damping: 5,
+            }}
+            className="pl-4 pr-1 text-left rounded-b-md bg-c-50 md:mx-2"
+            style={{}}
+          >
+            <div className="pb-2">
+              <div className="py-2 text-lg font-semibold text-center capitalize">
+                Gate automation made easy
+              </div>{" "}
+              <hr />{" "}
+              <ul className="mt-2">
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>None:</strong> You can always create your own
+                      access kit through our Parts page.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Manual:</strong> Comes with large gate cane
+                      bolt(s) and/or a gate latch depending on the type of gate
+                      you're ordering
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Automatic:</strong> Comes with all the motors and
+                      hardware required to automate your gate, as well as a free
+                      remote, a safety sensor, and a battery that trickle
+                      charges through low voltage wire. Automation can be
+                      installed safely without an electrician and will
+                      temporarily hold a charge during a power outage. Swing
+                      gates use Linear operators and slide gates use LiftMaster.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

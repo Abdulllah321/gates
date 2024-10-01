@@ -1,6 +1,12 @@
+import { AnimatePresence,motion } from "framer-motion";
 import React, { useState } from "react";
 
-const MotionSelector = ({ selectedMotion, setSelectedMotion }) => {
+const MotionSelector = ({
+  selectedMotion,
+  setSelectedMotion,
+  setIsOpen,
+  isOpen,
+}) => {
   const handleSelection = (value) => {
     setSelectedMotion({
       ...selectedMotion, // Spread the current state to keep other properties
@@ -23,8 +29,15 @@ const MotionSelector = ({ selectedMotion, setSelectedMotion }) => {
           <button
             type="button"
             className="col-span-1 cursor-pointer rounded-full px-2 text-xl text-[1.3rem] font-bold"
+            onClick={() =>
+              setIsOpen({ ...isOpen, motionSelector: !isOpen.motionSelector })
+            }
           >
-            <div className="false mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue">
+            <div
+              className={`${
+                isOpen.motionSelector ? "!bg-c-blue" : ""
+              } mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue`}
+            >
               <svg
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -32,7 +45,9 @@ const MotionSelector = ({ selectedMotion, setSelectedMotion }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%"
                 height="100%"
-                className="false h-[1.6rem] w-[1.6rem] text-c-blue transition-colors md:hover:text-c-0"
+                className={`${
+                  isOpen.motionSelector ? "text-c-0" : "text-c-blue"
+                } h-[1.6rem] w-[1.6rem]  transition-colors md:hover:text-c-0`}
               >
                 <path
                   fillRule="evenodd"
@@ -99,6 +114,65 @@ const MotionSelector = ({ selectedMotion, setSelectedMotion }) => {
           Slide
         </label>
       </div>
+      <AnimatePresence>
+        {isOpen.motionSelector && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{
+              height: 0,
+              opacity: 0,
+              transition: { duration: 0.5, ease: "easeOut" },
+            }}
+            transition={{
+              duration: 3,
+              type: "spring",
+              stiffness: 100,
+              damping: 5,
+            }}
+            className="pl-4 pr-1 overflow-hidden text-left rounded-b-md bg-c-50 md:mx-2"
+            style={{}}
+          >
+            <div className="pb-2">
+              <div className="py-2 text-lg font-semibold text-center capitalize">
+                Our 2 most popular gate kits
+              </div>{" "}
+              <hr />{" "}
+              <ul className="mt-2">
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>None:</strong> You can use our{" "}
+                      <a href="/category/parts">Individual Parts</a> page to
+                      build your own, even more custom, gate kit.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Swing:</strong> Includes heavy duty hinges and 4x4
+                      94 inch heavy/regular posts with caps. Swings open over
+                      180 degrees without automation.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Slide:</strong> Includes V-wheels, V-track,
+                      rollers, 4in posts, and stops. Arch/finial slide gates
+                      will ship with one extra post per panel. Automatic slide
+                      gates require 2ft/4ft of additional horizontal clearance
+                      for gate tail(s).
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

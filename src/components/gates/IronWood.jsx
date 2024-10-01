@@ -1,6 +1,12 @@
-import React from "react";
+import React from "react";import { AnimatePresence, motion } from "framer-motion";
 
-const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
+
+const IronWood = ({
+  selectedIronWood,
+  setSelectedIronWood,
+  isOpen,
+  setIsOpen,
+}) => {
   const handleSelection = (value) => {
     setSelectedIronWood({
       ...selectedIronWood, // Preserve the existing state properties
@@ -22,8 +28,13 @@ const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
           <button
             type="button"
             className="col-span-1 cursor-pointer rounded-full px-2 text-xl text-[1.3rem] font-bold"
+            onClick={() => setIsOpen({ ...isOpen, ironWood: !isOpen.ironWood })}
           >
-            <div className="false mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue">
+            <div
+              className={`${
+                isOpen.ironWood ? "!bg-c-blue" : ""
+              } mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue`}
+            >
               <svg
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -31,7 +42,9 @@ const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%"
                 height="100%"
-                className="false h-[1.6rem] w-[1.6rem] text-c-blue transition-colors md:hover:text-c-0"
+                className={`${
+                  isOpen.ironWood ? "text-c-0" : "text-c-blue"
+                } h-[1.6rem] w-[1.6rem]  transition-colors md:hover:text-c-0`}
               >
                 <path
                   fillRule="evenodd"
@@ -114,16 +127,65 @@ const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
           DIY
         </label>
       </div>
-      <style jsx>{`
-        .selected {
-          background-color: #e0f7fa;
-          border-color: #00bcd4;
-        }
-        .unselected {
-          background-color: transparent;
-          border-color: #e0e0e0;
-        }
-      `}</style>
+   <AnimatePresence>
+        {isOpen.ironWood && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{
+              height: 0,
+              opacity: 0,
+              transition: { duration: 0.5, ease: "easeOut" },
+            }}
+            transition={{
+              duration: 3,
+              type: "spring",
+              stiffness: 100,
+              damping: 5,
+            }}          className="pl-4 pr-1 text-left rounded-b-md bg-c-50 md:mx-2"
+          style={{}}
+        >
+          <div className="pb-2">
+            <div className="py-2 text-lg font-semibold text-center capitalize">
+              The perfect wood for any gate
+            </div>{" "}
+            <hr />{" "}
+            <ul className="mt-2">
+              <li>
+                <div className="marker">
+                  <p>
+                    <strong>None:</strong> A light weight timeless option.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div className="marker">
+                  <p>
+                    <strong>Vertical:</strong> Match-all sustainable hardwood
+                    vertically attached to the face of each ironWood.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div className="marker">
+                  <p>
+                    <strong>Horizontal:</strong> Match-all sustainable hardwood
+                    horizontally attached to the face of each ironWood.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div className="marker">
+                  <p>
+                    <strong>DIY:</strong> Do it yourself. Perfect if you plan on
+                    adding your own wood.
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </motion.div>)}
+      </AnimatePresence>
     </div>
   );
 };

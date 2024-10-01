@@ -1,6 +1,7 @@
 import React from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
-const Pickets = ({ selectedPicket, setSelectedPicket }) => {
+const Pickets = ({ selectedPicket, setSelectedPicket, isOpen, setIsOpen }) => {
   const handleSelection = (value) => {
     setSelectedPicket({
       ...selectedPicket, // Retain the current state
@@ -22,8 +23,13 @@ const Pickets = ({ selectedPicket, setSelectedPicket }) => {
           <button
             type="button"
             className="col-span-1 cursor-pointer rounded-full px-2 text-xl text-[1.3rem] font-bold"
+            onClick={() => setIsOpen({ ...isOpen, pickets: !isOpen.pickets })}
           >
-            <div className="false mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue">
+            <div
+              className={`${
+                isOpen.pickets ? "!bg-c-blue" : ""
+              } mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue`}
+            >
               <svg
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -31,7 +37,9 @@ const Pickets = ({ selectedPicket, setSelectedPicket }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%"
                 height="100%"
-                className="false h-[1.6rem] w-[1.6rem] text-c-blue transition-colors md:hover:text-c-0"
+                className={`${
+                  isOpen.pickets ? "text-c-0" : "text-c-blue"
+                } h-[1.6rem] w-[1.6rem]  transition-colors md:hover:text-c-0`}
               >
                 <path
                   fillRule="evenodd"
@@ -115,16 +123,70 @@ const Pickets = ({ selectedPicket, setSelectedPicket }) => {
           Double
         </label>
       </div>
-      <style jsx>{`
-        .selected {
-          background-color: #e0f7fa;
-          border-color: #00bcd4;
-        }
-        .unselected {
-          background-color: transparent;
-          border-color: #e0e0e0;
-        }
-      `}</style>
+      <AnimatePresence>
+        {isOpen.pickets && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{
+              height: 0,
+              opacity: 0,
+              transition: { duration: 0.5, ease: "easeOut" },
+            }}
+            transition={{
+              duration: 3,
+              type: "spring",
+              stiffness: 100,
+              damping: 5,
+            }}
+            className="pl-4 pr-1 text-left rounded-b-md bg-c-50 md:mx-2"
+            style={{}}
+          >
+            <div className="pb-2">
+              <div className="py-2 text-lg font-semibold text-center capitalize">
+                Beautifully internally welded and sealed
+              </div>{" "}
+              <hr />{" "}
+              <ul className="mt-2">
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>None:</strong> A great choice for horizontal
+                      ironwood gates or if you plan on attaching your own
+                      material.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Single:</strong> Thick round steel tubing set 4
+                      inches apart.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Puppy:</strong> Doubles the amount of pickets
+                      under the crossbar to look good and help discourage pets
+                      from escaping.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Double:</strong> Maximum security and perfect for
+                      sliding gates.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -19,7 +19,7 @@ const Gates = () => {
           <GatesForm/>
         </div>{" "}
         <div className="mb-14">
-          <div />{" "}
+          <div />
           <a href="/gallery">
             <button
               className="shadow-btn mx-auto mb-4 rounded-full border-[3px] border-green-600 bg-c-green px-8 py-2 text-3xl font-bold text-c-0 transition-colors active:bg-green-600 md:hover:bg-green-600"

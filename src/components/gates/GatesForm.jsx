@@ -1,38 +1,40 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import MotionSelector from "./MotionSelector";
 import Panel from "./Panel";
 import Style from "./Style";
 import Pickets from "./Pickets";
 import IronWood from "./IronWood";
 import Access from "./Access";
+import { GatesContext } from "../GatesContext";
+import { AnimatePresence, motion } from "framer-motion";
 
 const GatesForm = () => {
-  const [width, setWidth] = useState(36);
-  const [kitValue, setKitValue] = useState({
-    value: 0,
-    selected: 0,
+  const {
+    width,
+    setWidth,
+    kitValue,
+    setKitValue,
+    panelValue,
+    setPanelValue,
+    selectedStyle,
+    setSelectedStyle,
+    selectedPicket,
+    setSelectedPicket,
+    selectedIronWood,
+    setSelectedIronWood,
+    selectedAccess,
+    setSelectedAccess,
+  } = useContext(GatesContext);
+  const [isOpen, setIsOpen] = useState({
+    width: false,
+    motionSelector: false,
+    panel: false,
+    style: false,
+    pickets: false,
+    ironWood: false,
+    access: false,
   });
-  const [panelValue, setPanelValue] = useState({
-    value: 0,
-    selected: 0,
-  });
-  const [selectedStyle, setSelectedStyle] = useState({
-    value: 0,
-    selected: 0,
-  });
-  const [selectedPicket, setSelectedPicket] = useState({
-    value: 0,
-    selected: 0,
-  });
-  const [selectedIronWood, setSelectedIronWood] = useState({
-    value: 0,
-    selected: 0,
-  });
-  const [selectedAccess, setSelectedAccess] = useState({
-    value: 0,
-    selected: 0,
-  });
-  // Calculate price dynamically based on width
+
   const calculatePrice = (width) => {
     const baseWidth = 44; // Starting point for pricing (44 lbs corresponds to $1316)
     const basePrice = 1316; // Price for baseWidth
@@ -58,8 +60,13 @@ const GatesForm = () => {
             <button
               type="button"
               className="col-span-1 cursor-pointer rounded-full px-2 text-xl text-[1.3rem] font-bold"
+              onClick={() => setIsOpen({ ...isOpen, width: !isOpen.width })}
             >
-              <div className="false mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue">
+              <div
+                className={`${
+                  isOpen.width ? "!bg-c-blue" : ""
+                } mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue`}
+              >
                 <svg
                   viewBox="0 0 20 20"
                   fill="currentColor"
@@ -67,7 +74,9 @@ const GatesForm = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   width="100%"
                   height="100%"
-                  className="false h-[1.6rem] w-[1.6rem] text-c-blue transition-colors md:hover:text-c-0"
+                  className={`${
+                    isOpen.width ? "text-c-0" : "text-c-blue"
+                  } h-[1.6rem] w-[1.6rem]  transition-colors md:hover:text-c-0`}
                 >
                   <path
                     fillRule="evenodd"
@@ -119,55 +128,82 @@ const GatesForm = () => {
           </div>
         </label>
         <div className="pt-1">
-          <div
-            className="pl-4 pr-1 text-left rounded-md rounded-b-md bg-c-50 md:mx-2"
-            style={{}}
-          >
-            <div className="pb-2">
-              <div className="py-2 text-lg font-semibold text-center capitalize">
-                See gate image for dimensions
-              </div>
-              <hr />
-              <ul className="mt-2">
-                <li>
-                  <div className="marker">
-                    <p>
-                      <strong>Size:</strong> If the size you need isn't shown,
-                      let us know. Unless requested otherwise, all gates are 6ft
-                      tall when set on v-track (slide) or 2 inches above the
-                      ground (swing).
-                    </p>
+          <AnimatePresence>
+            {isOpen.width && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{
+                  height: 0,
+                  opacity: 0,
+                  transition: { duration: 0.5, ease: "easeOut" },
+                }}
+                transition={{
+                  duration: 3,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 5,
+                }}
+                className="pl-4 pr-1 overflow-hidden text-left rounded-md rounded-b-md bg-c-50 md:mx-2"
+              >
+                <div className="pb-2">
+                  <div className="py-2 text-lg font-semibold text-center capitalize">
+                    See gate image for dimensions
                   </div>
-                </li>
-              </ul>
-            </div>
-          </div>
+                  <hr />
+                  <ul className="mt-2">
+                    <li>
+                      <div className="marker">
+                        <p>
+                          <strong>Size:</strong> If the size you need isn't
+                          shown, let us know. Unless requested otherwise, all
+                          gates are 6ft tall when set on v-track (slide) or 2
+                          inches above the ground (swing).
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
         <MotionSelector
           selectedMotion={kitValue}
           setSelectedMotion={setKitValue}
+          setIsOpen={setIsOpen}
+          isOpen={isOpen}
         />
-        <div />
-        <Panel panelValue={panelValue} setPanelValue={setPanelValue} />
-        <div />
+        <Panel
+          panelValue={panelValue}
+          setPanelValue={setPanelValue}
+          setIsOpen={setIsOpen}
+          isOpen={isOpen}
+        />
         <Style
           selectedStyle={selectedStyle}
           setSelectedStyle={setSelectedStyle}
+          setIsOpen={setIsOpen}
+          isOpen={isOpen}
         />{" "}
-        <div />
         <Pickets
           selectedPicket={selectedPicket}
           setSelectedPicket={setSelectedPicket}
+          setIsOpen={setIsOpen}
+          isOpen={isOpen}
         />
-        <div />
         <IronWood
           selectedIronWood={selectedIronWood}
           setSelectedIronWood={setSelectedIronWood}
+          setIsOpen={setIsOpen}
+          isOpen={isOpen}
         />
         <div />
         <Access
           selectedAccess={selectedAccess}
           setSelectedAccess={setSelectedAccess}
+          setIsOpen={setIsOpen}
+          isOpen={isOpen}
         />
         <div />{" "}
         <div>
