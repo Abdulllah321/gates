@@ -1,12 +1,13 @@
 "use client";
 import React, { createContext, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 // Create the context
 export const GatesContext = createContext();
 
 export const GatesProvider = ({ children }) => {
   const router = useRouter();
+  const searchParams = useSearchParams(); // Get search parameters from URL
 
   // States
   const [width, setWidth] = useState(36);
@@ -30,6 +31,43 @@ export const GatesProvider = ({ children }) => {
   const buildSKU = () => {
     return `${width}-${kitValue.selected}-${panelValue.selected}-${selectedStyle.selected}-${selectedPicket.selected}-${selectedIronWood.selected}-${selectedAccess.selected}`;
   };
+
+  // Parse SKU from the URL and update state values
+  useEffect(() => {
+    const sku = searchParams.get("sku");
+
+    if (sku) {
+      const [
+        widthParam,
+        kitParam,
+        panelParam,
+        styleParam,
+        picketParam,
+        ironWoodParam,
+        accessParam,
+      ] = sku.split("-");
+
+      setWidth(Number(widthParam) || 36); // Ensure default if parsing fails
+      setKitValue((prev) => ({ ...prev, selected: Number(kitParam) || 0 }));
+      setPanelValue((prev) => ({ ...prev, selected: Number(panelParam) || 0 }));
+      setSelectedStyle((prev) => ({
+        ...prev,
+        selected: Number(styleParam) || 0,
+      }));
+      setSelectedPicket((prev) => ({
+        ...prev,
+        selected: Number(picketParam) || 0,
+      }));
+      setSelectedIronWood((prev) => ({
+        ...prev,
+        selected: Number(ironWoodParam) || 0,
+      }));
+      setSelectedAccess((prev) => ({
+        ...prev,
+        selected: Number(accessParam) || 0,
+      }));
+    }
+  }, [searchParams]);
 
   // Update URL query parameter when any state changes
   useEffect(() => {

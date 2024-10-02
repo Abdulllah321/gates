@@ -12,7 +12,7 @@ function FirstSvg() {
   const [finalPath, setFinalPath] = useState("");
   const [isMounted, setIsMounted] = useState(false); // Tracks if the component has been mounted
   const searchParams = useSearchParams();
-  const sku = searchParams.get("sku").split("-");
+  const sku = searchParams.get("sku")?.split("-");
 
   useEffect(() => {
     const currentWidth = width - 36;
@@ -206,8 +206,6 @@ function FirstSvg() {
           },
         }}
       />
-
-   
     </motion.svg>
   );
 }
