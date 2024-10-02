@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 // Create the context
@@ -104,6 +104,27 @@ export const GatesProvider = ({ children }) => {
   };
 
   return (
-    <GatesContext.Provider value={value}>{children}</GatesContext.Provider>
+    <Suspense
+      fallback={
+        <div className="flex flex-col items-center justify-center h-screen">
+          <motion.div
+            className="w-16 h-16 border-8 border-t-8 border-gray-300 rounded-full animate-spin border-t-c-500"
+            initial={{ rotate: 0 }}
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 1 }}
+          />
+          <motion.p
+            className="mt-4 text-lg text-c-500"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            Loading...
+          </motion.p>
+        </div>
+      }
+    >
+      <GatesContext.Provider value={value}>{children}</GatesContext.Provider>
+    </Suspense>
   );
 };
