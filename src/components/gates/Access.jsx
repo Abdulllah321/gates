@@ -144,7 +144,7 @@ const Access = ({ selectedAccess, setSelectedAccess ,isOpen, setIsOpen}) => {
                     <p>
                       <strong>Manual:</strong> Comes with large gate cane
                       bolt(s) and/or a gate latch depending on the type of gate
-                      you're ordering
+                      you{"'"}re ordering
                     </p>
                   </div>
                 </li>

@@ -155,7 +155,7 @@ const GatesForm = () => {
                     <li>
                       <div className="marker">
                         <p>
-                          <strong>Size:</strong> If the size you need isn't
+                          <strong>Size:</strong> If the size you need isn&apos;t
                           shown, let us know. Unless requested otherwise, all
                           gates are 6ft tall when set on v-track (slide) or 2
                           inches above the ground (swing).

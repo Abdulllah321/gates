@@ -176,7 +176,7 @@ const Style = ({ selectedStyle, setSelectedStyle, isOpen, setIsOpen }) => {
                 <li>
                   <div className="marker">
                     <p>
-                      <strong>Both:</strong> There's nothing more stylish than
+                      <strong>Both:</strong> There&aspos;s nothing more stylish than
                       an arch with finials.
                     </p>
                   </div>
