@@ -4,6 +4,7 @@ import GatesForm from "@/components/gates/GatesForm";
 import Head from "@/components/gates/Head";
 import MobileSvg from "@/components/gates/MobileSvg";
 import React, { Suspense } from "react";
+import {motion} from "framer-motion"
 
 const Gates = () => {
   return (
