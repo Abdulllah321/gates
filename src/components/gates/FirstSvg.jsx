@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { GatesContext } from "../GatesContext";
 import { gsap } from "gsap";
-import { useSearchParams } from "next/navigation";
 
 function FirstSvg() {
   const { width } = useContext(GatesContext);
