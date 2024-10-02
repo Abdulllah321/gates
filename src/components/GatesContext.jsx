@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import {motion} from "framer-motion"
 
 // Create the context
 export const GatesContext = createContext();
