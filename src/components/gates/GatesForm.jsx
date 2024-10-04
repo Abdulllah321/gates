@@ -248,7 +248,7 @@ const GatesForm = () => {
                         clipRule="evenodd"
                       />
                     </svg>{" "}
-                    You do not have a Kit selected so we don't know what
+                    You do not have a Kit selected so we don&apos;t know what
                     automation you need. Please add automation through our Parts
                     page instead.
                   </div>{" "}
