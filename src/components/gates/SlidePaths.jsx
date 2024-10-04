@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { createTimeline, GsapAnimation } from "../triggerGsapAnimation";
 
-const SlidePaths = ({ isSlide, width, isMounted,isDual }) => {
+const SlidePaths = ({ isSlide, width, isMounted, isDual }) => {
   const currentWidth = width - 36;
   const value = currentWidth * 0.5;
-  if (!isSlide) return null;
 
   const leftRod = `M
         ${105 - value},10.5
@@ -50,6 +49,9 @@ const SlidePaths = ({ isSlide, width, isMounted,isDual }) => {
   useEffect(() => {
     isMounted ? triggerGsapAnimation() : null;
   });
+
+  if (!isSlide) return null;
+
   return (
     <>
       <path

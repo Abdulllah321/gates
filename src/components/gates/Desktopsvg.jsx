@@ -270,7 +270,7 @@ const Desktopsvg = () => {
                     x={95 - currentWidth * 0.5}
                     y="50%"
                   >
-                    6'
+                    6&apos;
                   </text>
                 </svg>
 

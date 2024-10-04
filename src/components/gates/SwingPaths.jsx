@@ -5,7 +5,6 @@ import { createTimeline, GsapAnimation } from "../triggerGsapAnimation";
 const SwingPaths = ({ isSwing, width, isMounted, isDual, isArch }) => {
   const currentWidth = width - 36;
   const value = currentWidth * 0.5;
-  if (!isSwing) return null;
   const swingLeft = `M ${105 - value},${isArch ? 22.5 : 10.5} 
         ${107 - value},${isArch ? 21.5 : 9.5} 
         ${109 - value},${isArch ? 22.5 : 10.5} 
@@ -67,6 +66,8 @@ const SwingPaths = ({ isSwing, width, isMounted, isDual, isArch }) => {
   useEffect(() => {
     isMounted ? triggerGsapAnimation() : null;
   });
+
+  if (!isSwing) return null;
 
   return (
     <>
