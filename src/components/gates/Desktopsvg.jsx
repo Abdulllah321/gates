@@ -14,7 +14,7 @@ const Desktopsvg = () => {
                 <div className="mb-1" style={{}}></div>
               </div>
 
-              {/* <AutoManIcon /> */}
+              <AutoManIcon />
             </div>
           </div>{" "}
         </div>

@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { useEffect } from "react";
 import { createTimeline, GsapAnimation } from "../triggerGsapAnimation";
 
-const SwingPaths = ({ isSwing, width, isMounted }) => {
+const SwingPaths = ({ isSwing, width, isMounted, isDual }) => {
   const currentWidth = width - 36;
   const value = currentWidth * 0.5;
   if (!isSwing) return null;
@@ -74,6 +74,54 @@ const SwingPaths = ({ isSwing, width, isMounted }) => {
         strokeWidth={0}
         d={bottomHook}
       />
+
+      {isDual && (
+        <>
+          <path
+            fill="black"
+            stroke="none"
+            strokeWidth={0}
+            d="M
+
+        139,20
+
+        135,20
+
+        135,15
+
+        136.5,15
+
+        136.5,19
+
+        139,19
+
+     Z"
+            style={{}}
+          />
+
+          <path
+            fill="black"
+            stroke="none"
+            strokeWidth={0}
+            d="M
+
+        139,64
+
+        135,64
+
+        135,59
+
+        136.5,59
+
+        136.5,63
+
+        139,63
+
+      Z"
+            style={{}}
+          />
+        </>
+      )}
     </>
   );
 };

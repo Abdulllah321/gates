@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { Suspense, useContext, useState } from "react";
 import MotionSelector from "./MotionSelector";
 import Panel from "./Panel";
 import Style from "./Style";
@@ -7,6 +7,7 @@ import IronWood from "./IronWood";
 import Access from "./Access";
 import { GatesContext } from "../GatesContext";
 import { AnimatePresence, motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 
 const GatesForm = () => {
   const {
@@ -35,15 +36,28 @@ const GatesForm = () => {
     access: false,
   });
 
-  const calculatePrice = (width) => {
-    const baseWidth = 44; // Starting point for pricing (44 lbs corresponds to $1316)
-    const basePrice = 1316; // Price for baseWidth
-    const pricePerUnit = 12; // Incremental price per width unit
+  const searchParams = useSearchParams();
+  const sku = searchParams.get("sku")?.split("-");
+  const isAuto = sku && sku[6] === "2";
+  const getKit = sku && sku[1] !== "0";
 
-    if (width < baseWidth)
-      return basePrice - (baseWidth - width) * pricePerUnit;
-    return basePrice + (width - baseWidth) * pricePerUnit;
-  };
+  function calculatePrice(width) {
+    const minWidth = 36;
+    const maxWidth = 256;
+    const minPrice = 1316;
+    const maxPrice = 2986;
+
+    if (width < minWidth || width > maxWidth) {
+      throw new Error("Width must be between 36 and 256");
+    }
+
+    const pricePerUnit = (maxPrice - minPrice) / (maxWidth - minWidth);
+    const price = minPrice + (width - minWidth) * pricePerUnit;
+
+    return Math.round(price);
+  }
+
+
 
   return (
     <div className="col-span-2 mt-2 md:col-span-1 md:pl-3 lg:pl-4">
@@ -207,51 +221,44 @@ const GatesForm = () => {
         />
         <div />{" "}
         <div>
-          <div
-            className="px-4 py-4 mt-3 mb-1 font-semibold capitalize rounded-lg shadow-sm bg-c-red text-c-0"
-            style={{}}
-          >
-            <div>
-              <svg
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="100%"
-                height="100%"
-                className="mt-[-2px] inline-block h-5 w-5"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>{" "}
-              Solo panel swing kit gates with ironwood cannot be wider than
-              13ft.
-            </div>
-            <div>
-              <svg
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="100%"
-                height="100%"
-                className="mt-[-2px] inline-block h-5 w-5"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>{" "}
-              Solo panel swing kit gates cannot be wider than 15ft.
-            </div>{" "}
-            <a className="inline-block" href="tel:800-879-8793">
-              Confused? Call Us (800) 879-8793
-            </a>
-          </div>{" "}
+          <Suspense>
+            <AnimatePresence>
+              {isAuto && !getKit && (
+                <motion.div
+                  initial={{ height: 0 }}
+                  animate={{ height: "auto" }}
+                  exit={{ height: 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="px-4 py-4 mt-3 mb-1 font-semibold capitalize origin-top rounded-lg shadow-sm bg-c-red text-c-0"
+                >
+                  <div>
+                    <svg
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="100%"
+                      height="100%"
+                      className="mt-[-2px] inline-block h-5 w-5"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>{" "}
+                    You do not have a Kit selected so we don't know what
+                    automation you need. Please add automation through our Parts
+                    page instead.
+                  </div>{" "}
+                  <a className="inline-block" href="tel:800-879-8793">
+                    Confused? Call Us (800) 879-8793
+                  </a>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </Suspense>
+
           <div className="flex w-11/12 mx-auto mt-9 md:w-full lg:w-9/12 xl:w-7/12">
             <button
               className="btn h-12 flex-grow rounded-full border-[3px] cursor-not-allowed !bg-c-500 !border-c-700"
