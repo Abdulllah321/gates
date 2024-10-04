@@ -1,8 +1,7 @@
-import gsap from "gsap";
 import { useEffect } from "react";
 import { createTimeline, GsapAnimation } from "../triggerGsapAnimation";
 
-const SlidePaths = ({ isSlide, width, isMounted }) => {
+const SlidePaths = ({ isSlide, width, isMounted,isDual }) => {
   const currentWidth = width - 36;
   const value = currentWidth * 0.5;
   if (!isSlide) return null;
@@ -108,6 +107,66 @@ const SlidePaths = ({ isSlide, width, isMounted }) => {
         fill="black"
         style={{}}
       />
+
+      {isDual && (
+        <>
+          <path
+            fill="black"
+            stroke="none"
+            strokeWidth={0}
+            d="M
+
+          134,84
+
+          138,84
+
+          138,82
+
+          134,82
+
+        Z"
+            style={{}}
+          />
+
+          <circle
+            cx={136}
+            cy={84}
+            r="1.5"
+            stroke="none"
+            strokeWidth={0}
+            fill="black"
+            style={{}}
+          />
+
+          <path
+            fill="black"
+            stroke="none"
+            strokeWidth={0}
+            d="M
+
+        114,84
+
+        110,84
+
+        110,82
+
+        114,82
+
+        Z"
+            style={{}}
+          />
+
+          <circle
+            cx={112}
+            cy={84}
+            r="1.5"
+            stroke="none"
+            strokeWidth={0}
+            fill="black"
+            style={{}}
+          />
+        </>
+      )}
     </>
   );
 };

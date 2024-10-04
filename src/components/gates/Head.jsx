@@ -3,7 +3,7 @@ import { GatesContext } from "../GatesContext";
 import { useSearchParams } from "next/navigation";
 
 const Head = () => {
-  const { width } = useContext(GatesContext);
+  const { width, setFt, setInch } = useContext(GatesContext);
   const searchParams = useSearchParams();
 
   const sku = searchParams.get("sku")?.split("-");
@@ -122,6 +122,8 @@ const Head = () => {
         ? "DIY Wood"
         : "";
     const access = isAuto ? "Automatic Access," : isMan ? "Manual Access," : "";
+    setFt(feet);
+    setInch(inches);
     return `${feet}ft ${inches}in Wide, ${
       kit ? kit + " Kit, " : ""
     }${panelType}, ${style} ${pickets} ${ironWood} ${access} ~${weight}lbs`;

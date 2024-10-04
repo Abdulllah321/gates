@@ -1,4 +1,4 @@
-import { AnimatePresence,motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 
 const MotionSelector = ({
@@ -6,12 +6,32 @@ const MotionSelector = ({
   setSelectedMotion,
   setIsOpen,
   isOpen,
+  width,
 }) => {
   const handleSelection = (value) => {
     setSelectedMotion({
-      ...selectedMotion, // Spread the current state to keep other properties
-      selected: value, // Update only the `selected` property
+      ...selectedMotion,
+      selected: value,
     });
+  };
+  const calculateValue = (selected, width) => {
+    let value;
+    let max, min;
+    if (selected === 1) {
+      value = 450;
+      min = 450;
+      max = 525;
+    } else if (selected === 2) {
+      value = 840;
+      min = 840;
+      max = 1213;
+    } else {
+      return (value = 0);
+    }
+
+    const adjustedVal = value + ((max - min) * (width - 36)) / (256 - 36);
+
+    return Math.round(adjustedVal);
   };
 
   return (
@@ -19,7 +39,7 @@ const MotionSelector = ({
       {" "}
       <div className="relative mb-1 text-center mt-9">
         <div className="absolute top-1.5 left-2 font-medium text-c-green">
-          +{selectedMotion.value}
+          +{calculateValue(selectedMotion.selected, width)}
         </div>{" "}
         <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
           <span className="pr-2.5 text-lg font-semibold text-c-blue">2</span>

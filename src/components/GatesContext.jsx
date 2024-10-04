@@ -28,7 +28,8 @@ export const GatesProvider = ({ children }) => {
     value: 0,
     selected: 0,
   });
-
+  const [ft, setFt] = useState(3);
+  const [inch, setInch] = useState(0);
   // Function to build SKU from state values
   const buildSKU = () => {
     return `${width}-${kitValue.selected}-${panelValue.selected}-${selectedStyle.selected}-${selectedPicket.selected}-${selectedIronWood.selected}-${selectedAccess.selected}`;
@@ -105,6 +106,10 @@ export const GatesProvider = ({ children }) => {
     setSelectedIronWood,
     selectedAccess,
     setSelectedAccess,
+    ft,
+    setFt,
+    inch,
+    setInch,
   };
 
   return (

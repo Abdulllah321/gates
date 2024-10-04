@@ -187,6 +187,7 @@ const GatesForm = () => {
           setSelectedMotion={setKitValue}
           setIsOpen={setIsOpen}
           isOpen={isOpen}
+          width={width}
         />
         <Panel
           panelValue={panelValue}

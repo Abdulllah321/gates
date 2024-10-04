@@ -49,7 +49,9 @@ function FirstSvg() {
       adjusted115 += 4.5;
       adjusted133 -= 1.5;
     }
-
+    if (isSwing && isDual) {
+      adjusted142 -= 3;
+    }
     const newMainPath = `
     M ${adjusted142},${isArch ? 24 : 12} 
     ${adjusted142},82 
@@ -481,9 +483,10 @@ function FirstSvg() {
           width={width}
           isMounted={isMounted}
           isDual={isDual}
+          isArch={isArch || isBoth}
         />
         {/* ------------- Slide paths ------------- */}
-        <SlidePaths isSlide={isSlide} width={width} isMounted={isMounted} />
+        <SlidePaths isSlide={isSlide} width={width} isMounted={isMounted} isDual={isDual}/>
       </motion.svg>
     </Suspense>
   );
