@@ -1,12 +1,29 @@
-"use client"
+"use client";
 import Desktopsvg from "@/components/gates/Desktopsvg";
 import GatesForm from "@/components/gates/GatesForm";
 import Head from "@/components/gates/Head";
 import MobileSvg from "@/components/gates/MobileSvg";
-import React, { Suspense } from "react";
-import {motion} from "framer-motion"
+import React, { Suspense, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 const Gates = () => {
+  const scrollPositionRef = useRef(0); // Ref to store scroll position
+
+  useEffect(() => {
+    const handleScroll = () => {
+      scrollPositionRef.current = window.scrollY; // Update scroll position
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Restore scroll position after component mounts
+    window.scrollTo(0, scrollPositionRef.current);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <Suspense
       fallback={

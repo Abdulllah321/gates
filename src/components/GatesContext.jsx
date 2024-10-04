@@ -1,14 +1,15 @@
 "use client";
 import React, { createContext, useState, useEffect, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import {motion} from "framer-motion"
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
 
 // Create the context
 export const GatesContext = createContext();
 
 export const GatesProvider = ({ children }) => {
   const router = useRouter();
-  const searchParams = useSearchParams(); // Get search parameters from URL
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   // States
   const [width, setWidth] = useState(36);
@@ -73,9 +74,11 @@ export const GatesProvider = ({ children }) => {
   // Update URL query parameter when any state changes
   useEffect(() => {
     const sku = buildSKU();
+    const params = new URLSearchParams(searchParams);
 
-    // Update the URL with the new SKU
-    router.push(`/gates?sku=${sku}`);
+    params.set("sku", sku);
+
+    history.replaceState(null, null, "?" + params.toString());
   }, [
     width,
     kitValue,
