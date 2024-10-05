@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
       >
         <Header />
         <main className="mt-[62px] min-h-[200vh] relative">
-          <div
+          {/* <div
             className="absolute inset-x-0 top-12 z-[2] mx-2 md:-top-6 md:mx-0"
             style={{ textShadow: "rgb(68, 153, 68) 0px 0px 1px" }}
           >
@@ -52,7 +52,7 @@ export default function RootLayout({ children }) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <GatesProvider>{children}</GatesProvider>
         </main>
         <Footer />

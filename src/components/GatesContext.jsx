@@ -14,7 +14,7 @@ export const GatesProvider = ({ children }) => {
   // States
   const [width, setWidth] = useState(36);
   const [kitValue, setKitValue] = useState({ value: 0, selected: 0 });
-  const [panelValue, setPanelValue] = useState({ value: 0, selected: 0 });
+  const [panelValue, setPanelValue] = useState({ value: 0, selected: 0,  });
   const [selectedStyle, setSelectedStyle] = useState({ value: 0, selected: 0 });
   const [selectedPicket, setSelectedPicket] = useState({
     value: 0,

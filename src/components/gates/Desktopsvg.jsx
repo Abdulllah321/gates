@@ -14,15 +14,6 @@ const Desktopsvg = () => {
 
   const isSwing = sku && sku[1] === "1";
 
-  const animatePath = (selector, isSwing, baseValues, currentWidth) => {
-    GsapAnimation(selector, {
-      d: `M ${baseValues[0] + (isSwing ? 5 : 0) + currentWidth * 0.5} 3, ${
-        baseValues[1]
-      } 3`,
-      ease: "power1.inOut",
-      duration: 1,
-    });
-  };
 
   useEffect(() => {
     GsapAnimation("#HDim path:nth-child(1)", {
@@ -193,7 +184,6 @@ const Desktopsvg = () => {
                     viewBox="-1 -1 250 8"
                     xmlns="http://www.w3.org/2000/svg"
                     id="VMD"
-                    className="bg-white"
                   >
                     <g
                       className="stroke-current text-c-1000"

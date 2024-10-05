@@ -1,19 +1,29 @@
-import React from "react";import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
-
-const Access = ({ selectedAccess, setSelectedAccess ,isOpen, setIsOpen}) => {
+const Access = ({ selectedAccess, setSelectedAccess, isOpen, setIsOpen }) => {
   const handleSelection = (value) => {
     setSelectedAccess({
-      ...selectedAccess, // Keep other properties intact
+      value: calculateValue(),
       selected: value, // Update the selected access option
     });
   };
 
+  function calculateValue() {
+    let value = 0;
+    if (selectedAccess.selected === 1) {
+      value = 75;
+    }
+    if (selectedAccess.selected === 2) {
+      value = 2119;
+    }
+    return value;
+  }
   return (
     <div>
       <div className="relative mb-1 text-center mt-9">
         <div className="absolute top-1.5 left-2 font-medium text-c-green">
-          +75
+          +{calculateValue()}
         </div>{" "}
         <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
           <span className="pr-2.5 text-lg font-semibold text-c-blue">7</span>

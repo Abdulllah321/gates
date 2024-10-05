@@ -10,10 +10,11 @@ const MotionSelector = ({
 }) => {
   const handleSelection = (value) => {
     setSelectedMotion({
-      ...selectedMotion,
+      value: calculateValue(selectedMotion.selected, width),
       selected: value,
     });
   };
+  
   const calculateValue = (selected, width) => {
     let value;
     let max, min;

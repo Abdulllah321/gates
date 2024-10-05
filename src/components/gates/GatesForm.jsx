@@ -41,6 +41,17 @@ const GatesForm = () => {
   const isAuto = sku && sku[6] === "2";
   const getKit = sku && sku[1] !== "0";
 
+  const price =
+    calculatePrice(width) +
+    kitValue.value +
+    selectedStyle.value +
+    selectedPicket.value +
+    selectedIronWood.value +
+    selectedAccess.value;
+
+  const discountPercentage = 0.05; // 5% discount
+  const discountedPrice = (price - price * discountPercentage).toFixed(2); // Calculate the discounted price and format to 2 decimal places
+
   function calculatePrice(width) {
     const minWidth = 36;
     const maxWidth = 256;
@@ -56,8 +67,6 @@ const GatesForm = () => {
 
     return Math.round(price);
   }
-
-
 
   return (
     <div className="col-span-2 mt-2 md:col-span-1 md:pl-3 lg:pl-4">
@@ -200,18 +209,21 @@ const GatesForm = () => {
           setSelectedStyle={setSelectedStyle}
           setIsOpen={setIsOpen}
           isOpen={isOpen}
+          width={width}
         />{" "}
         <Pickets
           selectedPicket={selectedPicket}
           setSelectedPicket={setSelectedPicket}
           setIsOpen={setIsOpen}
           isOpen={isOpen}
+          width={width}
         />
         <IronWood
           selectedIronWood={selectedIronWood}
           setSelectedIronWood={setSelectedIronWood}
           setIsOpen={setIsOpen}
           isOpen={isOpen}
+          width={width}
         />
         <div />
         <Access
@@ -262,15 +274,17 @@ const GatesForm = () => {
 
           <div className="flex w-11/12 mx-auto mt-9 md:w-full lg:w-9/12 xl:w-7/12">
             <button
-              className="btn h-12 flex-grow rounded-full border-[3px] cursor-not-allowed !bg-c-500 !border-c-700"
+              className="btn h-12 flex-grow rounded-full border-[3px] cursor-not-allowed !bg-c-500 !border-c-700 relative"
               type="submit"
-              disabled=""
+              // disabled=""
             >
               <div className="z-5 absolute inset-x-5 top-[9px] text-left">
                 <div className="-mt-0.5 text-xl text-c-900">Add To Cart</div>{" "}
                 <div className="absolute -top-[5px] -right-2 rounded-full bg-c-0 px-3 pb-1 pt-1 font-semibold text-c-green">
-                  <span className="px-0.5 text-c-500 line-through">$5547</span>{" "}
-                  <span className="px-0.5 font-medium">$4991</span>
+                  <span className="px-0.5 text-c-500 line-through">
+                    ${price}
+                  </span>{" "}
+                  <span className="px-0.5 font-medium">${discountedPrice}</span>
                 </div>
               </div>
             </button>{" "}

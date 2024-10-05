@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F6F5ED;
+  --foreground: #181818;
   --c-prime: rgb(250 204 21);
   --c-prime-light: rgb(253 224 71);
   --c-prime-dark: rgb(234 179 8);

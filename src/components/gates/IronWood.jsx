@@ -1,24 +1,49 @@
-import React from "react";import { AnimatePresence, motion } from "framer-motion";
-
+import React from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const IronWood = ({
   selectedIronWood,
   setSelectedIronWood,
   isOpen,
   setIsOpen,
+  width
 }) => {
   const handleSelection = (value) => {
     setSelectedIronWood({
-      ...selectedIronWood, // Preserve the existing state properties
+      value: calculateValue(selectedIronWood.selected, width),
       selected: value, // Update only the selected option
     });
+  };
+
+  const calculateValue = (selected, width) => {
+    let value;
+    let max, min;
+    if (selected === 1) {
+      value = 350;
+      min = 350;
+      max = 2550;
+    } else if (selected === 2) {
+      value = 490;
+      min = 490;
+      max = 3570;
+    } else if (selected === 3) {
+      value = 0;
+      min = 0;
+      max = 95;
+    } else {
+      return (value = 0);
+    }
+
+    const adjustedVal = value + ((max - min) * (width - 36)) / (256 - 36);
+
+    return Math.round(adjustedVal);
   };
 
   return (
     <div>
       <div className="relative mb-1 text-center mt-9">
         <div className="absolute top-1.5 left-2 font-medium text-c-green">
-          +95
+          +{calculateValue(selectedIronWood.selected, width)}
         </div>{" "}
         <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
           <span className="pr-2.5 text-lg font-semibold text-c-blue">6</span>
@@ -127,7 +152,7 @@ const IronWood = ({
           DIY
         </label>
       </div>
-   <AnimatePresence>
+      <AnimatePresence>
         {isOpen.ironWood && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
@@ -142,49 +167,52 @@ const IronWood = ({
               type: "spring",
               stiffness: 100,
               damping: 5,
-            }}          className="pl-4 pr-1 text-left rounded-b-md bg-c-50 md:mx-2"
-          style={{}}
-        >
-          <div className="pb-2">
-            <div className="py-2 text-lg font-semibold text-center capitalize">
-              The perfect wood for any gate
-            </div>{" "}
-            <hr />{" "}
-            <ul className="mt-2">
-              <li>
-                <div className="marker">
-                  <p>
-                    <strong>None:</strong> A light weight timeless option.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <div className="marker">
-                  <p>
-                    <strong>Vertical:</strong> Match-all sustainable hardwood
-                    vertically attached to the face of each ironWood.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <div className="marker">
-                  <p>
-                    <strong>Horizontal:</strong> Match-all sustainable hardwood
-                    horizontally attached to the face of each ironWood.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <div className="marker">
-                  <p>
-                    <strong>DIY:</strong> Do it yourself. Perfect if you plan on
-                    adding your own wood.
-                  </p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </motion.div>)}
+            }}
+            className="pl-4 pr-1 text-left rounded-b-md bg-c-50 md:mx-2"
+            style={{}}
+          >
+            <div className="pb-2">
+              <div className="py-2 text-lg font-semibold text-center capitalize">
+                The perfect wood for any gate
+              </div>{" "}
+              <hr />{" "}
+              <ul className="mt-2">
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>None:</strong> A light weight timeless option.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Vertical:</strong> Match-all sustainable hardwood
+                      vertically attached to the face of each ironWood.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>Horizontal:</strong> Match-all sustainable
+                      hardwood horizontally attached to the face of each
+                      ironWood.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div className="marker">
+                    <p>
+                      <strong>DIY:</strong> Do it yourself. Perfect if you plan
+                      on adding your own wood.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );

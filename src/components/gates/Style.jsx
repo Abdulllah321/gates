@@ -1,19 +1,45 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const Style = ({ selectedStyle, setSelectedStyle, isOpen, setIsOpen }) => {
+const Style = ({
+  selectedStyle,
+  setSelectedStyle,
+  isOpen,
+  setIsOpen,
+  width,
+}) => {
   const handleSelection = (value) => {
     setSelectedStyle({
-      ...selectedStyle, // Retain the current state
-      selected: value, // Update the selected property
+      selected: value,
+      value: calculateValue(selectedStyle.selected, width),
     });
+  };
+
+  const calculateValue = (selected, width) => {
+    let value;
+    let max, min;
+    if (selected == 1||selected == 2) {
+      value = 70;
+      min = 70;
+      max = 510;
+    } else if (selected === 3) {
+      value = 140;
+      min = 140;
+      max = 1010;
+    } else {
+      return (value = 0);
+    }
+
+    const adjustedVal = value + ((max - min) * (width - 36)) / (256 - 36);
+
+    return Math.round(adjustedVal);
   };
 
   return (
     <div>
       <div className="relative mb-1 text-center mt-9">
         <div className="absolute top-1.5 left-2 font-medium text-c-green">
-          +972
+          +{calculateValue(selectedStyle.selected, width)}
         </div>
         <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
           <span className="pr-2.5 text-lg font-semibold text-c-blue">4</span>
@@ -176,8 +202,8 @@ const Style = ({ selectedStyle, setSelectedStyle, isOpen, setIsOpen }) => {
                 <li>
                   <div className="marker">
                     <p>
-                      <strong>Both:</strong> There&aspos;s nothing more stylish than
-                      an arch with finials.
+                      <strong>Both:</strong> There&aspos;s nothing more stylish
+                      than an arch with finials.
                     </p>
                   </div>
                 </li>

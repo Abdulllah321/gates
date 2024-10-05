@@ -30,6 +30,7 @@ module.exports = {
           red: "rgb(239 68 68)", // --c-red
           brown: "#bc9055", // --c-brown
         },
+        dark: "#272727",
       },
     },
   },
