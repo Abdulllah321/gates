@@ -35,7 +35,7 @@ const GatesForm = () => {
     ironWood: false,
     access: false,
   });
-
+  const [isDisabled, setIsDisabled] = useState(false);
   const searchParams = useSearchParams();
   const sku = searchParams.get("sku")?.split("-");
   const isAuto = sku && sku[6] === "2";
@@ -274,21 +274,41 @@ const GatesForm = () => {
 
           <div className="flex w-11/12 mx-auto mt-9 md:w-full lg:w-9/12 xl:w-7/12">
             <button
-              className="btn h-12 flex-grow rounded-full border-[3px] cursor-not-allowed !bg-c-500 !border-c-700 relative"
+              className={`btn h-12 flex-grow rounded-full border-[3px] cursor-not-allowed ${
+                isDisabled ? "!bg-c-500" : "!bg-c-prime"
+              }  relative`}
               type="submit"
               // disabled=""
             >
               <div className="z-5 absolute inset-x-5 top-[9px] text-left">
                 <div className="-mt-0.5 text-xl text-c-900">Add To Cart</div>{" "}
                 <div className="absolute -top-[5px] -right-2 rounded-full bg-c-0 px-3 pb-1 pt-1 font-semibold text-c-green">
-                  <span className="px-0.5 text-c-500 line-through">
+                  <span className={`px-0.5  line-through text-c-500`}>
                     ${price}
                   </span>{" "}
                   <span className="px-0.5 font-medium">${discountedPrice}</span>
                 </div>
               </div>
             </button>{" "}
-            <div className="self-center pl-2 cursor-pointer">
+            <div
+              className="self-center pl-2 cursor-pointer"
+              onClick={async () => {
+                if (navigator.share) {
+                  try {
+                    await navigator.share({
+                      title: "Check this out!",
+                      text: "Here is something interesting for you to check out!",
+                      url: window.location.href, // Shares the current page URL
+                    });
+                    console.log("Content shared successfully");
+                  } catch (error) {
+                    console.error("Error sharing content:", error);
+                  }
+                } else {
+                  console.log("Share API not supported on this browser");
+                }
+              }}
+            >
               <svg
                 viewBox="0 0 20 20"
                 fill="currentColor"
