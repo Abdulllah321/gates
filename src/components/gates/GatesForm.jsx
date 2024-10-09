@@ -40,6 +40,8 @@ const GatesForm = () => {
   const sku = searchParams.get("sku")?.split("-");
   const isAuto = sku && sku[6] === "2";
   const getKit = sku && sku[1] !== "0";
+  const isSwing = sku && sku[1] === "1";
+  const isSlide = sku && sku[1] === "2";
 
   const price =
     calculatePrice(width) +
@@ -203,6 +205,8 @@ const GatesForm = () => {
           setPanelValue={setPanelValue}
           setIsOpen={setIsOpen}
           isOpen={isOpen}
+          isSwing={isSwing}
+          isSlide={isSlide}
         />
         <Style
           selectedStyle={selectedStyle}

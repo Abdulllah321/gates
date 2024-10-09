@@ -17,6 +17,8 @@ function FirstSvg() {
   const searchParams = useSearchParams();
   const sku = searchParams.get("sku")?.split("-");
   const currentWidth = width - 36;
+  const direction = searchParams.get("direction");
+  const position = searchParams.get("position");
 
   // Kit
   const isSwing = sku && sku[1] === "1";
@@ -27,6 +29,9 @@ function FirstSvg() {
   const isArch = sku && (sku[3] === "1" || sku[3] === "3");
   const isFinials = sku && sku[3] === "2";
   const isBoth = sku && sku[3] === "3";
+  const isCPeak = sku && sku[3] === "4";
+  const isSectional = sku && sku[3] === "5";
+  const isRec = sku && sku[3] === "0";
   //pickets
   const isSingal = sku && sku[4] === "1";
   const isPuppy = sku && sku[4] === "2";
@@ -36,23 +41,58 @@ function FirstSvg() {
   const isHWood = sku && sku[5] === "2";
   const isDiy = sku && sku[5] === "3";
 
+  const isLeft = direction === "Left to Right";
+  const isRight = direction === "Right to Left";
+
+  const isPositionTop = position === "top";
+
   const increment = currentWidth * 0.5;
 
   let adjusted142 = 142 + increment;
   let adjusted106 = 106 - increment;
   let adjusted115 = 115 - currentWidth * 0.25;
   let adjusted133 = 133 + currentWidth * 0.25;
+
   useEffect(() => {
-    if (isSwing) {
+    if (isSwing && isLeft) {
       adjusted142 -= 5;
       adjusted106 += 8;
       adjusted115 += 4.5;
       adjusted133 -= 1.5;
     }
-    if (isSwing && isDual) {
+    if (isSwing && isRight) {
+      adjusted142 -= 5;
+      adjusted106 += 5;
+      adjusted115 += 4.5;
+      adjusted133 -= 1.5;
+    }
+    if (isDual || isSlide) {
+      adjusted142 -= 8;
+      adjusted106 += 8;
+    }
+    if (isSwing && isRight) {
       adjusted142 -= 3;
     }
-    const newMainPath = `
+
+    const newMainPath = isCPeak
+      ? `
+    M ${adjusted142},${isCPeak ? 30 : 12} 
+    ${adjusted142},82 
+    ${adjusted106},82 
+     ${adjusted106},${isCPeak ? 30 : 12} 
+    ${125},${isCPeak ? 12 : 12} 
+    C ${125},${isCPeak ? 12 : 12} 
+    ${125},${isCPeak ? 12 : 12}
+    ${
+      (isSwing && !isLeft) || isSlide
+        ? 134 + increment
+        : isSwing && isLeft
+        ? 137 + increment
+        : 142 + increment
+    },${isCPeak && isSwing ? 30.5 : isCPeak ? 31 : 12}
+    ${adjusted142},${isCPeak ? 30 : 12} 
+    Z`
+      : `
     M ${adjusted142},${isArch ? 24 : 12} 
     ${adjusted142},82 
     ${adjusted106},82 
@@ -103,7 +143,9 @@ function FirstSvg() {
       GsapAnimation("#picketsPath", { d: picketsPath });
       GsapAnimation("#finialPath", { d: finalPath });
       GsapAnimation("#picketPath", {
-        d: `M ${adjusted142},66 ${adjusted106},66`,
+        d: `M ${adjusted142},${isPositionTop ? 33 : 66} ${adjusted106},${
+          isPositionTop ? 33 : 66
+        }`,
       });
       GsapAnimation("#diyleft", {
         d: `M ${94 - (width - 120) * 0.25},12 ${94 - (width - 120) * 0.25},96`,
@@ -154,7 +196,7 @@ function FirstSvg() {
         </mask>
         <mask id="picketMask" x={0} y={0}>
           <AnimatePresence>
-            {!isSlide && (
+            {!isRec && isSectional && (
               <motion.path
                 id="picketPath"
                 d={`M ${142 + (width - 36) * 0.5},66 ${
@@ -421,6 +463,7 @@ function FirstSvg() {
           <motion.path
             id="mainPath"
             d={mainPath}
+            style={{background: "url(/ceder-wood.png)"}}
             className="fill-current text-c-brown"
             initial="hidden"
             animate="visible"
@@ -483,10 +526,17 @@ function FirstSvg() {
           width={width}
           isMounted={isMounted}
           isDual={isDual}
+          direction={direction}
+          isCpeak={isCPeak}
           isArch={isArch || isBoth}
         />
         {/* ------------- Slide paths ------------- */}
-        <SlidePaths isSlide={isSlide} width={width} isMounted={isMounted} isDual={isDual}/>
+        <SlidePaths
+          isSlide={isSlide}
+          width={width}
+          isMounted={isMounted}
+          isDual={isDual}
+        />
       </motion.svg>
     </Suspense>
   );

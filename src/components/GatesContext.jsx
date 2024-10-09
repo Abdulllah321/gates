@@ -7,15 +7,21 @@ import { motion } from "framer-motion";
 export const GatesContext = createContext();
 
 export const GatesProvider = ({ children }) => {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const pathname = usePathname();
 
   // States
   const [width, setWidth] = useState(36);
   const [kitValue, setKitValue] = useState({ value: 0, selected: 0 });
-  const [panelValue, setPanelValue] = useState({ value: 0, selected: 0,  });
-  const [selectedStyle, setSelectedStyle] = useState({ value: 0, selected: 0 });
+  const [panelValue, setPanelValue] = useState({
+    value: 0,
+    selected: 0,
+    direction: "Left to Right",
+  });
+  const [selectedStyle, setSelectedStyle] = useState({
+    value: 0,
+    selected: 0,
+    position: "bottom",
+  });
   const [selectedPicket, setSelectedPicket] = useState({
     value: 0,
     selected: 0,
@@ -31,6 +37,7 @@ export const GatesProvider = ({ children }) => {
   const [ft, setFt] = useState(3);
   const [inch, setInch] = useState(0);
   // Function to build SKU from state values
+  // Function to build SKU from state values
   const buildSKU = () => {
     return `${width}-${kitValue.selected}-${panelValue.selected}-${selectedStyle.selected}-${selectedPicket.selected}-${selectedIronWood.selected}-${selectedAccess.selected}`;
   };
@@ -38,7 +45,8 @@ export const GatesProvider = ({ children }) => {
   // Parse SKU from the URL and update state values
   useEffect(() => {
     const sku = searchParams.get("sku");
-
+    const directionParam = searchParams.get("direction");
+    const position = searchParams.get("position");
     if (sku) {
       const [
         widthParam,
@@ -52,10 +60,15 @@ export const GatesProvider = ({ children }) => {
 
       setWidth(Number(widthParam) || 36); // Ensure default if parsing fails
       setKitValue((prev) => ({ ...prev, selected: Number(kitParam) || 0 }));
-      setPanelValue((prev) => ({ ...prev, selected: Number(panelParam) || 0 }));
+      setPanelValue((prev) => ({
+        ...prev,
+        selected: Number(panelParam) || 0,
+        direction: directionParam || "Left to Right",
+      }));
       setSelectedStyle((prev) => ({
         ...prev,
         selected: Number(styleParam) || 0,
+        position: position || "bottom",
       }));
       setSelectedPicket((prev) => ({
         ...prev,
@@ -78,7 +91,16 @@ export const GatesProvider = ({ children }) => {
     const params = new URLSearchParams(searchParams);
 
     params.set("sku", sku);
-
+    if (panelValue.selected === 0) {
+      params.set("direction", panelValue.direction);
+    } else {
+      params.delete("direction");
+    }
+    if (selectedStyle.selected === 5) {
+      params.set("position", selectedStyle.position || "bottom");
+    } else {
+      params.delete("position");
+    }
     history.replaceState(null, null, "?" + params.toString());
   }, [
     width,

@@ -44,7 +44,7 @@ const MotionSelector = ({
         </div>{" "}
         <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
           <span className="pr-2.5 text-lg font-semibold text-c-blue">2</span>
-          Kit
+          Select Gate Type
         </div>{" "}
         <div className="absolute top-1.5 right-0">
           <button
@@ -116,7 +116,7 @@ const MotionSelector = ({
             checked={selectedMotion.selected === 1}
             onChange={() => handleSelection(1)}
           />{" "}
-          Swing
+          Bi Fold Swing
         </label>
 
         {/* Slide Option */}
@@ -132,7 +132,7 @@ const MotionSelector = ({
             checked={selectedMotion.selected === 2}
             onChange={() => handleSelection(2)}
           />{" "}
-          Slide
+          Bi Fold Slide
         </label>
       </div>
       <AnimatePresence>

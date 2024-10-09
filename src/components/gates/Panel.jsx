@@ -1,139 +1,172 @@
-import React, { useState } from "react";
+import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 // Panel Component
-const Panel = ({ panelValue, setPanelValue, isOpen, setIsOpen }) => {
+const Panel = ({ panelValue, setPanelValue, isOpen, setIsOpen, isSwing , isSlide}) => {
   const handlePanelSelection = (value) => {
-    setPanelValue({
-      ...panelValue,
-      selected: value, // Update the selected panel value
-    });
+    setPanelValue({ ...panelValue, selected: value });
+  };
+
+  const handleDirectionSelection = (direction) => {
+    setPanelValue({ ...panelValue, direction });
   };
 
   return (
-    <div>
-      <div className="relative mb-1 text-center mt-9">
-        <div className="absolute top-1.5 left-2 font-medium text-c-green">
-          +{panelValue?.selected}
-        </div>
-        <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
-          <span className="pr-2.5 text-lg font-semibold text-c-blue">3</span>
-          Panels
-        </div>
-        <div className="absolute top-1.5 right-0">
-          <button
-            type="button"
-            className="col-span-1 cursor-pointer rounded-full px-2 text-xl text-[1.3rem] font-bold"
-            onClick={() => setIsOpen({ ...isOpen, panel: !isOpen.panel })}
-          >
-            <div
-              className={`${
-                isOpen.panel ? "!bg-c-blue" : ""
-              } mb-[-3px] inline-block rounded-full transition-colors md:hover:bg-c-blue`}
-            >
-              <svg
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="100%"
-                height="100%"
-                className={`${
-                  isOpen.panel ? "text-c-0" : "text-c-blue"
-                } h-[1.6rem] w-[1.6rem]  transition-colors md:hover:text-c-0`}
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                  clipRule="evenodd"
-                />
-              </svg>
+    <>
+      {(isSwing || isSlide) && (
+        <div className="mt-9">
+          {/* Panel Header */}
+          <div className="relative mb-1 text-center">
+            <div className="absolute top-1.5 left-2 font-medium text-c-green">
+              +{panelValue?.selected}
             </div>
-          </button>
-        </div>
-      </div>
-      <div
-        className="grid grid-cols-2"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(243, 244, 246, 0) 0%, rgb(243, 244, 246) 10%, rgb(243, 244, 246) 90%, rgba(243, 244, 246, 0) 100%)",
-        }}
-      >
-        <label
-          className={`${
-            panelValue.selected === 0 ? "selected" : "unselected"
-          } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-300 px-0 transition-all`}
-        >
-          <input
-            type="radio"
-            name="panels"
-            value={0}
-            checked={panelValue.selected === 0}
-            onChange={() => handlePanelSelection(0)}
-          />{" "}
-          Solo
-        </label>
-        <label
-          className={`${
-            panelValue.selected === 1 ? "selected" : "unselected"
-          } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-300 px-0 transition-all`}
-        >
-          <input
-            type="radio"
-            name="panels"
-            value={1}
-            checked={panelValue.selected === 1}
-            onChange={() => handlePanelSelection(1)}
-          />{" "}
-          Dual
-        </label>
-      </div>
-      <AnimatePresence>
-        {isOpen.panel && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{
-              height: 0,
-              opacity: 0,
-              transition: { duration: 0.5, ease: "easeOut" },
+            <div className="text-2xl font-bold">
+              <span className="pr-2.5 text-lg font-semibold text-c-blue">
+                3
+              </span>
+              Panels
+            </div>
+            <button
+              type="button"
+              className="absolute top-1.5 right-0 rounded-full px-2 text-xl font-bold"
+              onClick={() => setIsOpen({ ...isOpen, panel: !isOpen.panel })}
+            >
+              <div
+                className={`inline-block rounded-full transition-colors ${
+                  isOpen.panel && "bg-c-blue"
+                }`}
+              >
+                <svg
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className={`h-[1.6rem] w-[1.6rem] transition-colors ${
+                    isOpen.panel ? "text-c-0" : "text-c-blue"
+                  }`}
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
+
+          {/* Panel Selection */}
+          <div
+            className="grid grid-cols-2 "
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(243, 244, 246, 0) 0%, rgb(243, 244, 246) 10%, rgb(243, 244, 246) 90%, rgba(243, 244, 246, 0) 100%)",
             }}
-            transition={{
-              duration: 3,
-              type: "spring",
-              stiffness: 100,
-              damping: 5,
-            }}
-            className="pl-4 pr-1 overflow-hidden text-left rounded-b-md bg-c-50 md:mx-2"
-            style={{}}
           >
-            <div className="pb-2">
-              <div className="py-2 text-lg font-semibold text-center capitalize">
-                Steel thick enough to screw into
-              </div>{" "}
-              <hr />{" "}
-              <ul className="mt-2">
-                <li>
-                  <div className="marker">
-                    <p>
+            {["Single", "Dual"].map((type, idx) => (
+              <label
+                key={type}
+                className={`cursor-pointer h-9 px-0 transition-all ${
+                  panelValue.selected === idx ? "selected" : "unselected"
+                } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-300 px-0 transition-all`}
+              >
+                <input
+                  type="radio"
+                  name="panels"
+                  value={idx}
+                  checked={panelValue.selected === idx}
+                  onChange={() => handlePanelSelection(idx)}
+                />{" "}
+                {type} {isSwing ? "Swing" : isSlide ? "Slide" : ""}
+              </label>
+            ))}
+          </div>
+          <AnimatePresence>
+            {/* Direction Selection (Only for Solo) */}
+            {panelValue.selected === 0 && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{
+                  height: 0,
+                  opacity: 0,
+                  transition: { duration: 0.5, ease: "easeOut" },
+                }}
+                transition={{
+                  duration: 3,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 5,
+                }}
+                className="mt-4 text-center"
+              >
+                <div className="mb-2 font-medium">
+                  Select Direction for Solo Panel:
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  {["Left to Right", "Right to Left"].map((direction, idx) => (
+                    <label
+                      key={direction}
+                      className={`cursor-pointer px-4 py-2 border rounded-lg transition-all ${
+                        panelValue.direction === direction
+                          ? "selected"
+                          : "unselected"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="direction"
+                        value={direction.toLowerCase().replace(/\s+/g, "-")}
+                        checked={panelValue.direction === direction}
+                        onChange={() => handleDirectionSelection(direction)}
+                      />
+                      {direction}
+                    </label>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Animated Info */}
+          <AnimatePresence>
+            {isOpen.panel && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{
+                  height: 0,
+                  opacity: 0,
+                  transition: { duration: 0.5, ease: "easeOut" },
+                }}
+                transition={{
+                  duration: 3,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 5,
+                }}
+                className="pl-4 pr-1 overflow-hidden text-left rounded-b-md bg-c-50 md:mx-2"
+              >
+                <div className="pb-2">
+                  <div className="py-2 text-lg font-semibold text-center">
+                    Steel thick enough to screw into
+                  </div>
+                  <hr />
+                  <ul className="mt-2">
+                    <li>
                       <strong>Solo:</strong> Gate opens from the side. 10ft+
                       wide panels ship in 2 bolt connectable sections.
-                    </p>
-                  </div>
-                </li>
-                <li>
-                  <div className="marker">
-                    <p>
+                    </li>
+                    <li>
                       <strong>Dual:</strong> Gate opens from the center.
-                    </p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+                    </li>
+                  </ul>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
+    </>
   );
 };
+
 export default Panel;

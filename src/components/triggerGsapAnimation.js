@@ -8,11 +8,12 @@ export const createTimeline = () => {
   });
 };
 
-export const GsapAnimation = (selector, animationData) => {
+export const GsapAnimation = (selector, animationData, options = {}) => {
   if (tl) {
-    tl.to(selector, { attr: animationData }, 0); // Add to the timeline
+    tl.to(selector, { attr: animationData, ...options }, 0);
   }
 };
+
 
 export const clearTimeline = () => {
   if (tl) tl.clear();

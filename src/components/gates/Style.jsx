@@ -18,7 +18,7 @@ const Style = ({
   const calculateValue = (selected, width) => {
     let value;
     let max, min;
-    if (selected == 1||selected == 2) {
+    if (selected == 1 || selected == 2) {
       value = 70;
       min = 70;
       max = 510;
@@ -33,6 +33,10 @@ const Style = ({
     const adjustedVal = value + ((max - min) * (width - 36)) / (256 - 36);
 
     return Math.round(adjustedVal);
+  };
+
+  const handlePositionSelection = (position) => {
+    setSelectedStyle({ ...selectedStyle, position });
   };
 
   return (
@@ -98,7 +102,7 @@ const Style = ({
             checked={selectedStyle.selected === 0}
             onChange={() => handleSelection(0)}
           />
-          None
+          Rectangular
         </label>
 
         {/* Arch Option */}
@@ -117,38 +121,84 @@ const Style = ({
           Arch
         </label>
 
-        {/* Finials Option */}
+        {/* Center Peak Option */}
         <label
           className={`${
-            selectedStyle.selected === 2 ? "selected" : "unselected"
+            selectedStyle.selected === 4 ? "selected" : "unselected"
           } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-300 px-0 transition-all`}
         >
           <input
             type="radio"
             name="style"
-            value={2}
-            checked={selectedStyle.selected === 2}
-            onChange={() => handleSelection(2)}
+            value={4}
+            checked={selectedStyle.selected === 4}
+            onChange={() => handleSelection(4)}
           />
-          Finials
+          Center Peak
         </label>
 
-        {/* Both Option */}
+        {/* Sectional Option */}
         <label
           className={`${
-            selectedStyle.selected === 3 ? "selected" : "unselected"
-          } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-300 px-0 transition-all`}
+            selectedStyle.selected === 5 ? "selected" : "unselected"
+          } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-500 px-0 transition-all`}
         >
           <input
             type="radio"
             name="style"
-            value={3}
-            checked={selectedStyle.selected === 3}
-            onChange={() => handleSelection(3)}
+            value={5}
+            checked={selectedStyle.selected === 5}
+            onChange={() => handleSelection(5)}
           />
-          Both
+          Sectional
         </label>
       </div>
+
+      <AnimatePresence>
+        {/* Direction Selection (Only for Solo) */}
+        {selectedStyle.selected === 5 && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{
+              height: 0,
+              opacity: 0,
+              transition: { duration: 0.5, ease: "easeOut" },
+            }}
+            transition={{
+              duration: 3,
+              type: "spring",
+              stiffness: 100,
+              damping: 5,
+            }}
+            className="mt-4 text-center"
+          >
+            <div className="mb-2 font-medium">Select Position Sectional:</div>
+            <div className="grid grid-cols-2 gap-4">
+              {["top", "bottom"].map((position) => (
+                <label
+                  key={position}
+                  className={`cursor-pointer px-4 py-2 border rounded-lg transition-all ${
+                    selectedStyle.position === position
+                      ? "selected"
+                      : "unselected"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="position"
+                    value={position}
+                    checked={selectedStyle.position === position}
+                    onChange={() => handlePositionSelection(position)}
+                    className="capitalize"
+                  />
+                  {position}
+                </label>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {isOpen.style && (

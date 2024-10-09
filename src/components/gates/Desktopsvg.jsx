@@ -11,9 +11,11 @@ const Desktopsvg = () => {
   const searchParams = useSearchParams();
   const sku = searchParams.get("sku")?.split("-");
   const currentWidth = width - 36;
-
+  const direction = searchParams.get("direction");
   const isSwing = sku && sku[1] === "1";
-
+  const isSlide = sku && sku[1] === "2";
+  const isLeft = direction === "Left to Right";
+  const isSolo = sku && sku[2] === "0";
 
   useEffect(() => {
     GsapAnimation("#HDim path:nth-child(1)", {
@@ -91,7 +93,36 @@ const Desktopsvg = () => {
       ease: "power1.inOut",
       duration: 1,
     });
+
+    GsapAnimation("#arrow path:nth-child(1)", {
+      d: `M${150 - width / 2} 50 L${150 + width / 2} 50`,
+    });
+    GsapAnimation("#arrow path:nth-child(2)", {
+      d: isLeft
+        ? `M${150 + width / 2 - 20} 40 L${150 + width / 2} 50 L${
+            150 + width / 2 - 20
+          } 60`
+        : `M${150 - width / 2 + 20} 40 L${150 - width / 2} 50 L${
+            150 - width / 2 + 20
+          } 60`,
+    });
   }, [currentWidth, isSwing]);
+
+  useEffect(() => {
+    GsapAnimation(
+      "#arrow path:nth-child(2)",
+      {
+        d: isLeft
+          ? `M${150 + width / 2 - 20} 40 L${150 + width / 2} 50 L${
+              150 + width / 2 - 20
+            } 60`
+          : `M${150 - width / 2 + 20} 40 L${150 - width / 2} 50 L${
+              150 - width / 2 + 20
+            } 60`,
+      },
+      { duration: 0.3, ease: "power1.inOut" }
+    );
+  }, [isLeft]);
 
   function calculateDimensions(width) {
     // Minimum and maximum width
@@ -212,13 +243,10 @@ const Desktopsvg = () => {
                       x="49.6%"
                       y={4}
                     >
-                      {isSwing
-                        ? calculateDimensions(width)
-                        : `${ft}' ${inch}"`}
+                      {isSwing ? calculateDimensions(width) : `${ft}' ${inch}"`}
                     </text>
                   </svg>
                 </div>
-
                 <svg
                   viewBox="-1 -1 248 96"
                   xmlns="http://www.w3.org/2000/svg"
@@ -262,8 +290,62 @@ const Desktopsvg = () => {
                   >
                     6&apos;
                   </text>
-                </svg>
+                </svg>{" "}
+                <div className="relative">
+                  <AnimatePresence>
+                    {(isSolo && (isSwing || isSlide)) && (
+                      <svg
+                        viewBox="0 0 300 90"
+                        xmlns="http://www.w3.org/2000/svg"
+                        id="arrow"
+                        className="absolute -top-[80px]"
+                      >
+                        {/* Horizontal Line centered on the x-axis */}
+                        <motion.path
+                          d={`M${150 - width / 2} 50 L${150 + width / 2} 50`}
+                          stroke="black"
+                          strokeWidth="1"
+                          fill="none"
+                          initial={{ pathLength: 0 }} // Start with no length
+                          animate={{
+                            pathLength: 1,
+                            d: `M${150 - width / 2} 50 L${150 + width / 2} 50`,
+                          }} // Animate to full length
+                          exit={{ pathLength: 0 }} // Animate to full length
+                          // transition={{ duration: 0.5, ease: "easeInOut" }} // Set the duration and easing
+                        />
 
+                        {/* Greater Than Arrow at the end of the line */}
+                        <motion.path
+                          d={
+                            isLeft
+                              ? `M${150 + width / 2 - 20} 40 L${
+                                  150 + width / 2
+                                } 50 L${150 + width / 2 - 20} 60`
+                              : `M${150 - width / 2 + 20} 40 L${
+                                  150 - width / 2
+                                } 50 L${150 - width / 2 + 20} 60`
+                          }
+                          stroke="black"
+                          strokeWidth="1"
+                          fill="none"
+                          initial={{ pathLength: 0 }} // Start with no length
+                          animate={{
+                            pathLength: 1,
+                            d: isLeft
+                              ? `M${150 + width / 2 - 20} 40 L${
+                                  150 + width / 2
+                                } 50 L${150 + width / 2 - 20} 60`
+                              : `M${150 - width / 2 + 20} 40 L${
+                                  150 - width / 2
+                                } 50 L${150 - width / 2 + 20} 60`,
+                          }} // Animate to full length
+                          exit={{ pathLength: 0 }} // Start with no length
+                        />
+                      </svg>
+                    )}
+                  </AnimatePresence>
+                </div>
                 <AutoManIcon />
               </div>
             </div>{" "}
