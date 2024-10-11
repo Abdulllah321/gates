@@ -96,7 +96,7 @@ const Pickets = ({
               selectedMaterial.selected === index + 1
                 ? "selected"
                 : "unselected"
-            } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-300 px-0 transition-all`}
+            } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-300 px-0 transition-all whitespace-nowrap`}
           >
             <input
               type="radio"

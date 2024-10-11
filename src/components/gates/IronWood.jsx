@@ -6,7 +6,7 @@ const IronWood = ({
   setSelectedIronWood,
   isOpen,
   setIsOpen,
-  width
+  width,
 }) => {
   const handleSelection = (value) => {
     setSelectedIronWood({
@@ -69,7 +69,7 @@ const IronWood = ({
                 height="100%"
                 className={`${
                   isOpen.ironWood ? "text-c-0" : "text-c-blue"
-                } h-[1.6rem] w-[1.6rem]  transition-colors md:hover:text-c-0`}
+                } h-[1.6rem] w-[1.6rem] transition-colors md:hover:text-c-0`}
               >
                 <path
                   fillRule="evenodd"
@@ -88,7 +88,7 @@ const IronWood = ({
             "linear-gradient(90deg, rgba(243, 244, 246, 0) 0%, rgb(243, 244, 246) 10%, rgb(243, 244, 246) 90%, rgba(243, 244, 246, 0) 100%)",
         }}
       >
-        {/* None Option */}
+        {/* Paint or Powder Coat Option */}
         <label
           className={`${
             selectedIronWood.selected === 0 ? "selected" : "unselected"
@@ -101,10 +101,10 @@ const IronWood = ({
             checked={selectedIronWood.selected === 0}
             onChange={() => handleSelection(0)}
           />
-          None
+          Paint or Powder Coat (Includes zinc primer coat)
         </label>
 
-        {/* Vertical Option */}
+        {/* Metal Frame Option */}
         <label
           className={`${
             selectedIronWood.selected === 1 ? "selected" : "unselected"
@@ -117,10 +117,10 @@ const IronWood = ({
             checked={selectedIronWood.selected === 1}
             onChange={() => handleSelection(1)}
           />
-          Vertical
+          Metal Frame
         </label>
 
-        {/* Horizontal Option */}
+        {/* Fill Material Option */}
         <label
           className={`${
             selectedIronWood.selected === 2 ? "selected" : "unselected"
@@ -133,10 +133,10 @@ const IronWood = ({
             checked={selectedIronWood.selected === 2}
             onChange={() => handleSelection(2)}
           />
-          Horizontal
+          Fill Material
         </label>
 
-        {/* DIY Option */}
+        {/* Paint or Stain for Wood Option */}
         <label
           className={`${
             selectedIronWood.selected === 3 ? "selected" : "unselected"
@@ -149,7 +149,7 @@ const IronWood = ({
             checked={selectedIronWood.selected === 3}
             onChange={() => handleSelection(3)}
           />
-          DIY
+          Paint or Stain for Wood
         </label>
       </div>
       <AnimatePresence>
@@ -169,7 +169,6 @@ const IronWood = ({
               damping: 5,
             }}
             className="pl-4 pr-1 text-left rounded-b-md bg-c-50 md:mx-2"
-            style={{}}
           >
             <div className="pb-2">
               <div className="py-2 text-lg font-semibold text-center capitalize">
@@ -180,32 +179,24 @@ const IronWood = ({
                 <li>
                   <div className="marker">
                     <p>
-                      <strong>None:</strong> A light weight timeless option.
+                      <strong>Paint or Powder Coat:</strong> Both selections
+                      have zinc primer coat as an option.
                     </p>
                   </div>
                 </li>
                 <li>
                   <div className="marker">
                     <p>
-                      <strong>Vertical:</strong> Match-all sustainable hardwood
-                      vertically attached to the face of each ironWood.
+                      <strong>Metal Frame:</strong> Choose paint or powder coat,
+                      color choice, and finish choice (Flat, Glossy).
                     </p>
                   </div>
                 </li>
                 <li>
                   <div className="marker">
                     <p>
-                      <strong>Horizontal:</strong> Match-all sustainable
-                      hardwood horizontally attached to the face of each
-                      ironWood.
-                    </p>
-                  </div>
-                </li>
-                <li>
-                  <div className="marker">
-                    <p>
-                      <strong>DIY:</strong> Do it yourself. Perfect if you plan
-                      on adding your own wood.
+                      <strong>Fill Material:</strong> Choose paint or stain for
+                      wood, color choice, and finish level.
                     </p>
                   </div>
                 </li>

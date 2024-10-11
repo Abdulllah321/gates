@@ -13,6 +13,7 @@ function FirstSvg() {
   const [mainPath, setMainPath] = useState("");
   const [picketsPath, setPicketsPath] = useState("");
   const [finalPath, setFinalPath] = useState("");
+  const [bgPath, setBgPath] = useState("");
   const [isMounted, setIsMounted] = useState(false); // Tracks if the component has been mounted
   const searchParams = useSearchParams();
   const sku = searchParams.get("sku")?.split("-");
@@ -33,13 +34,18 @@ function FirstSvg() {
   const isSectional = sku && sku[3] === "5";
   const isRec = sku && sku[3] === "0";
   //pickets
-  const isSingal = sku && sku[4] === "1";
-  const isPuppy = sku && sku[4] === "2";
-  const isDouble = sku && sku[4] === "3";
+  const isSingal = sku && sku[8] === "1";
+  const isPuppy = sku && sku[8] === "2";
+  const isDouble = sku && sku[8] === "3";
   //pickets
   const isVWood = sku && sku[5] === "1";
   const isHWood = sku && sku[5] === "2";
   const isDiy = sku && sku[5] === "3";
+  //Fill meterial
+  const isCWood = sku && sku[4] === "1";
+  const isTWhite = sku && sku[4] === "2";
+  const isRedWood = sku && sku[4] === "3";
+  const isHardWood = sku && sku[4] === "4";
 
   const isLeft = direction === "Left to Right";
   const isRight = direction === "Right to Left";
@@ -103,6 +109,13 @@ function FirstSvg() {
 
     const newPicketsPath = newMainPath;
 
+    const newBgPath = ` 
+  M ${adjusted106},90 
+  L ${adjusted106},12 
+  Q ${(adjusted106 + adjusted142) / 2},0 ${adjusted142},12
+  L ${adjusted142},90 
+  Z`;
+
     const newFinalPath = `M
       ${adjusted142},${isFinials ? 8 : isArch ? 20 : 12}
       ${adjusted142},${isArch ? 24 : 12}
@@ -130,12 +143,14 @@ function FirstSvg() {
       ${adjusted133},4
       ${adjusted142},20
       Z`;
+
+    setBgPath(newBgPath);
     setMainPath(newMainPath);
     setPicketsPath(newPicketsPath);
     setFinalPath(isBoth ? bothFinialPath : newFinalPath);
   }, [width, sku]);
 
-  // Trigger GSAP animation after Framer Motion animation and only after the first render
+  // Trigger Gsap animation after Framer Motion animation and only after the first render
   const triggerGsapAnimation = () => {
     createTimeline();
     if (isMounted) {
@@ -431,8 +446,6 @@ function FirstSvg() {
         <mask id="ironwoodMask" x={0} y={0}>
           {isVWood && (
             <>
-              {" "}
-              <rect fill="white" className="w-full h-full" style={{}} />
               <path
                 fill="none"
                 stroke="gray"
@@ -456,15 +469,46 @@ function FirstSvg() {
                 style={{}}
               />
             </>
-          )}
+          )}{" "}
+          <g transform="translate(0,-7)">
+            <path fill="url(#img1)" d={bgPath} />
+          </g>
         </mask>
 
-        <g mask="url(#ironwoodMask)">
+        <defs>
+          <pattern
+            id="img1"
+            patternUnits="userSpaceOnUse"
+            width="120"
+            height="120"
+          >
+            <image
+              href={
+                isCWood
+                  ? `/cedar-wood.png`
+                  : isTWhite
+                  ? "/treated-pine-white.png"
+                  : isRedWood
+                  ? "/red-wood.png"
+                  : isHardWood
+                  ? "hard-wood.png"
+                  : "/cedar-wood.png"
+              }
+              x="0"
+              y="0"
+              width="120"
+              height="120"
+            />
+          </pattern>
+        </defs>
+
+        <g
+          mask="url(#ironwoodMask)"
+          fill="url(#img1)"
+        >
           <motion.path
             id="mainPath"
-            d={mainPath}
-            style={{background: "url(/ceder-wood.png)"}}
-            className="fill-current text-c-brown"
+            d={finalPath}
             initial="hidden"
             animate="visible"
             variants={{
@@ -520,6 +564,7 @@ function FirstSvg() {
             style={{}}
           />
         )}
+
         {/* ------------- swing paths ------------- */}
         <SwingPaths
           isSwing={isSwing}
@@ -527,7 +572,7 @@ function FirstSvg() {
           isMounted={isMounted}
           isDual={isDual}
           direction={direction}
-          isCpeak={isCPeak}
+          isCPeak={isCPeak}
           isArch={isArch || isBoth}
         />
         {/* ------------- Slide paths ------------- */}
