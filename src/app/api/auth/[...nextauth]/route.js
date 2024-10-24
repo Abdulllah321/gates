@@ -40,7 +40,7 @@ export const authOptions = {
   },
   pages: {
     signIn: "/auth/login",
-    error: "/auth/login",
+    error: "/auth/error",
     verifyRequest: "/admin",
   },
 };
