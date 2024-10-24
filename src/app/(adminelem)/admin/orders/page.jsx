@@ -1,8 +1,10 @@
 "use client";
+import DeleteConfirmationModal from "@/components/DeleteConfirmationModal";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { FaSearch, FaEdit, FaTrash, FaEye } from "react-icons/fa";
-import ClipLoader from "react-spinners/ClipLoader"; // Install react-spinners for loading animation
+import { DotLoader } from "react-spinners";
+import ClipLoader from "react-spinners/ClipLoader"; // Ensure you've installed react-spinners
 
 const Orders = () => {
   const { push } = useRouter();
@@ -10,7 +12,10 @@ const Orders = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const itemsPerPage = 3; // Change this to adjust the number of orders per page
+  const [updatingOrderId, setUpdatingOrderId] = useState(null);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [orderToDelete, setOrderToDelete] = useState(null); // Track the order to delete
+  const itemsPerPage = 3; // Adjust the number of orders per page
 
   // Fetch orders from the API
   useEffect(() => {
@@ -58,55 +63,50 @@ const Orders = () => {
     return new Date(dateString).toLocaleString(undefined, options);
   };
 
-  // Get status class
-  const getStatusClass = (status) => {
-    switch (status) {
-      case "Pending":
-        return "bg-yellow-500 text-white";
-      case "Processing":
-        return "bg-blue-500 text-white";
-      case "Shipped":
-        return "bg-green-500 text-white";
-      case "Delivered":
-        return "bg-gray-500 text-white";
-      case "Cancelled":
-        return "bg-red-500 text-white";
-      default:
-        return "";
+  // Handle status update on double click
+  const handleStatusUpdate = async (order, newStatus) => {
+    setUpdatingOrderId(order._id); // Set the order being updated
+    try {
+      // Make an API call to update the order status
+      const response = await fetch(`/api/orders/${order._id}`, {
+        method: "PUT", // Use PUT for updating
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (response.ok) {
+        const updatedOrder = await response.json();
+        // Update the local orders state with the updated order
+        setOrders((prevOrders) =>
+          prevOrders.map((o) => (o._id === updatedOrder._id ? updatedOrder : o))
+        );
+      } else {
+        console.error("Failed to update order status");
+      }
+    } catch (error) {
+      console.error("Error updating order status:", error);
+    } finally {
+      setUpdatingOrderId(null); // Reset the updating order ID
     }
   };
 
-  // Handle status update on double click
-  const handleStatusUpdate = async (order) => {
-    const newStatus = prompt(
-      "Enter new status (Pending, Processing, Shipped, Delivered, Cancelled):",
-      order.status
-    );
-    if (newStatus) {
-      try {
-        // Make an API call to update the order status
-        const response = await fetch(`/api/orders/${order._id}`, {
-          method: "PATCH", // Use PATCH for updating
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ status: newStatus }),
-        });
+  const handleDeleteOrder = async (order) => {
+    try {
+      const response = await fetch(`/api/orders/${order._id}`, {
+        method: "DELETE",
+      });
 
-        if (response.ok) {
-          const updatedOrder = await response.json();
-          // Update the local orders state with the updated order
-          setOrders((prevOrders) =>
-            prevOrders.map((o) =>
-              o._id === updatedOrder._id ? updatedOrder : o
-            )
-          );
-        } else {
-          console.error("Failed to update order status");
-        }
-      } catch (error) {
-        console.error("Error updating order status:", error);
+      if (response.ok) {
+        setOrders((prevOrders) =>
+          prevOrders.filter((o) => o._id !== order._id)
+        );
+      } else {
+        console.error("Failed to delete order");
       }
+    } catch (error) {
+      console.error("Error deleting order:", error);
     }
   };
 
@@ -173,7 +173,6 @@ const Orders = () => {
                   <tr
                     key={order._id}
                     className="hover:bg-gray-700 transition duration-200"
-                    onDoubleClick={() => handleStatusUpdate(order)} // Add double click handler here
                   >
                     <td className="px-6 py-4 whitespace-nowrap">
                       #{order.order_id}
@@ -184,12 +183,14 @@ const Orders = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       {formatDate(order.createdAt)}
                     </td>
-                    <td
-                      className={`px-6 py-4 whitespace-nowrap ${getStatusClass(
-                        order.status
-                      )}`}
-                    >
-                      {order.status}
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {/* Editable status */}
+                      <StatusSelector
+                        order={order}
+                        currentStatus={order.status}
+                        onStatusUpdate={handleStatusUpdate}
+                        loading={updatingOrderId === order._id} // Pass loading state
+                      />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       ${order.total_amount.toFixed(2)}
@@ -201,10 +202,13 @@ const Orders = () => {
                       >
                         <FaEye />
                       </button>
-                      <button className="text-yellow-400 hover:text-yellow-300 mx-1">
-                        <FaEdit />
-                      </button>
-                      <button className="text-yellow-400 hover:text-yellow-300 mx-1">
+                      <button
+                        className="text-yellow-400 hover:text-yellow-300 mx-1"
+                        onClick={() => {
+                          setOrderToDelete(order);
+                          setDeleteModalOpen(true); // Open delete modal
+                        }}
+                      >
                         <FaTrash />
                       </button>
                     </td>
@@ -213,7 +217,12 @@ const Orders = () => {
               </tbody>
             </table>
           </div>
-
+          <DeleteConfirmationModal
+            isOpen={isDeleteModalOpen}
+            onClose={() => setDeleteModalOpen(false)}
+            onConfirm={handleDeleteOrder}
+            order={orderToDelete}
+          />
           {/* Pagination Controls */}
           <div className="flex justify-between items-center mt-6">
             <span className="text-sm text-gray-400">
@@ -244,6 +253,57 @@ const Orders = () => {
       )}
     </div>
   );
+};
+
+// Component for Editable Status
+const StatusSelector = ({ order, currentStatus, onStatusUpdate, loading }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState(currentStatus);
+
+  const handleBlur = () => {
+    setIsEditing(false);
+    onStatusUpdate(order, selectedStatus);
+  };
+
+  return isEditing ? (
+    <select
+      value={selectedStatus}
+      onChange={(e) => setSelectedStatus(e.target.value)}
+      onBlur={handleBlur}
+      className="bg-gray-800 text-gray-300 border border-gray-700 rounded-lg p-1"
+    >
+      <option value="Pending">Pending</option>
+      <option value="Processing">Processing</option>
+      <option value="Shipped">Shipped</option>
+      <option value="Delivered">Delivered</option>
+      <option value="Cancelled">Cancelled</option>
+    </select>
+  ) : (
+    <span
+      className={`cursor-pointer ${getStatusClass(currentStatus)}`}
+      onDoubleClick={() => setIsEditing(true)}
+    >
+      {currentStatus} {loading && <ClipLoader color="#ffff" size={15} />}
+    </span>
+  );
+};
+
+// Function to get the status class
+const getStatusClass = (status) => {
+  switch (status) {
+    case "Pending":
+      return "bg-yellow-500 text-white px-2 py-1 rounded";
+    case "Processing":
+      return "bg-blue-500 text-white px-2 py-1 rounded";
+    case "Shipped":
+      return "bg-green-500 text-white px-2 py-1 rounded";
+    case "Delivered":
+      return "bg-gray-500 text-white px-2 py-1 rounded";
+    case "Cancelled":
+      return "bg-red-500 text-white px-2 py-1 rounded";
+    default:
+      return "";
+  }
 };
 
 export default Orders;

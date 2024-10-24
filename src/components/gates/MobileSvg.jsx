@@ -5,7 +5,7 @@ import { GatesContext } from "../GatesContext";
 import { useSearchParams } from "next/navigation";
 import AutoManIcon from "./AutomanIcon";
 import { GsapAnimation } from "../triggerGsapAnimation";
-
+import VerticalRangeInput from "./VerticalRangeInput";
 const MobileSvg = () => {
   const { width, ft, inch } = useContext(GatesContext);
   const searchParams = useSearchParams();
