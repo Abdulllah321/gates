@@ -18,7 +18,7 @@ const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+  const [cart, setCart] = useState([]); // Initialize state for cart items
 
   const containerRef = useRef(null);
 
@@ -27,7 +27,10 @@ const Header = () => {
     setSidebarOpen(false);
     setCartOpen(false);
   };
-
+  useEffect(() => {
+    const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    setCart(storedCartItems);
+  }, []);
   // Handle closing on clicking outside of elements
   useEffect(() => {
     const handleClickOutside = (e) => {
