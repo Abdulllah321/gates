@@ -23,10 +23,13 @@ export const authOptions = {
   ],
   callbacks: {
     async session({ session, token }) {
+      console.log("Session Callback - Session:", session);
+      console.log("Session Callback - Token:", token);
       session.user.isAdmin = token.isAdmin;
       return session;
     },
     async jwt({ token, user }) {
+      console.log("JWT Callback - User:", user);
       if (user) token.isAdmin = user.isAdmin;
       return token;
     },
