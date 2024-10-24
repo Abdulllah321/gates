@@ -28,7 +28,8 @@ const ProductTable = ({ products, onEdit, onDelete }) => {
             >
               <td className="p-4">{index + 1}</td>
               <td className="p-4">
-                <img
+                <Image
+                  layout
                   src={product.imageUrl}
                   alt={product.name}
                   className="object-cover w-12 h-12 rounded-lg shadow-md"

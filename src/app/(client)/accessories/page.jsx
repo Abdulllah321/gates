@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const Products = () => {
@@ -40,10 +41,11 @@ const Products = () => {
           >
             {/* Product Image */}
             <div className="flex-shrink-0 w-24 h-24">
-              <img
+              <Image
                 src={product.imageUrl}
                 alt={product.name}
                 className="object-cover w-full h-full rounded-md"
+                layout
               />
             </div>
 

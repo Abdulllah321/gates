@@ -1,6 +1,7 @@
 "use client";
 import Cart from "@/components/Cart";
 import ImageUploader from "@/components/product/ImageUploader";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -189,7 +190,8 @@ const OrderForm = () => {
           <ul>
             {formData.images.map((image, index) => (
               <li key={index}>
-                <img
+                <Image
+                layout
                   src={image}
                   alt={`Uploaded Image ${index + 1}`}
                   width={100}

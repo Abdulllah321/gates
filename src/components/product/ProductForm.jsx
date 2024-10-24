@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ImageUploader from "./ImageUploader";
 import { FaTrash } from "react-icons/fa"; // Importing the trash icon from react-icons
 import { Spinner } from "react-bootstrap"; // Import Spinner component from react-bootstrap
+import Image from "next/image";
 
 const ProductForm = ({ currentProduct, onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -75,7 +76,8 @@ const ProductForm = ({ currentProduct, onSubmit }) => {
       {/* Image Upload or Display Section */}
       {formData.imageUrl ? (
         <div className="relative my-2">
-          <img
+          <Image
+            layout
             src={formData.imageUrl}
             alt="Uploaded Product"
             className="w-full h-auto border rounded-md border-c-500"
