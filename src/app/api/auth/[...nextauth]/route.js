@@ -14,10 +14,17 @@ export const authOptions = {
       async authorize(credentials) {
         await dbConnect();
         const user = await User.findOne({ email: credentials.email });
-        if (user && credentials.password === user.password) {
-          return { email: user.email, isAdmin: user.isAdmin };
+
+        // Add logging for debugging
+        if (!user) {
+          throw new Error("User not found"); // Log error
         }
-        return null;
+
+        if (credentials.password !== user.password) {
+          throw new Error("Invalid password"); // Log error
+        }
+
+        return { email: user.email, isAdmin: user.isAdmin };
       },
     }),
   ],
