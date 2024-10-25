@@ -5,8 +5,7 @@ import { generateEmailTemplate } from "../route";
 
 export async function GET(request, { params }) {
   await dbConnect();
-  const order = await Order.findById(params.orderId); 
-  console.log(params.orderId);
+  const order = await Order.findOne({ order_id: params.orderId }); // Fetch order by order_id
   if (!order) {
     return new Response("Order not found", { status: 404 });
   }
