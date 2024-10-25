@@ -44,8 +44,9 @@ const Products = () => {
               <Image
                 src={product.imageUrl}
                 alt={product.name}
-                className="object-cover w-full h-full rounded-md"
-                layout
+                className="object-cover rounded-md"
+                width={96}
+                height={96}
               />
             </div>
 

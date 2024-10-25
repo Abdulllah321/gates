@@ -191,10 +191,11 @@ const OrderForm = () => {
             {formData.images.map((image, index) => (
               <li key={index}>
                 <Image
-                layout
                   src={image}
                   alt={`Uploaded Image ${index + 1}`}
                   width={100}
+                  height={100}
+                  className="!h-full object-cover"
                 />
               </li>
             ))}

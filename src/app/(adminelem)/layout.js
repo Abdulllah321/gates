@@ -1,10 +1,10 @@
 "use client"
-import { SessionProvider } from 'next-auth/react'
+import { ClerkProvider } from '@clerk/nextjs'
 import React from 'react'
 
 const layout = ({children}) => {
   return (
-    <SessionProvider>{children}</SessionProvider>
+    <ClerkProvider>{children}</ClerkProvider>
   )
 }
 

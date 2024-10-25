@@ -11,7 +11,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     { name: "Dashboard", icon: <MdDashboard />, path: "/admin" },
     { name: "Products", icon: <FaBox />, path: "/admin/products" },
     { name: "Orders", icon: <FaClipboardList />, path: "/admin/orders" },
-    { name: "Settings", icon: <FaUserCog />, path: "/admin/settings" },
   ];
 
   return (

@@ -77,7 +77,7 @@ const ProductForm = ({ currentProduct, onSubmit }) => {
       {formData.imageUrl ? (
         <div className="relative my-2">
           <Image
-            layout
+            layout="fill"
             src={formData.imageUrl}
             alt="Uploaded Product"
             className="w-full h-auto border rounded-md border-c-500"

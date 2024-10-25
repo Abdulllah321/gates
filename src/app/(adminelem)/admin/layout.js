@@ -1,18 +1,24 @@
 "use client";
 import { useEffect, useState } from "react";
-import {  useSession } from "next-auth/react";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation"; // Import useRouter
 import Sidebar from "@/components/Sidebar";
 import Topbar from "@/components/Topbar";
 
 export default function Layout({ children }) {
-  const { data: session, status } = useSession();
+  const { isLoaded, user } = useUser();
+  const router = useRouter(); // Initialize router for navigation
   const [loading, setLoading] = useState(true);
-  const [isSidebarOpen, setSidebarOpen] = useState(false); // State for sidebar toggle
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    // Check the session status
-    setLoading(status === "loading");
-  }, [status]);
+    // Set loading state based on Clerk's isLoaded
+    setLoading(!isLoaded);
+
+    if (isLoaded && !user) {
+      router.push("/sign-in");
+    }
+  }, [isLoaded, user, router]);
 
   const toggleSidebar = () => {
     setSidebarOpen((prev) => !prev);
@@ -24,19 +30,19 @@ export default function Layout({ children }) {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "rgba(255, 255, 255, 0.8)", // Semi-transparent white background
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    zIndex: 9999, // Ensure it's above all other content
+    zIndex: 9999,
   };
 
   const spinnerStyle = {
-    border: "8px solid #f3f3f3", // Light grey
+    border: "8px solid #f3f3f3",
     borderTop: "8px solid #FACC15",
     borderRadius: "50%",
-    width: "60px", // Adjust size as needed
-    height: "60px", // Adjust size as needed
+    width: "60px",
+    height: "60px",
     animation: "spin 1s linear infinite",
   };
 
@@ -50,14 +56,12 @@ export default function Layout({ children }) {
         <div className="flex">
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
           <div className="flex-grow w-full mt-16 md:ml-64">
-            {" "}
-            {/* Adjust margin for the sidebar */}
             <Topbar
               toggleSidebar={toggleSidebar}
-              session={session}
+              user={user}
               isSidebarOpen={isSidebarOpen}
             />
-              <div className="p-6">{children}</div>
+            <div className="p-6">{children}</div>
           </div>
         </div>
       )}

@@ -169,51 +169,57 @@ const Orders = () => {
                 </tr>
               </thead>
               <tbody className="bg-gray-800 divide-y divide-gray-700">
-                {currentOrders.map((order) => (
-                  <tr
-                    key={order._id}
-                    className="hover:bg-gray-700 transition duration-200"
-                  >
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      #{order.order_id}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {order.customer.first_name} {order.customer.last_name}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {formatDate(order.createdAt)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {/* Editable status */}
-                      <StatusSelector
-                        order={order}
-                        currentStatus={order.status}
-                        onStatusUpdate={handleStatusUpdate}
-                        loading={updatingOrderId === order._id} // Pass loading state
-                      />
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      ${order.total_amount.toFixed(2)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right">
-                      <button
-                        className="text-yellow-400 hover:text-yellow-300 mx-1"
-                        onClick={() => push(`/order/${order._id}`)}
-                      >
-                        <FaEye />
-                      </button>
-                      <button
-                        className="text-yellow-400 hover:text-yellow-300 mx-1"
-                        onClick={() => {
-                          setOrderToDelete(order);
-                          setDeleteModalOpen(true); // Open delete modal
-                        }}
-                      >
-                        <FaTrash />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {currentOrders.map((order) => {
+                  const totalAmount = order.items.reduce(
+                    (acc, item) => acc + parseFloat(item.price),
+                    0
+                  );
+                  return (
+                    <tr
+                      key={order._id}
+                      className="hover:bg-gray-700 transition duration-200"
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        #{order.order_id}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {order.customer.first_name} {order.customer.last_name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {formatDate(order.createdAt)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {/* Editable status */}
+                        <StatusSelector
+                          order={order}
+                          currentStatus={order.status}
+                          onStatusUpdate={handleStatusUpdate}
+                          loading={updatingOrderId === order._id} // Pass loading state
+                        />
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        ${totalAmount.toFixed(2)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right">
+                        <button
+                          className="text-yellow-400 hover:text-yellow-300 mx-1"
+                          onClick={() => push(`/order/${order._id}`)}
+                        >
+                          <FaEye />
+                        </button>
+                        <button
+                          className="text-yellow-400 hover:text-yellow-300 mx-1"
+                          onClick={() => {
+                            setOrderToDelete(order);
+                            setDeleteModalOpen(true); // Open delete modal
+                          }}
+                        >
+                          <FaTrash />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

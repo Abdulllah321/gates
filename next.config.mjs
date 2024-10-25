@@ -1,7 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: false,
-  productionBrowserSourceMaps: true, 
-};
+const nextConfig = {};
 
 export default nextConfig;

@@ -1,24 +1,25 @@
-"use strict";
-import { getToken } from "next-auth/jwt";
-import { NextResponse } from "next/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-export async function middleware(req) {
-  const token = await getToken({ req });
-  const url = req.nextUrl.clone();
+const isPublicRoute = createRouteMatcher([
+  "/sign-in(.*)",
+  "/sign-up(.*)",
+  "/",
+  "/gates(.*)",
+  "/accessories(.*)",
+  "/checkout(.*)",
+  "/order(.*)",
+  "/uploads(.*)",
+]);
 
-  if (!token) {
-    url.pathname = "/auth/login";
-    return NextResponse.redirect(url);
+export default clerkMiddleware(async (auth, request) => {
+  if (url.pathname.startsWith("/admin")) {
+    await auth.protect();
   }
-
-  if (url.pathname.startsWith("/admin") && !token.isAdmin) {
-    url.pathname = "/";
-    return NextResponse.redirect(url);
-  }
-
-  return NextResponse.next();
-}
+});
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: [
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/(api|trpc)(.*)",
+  ],
 };

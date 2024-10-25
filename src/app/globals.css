@@ -149,3 +149,11 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.cl-internal-1dauvpw, .cl-internal-1hp5nqm{
+  display: none !important;
+}
+
+.cl-internal-ttumny{
+  background: var(--c-800) !important;
+}
