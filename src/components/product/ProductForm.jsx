@@ -21,7 +21,8 @@ const ProductForm = ({ currentProduct, onSubmit }) => {
   };
 
   const handleImageUpload = (url) => {
-    setFormData({ ...formData, imageUrl: url });
+    console.log(url)
+    setFormData({ ...formData, imageUrl: url[0] });
   };
 
   const handleImageDelete = () => {
@@ -76,8 +77,7 @@ const ProductForm = ({ currentProduct, onSubmit }) => {
       {/* Image Upload or Display Section */}
       {formData.imageUrl ? (
         <div className="relative my-2">
-          <Image
-            layout="fill"
+          <img
             src={formData.imageUrl}
             alt="Uploaded Product"
             className="w-full h-auto border rounded-md border-c-500"

@@ -1,5 +1,8 @@
 import dbConnect from "@/utils/dbConnect";
 import Product from "@/models/Product";
+import NodeCache from "node-cache";
+
+const cache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
 
 export async function GET(req, { params }) {
   const { id } = params;
@@ -32,6 +35,7 @@ export async function PUT(req, { params }) {
         status: 404,
       });
     return new Response(JSON.stringify(product), { status: 200 });
+    cache.del("products");
   } catch (error) {
     return new Response(JSON.stringify({ error: "Failed to update product" }), {
       status: 400,
@@ -49,6 +53,8 @@ export async function DELETE(req, { params }) {
       return new Response(JSON.stringify({ error: "Product not found" }), {
         status: 404,
       });
+    cache.del("products");
+
     return new Response(null, { status: 204 });
   } catch (error) {
     return new Response(JSON.stringify({ error: "Failed to delete product" }), {
