@@ -7,7 +7,7 @@ export default async function RootLayout({ children }) {
   return (
     <>
       <Header />
-      <main className="mt-[62px] min-h-[100vh] relative">
+      <main className=" min-h-[100vh] relative">
         <Suspense>{children}</Suspense>
       </main>
       <Footer />
