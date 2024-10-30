@@ -24,9 +24,10 @@ const Header = () => {
 
   const closeAll = () => {
     setSearchOpen(false);
-    setSidebarOpen(false);
+    // setSidebarOpen(false);
     setCartOpen(false);
   };
+  
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     setCart(storedCartItems);
@@ -153,13 +154,29 @@ const Header = () => {
                   className="fixed top-0 left-0 z-50 block origin-center md:hidden"
                 >
                   <div className="flex flex-col items-center justify-center w-screen h-screen p-4 text-white md:hidden bg-dark">
-                    <MdOutlineShoppingBag className="size-10" />
-                    <div className="mt-4 text-lg">No products in the cart.</div>
+                    {cart.length ? (
+                      <>
+                        <Cart />
+                        <Link href="/checkout">
+                          <button className="w-full px-3 py-3 mt-3 transition-colors bg-transparent border rounded-md border-c-prime hover:bg-c-prime">
+                            Proceed To Checkout
+                          </button>
+                        </Link>{" "}
+                      </>
+                    ) : (
+                      <>
+                        <MdOutlineShoppingBag className="size-10" />
+                        <div className="mt-4 text-lg">
+                          No products in the cart.
+                        </div>
+                        {/* </div> */}
+                      </>
+                    )}
+                    <IoCloseOutline
+                      className="absolute text-white right-4 size-6 top-2"
+                      onClick={() => setCartOpen(false)}
+                    />{" "}
                   </div>
-                  <IoCloseOutline
-                    className="absolute text-white right-4 size-6 top-2"
-                    onClick={() => setCartOpen(false)}
-                  />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -291,17 +308,17 @@ const Header = () => {
               </button>
             </div>
             <nav className="flex flex-col space-y-4">
-              <Link href="#" className="text-lg font-medium text-gray-800">
+              <Link href="/" className="text-lg font-medium text-gray-800">
                 Home
               </Link>
-              <Link href="#" className="text-lg font-medium text-gray-800">
-                About
+              <Link href="/gates" className="text-lg font-medium text-gray-800">
+                Gates/Fences
               </Link>
-              <Link href="#" className="text-lg font-medium text-gray-800">
-                Services
-              </Link>
-              <Link href="#" className="text-lg font-medium text-gray-800">
-                Contact
+              <Link
+                href="/accessories"
+                className="text-lg font-medium text-gray-800"
+              >
+                Accessories
               </Link>
             </nav>
             <footer className="flex justify-between mt-4">
