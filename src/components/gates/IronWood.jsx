@@ -10,7 +10,8 @@ const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
       selected: value,
       subOption: null,
       color: null,
-      finish: null,
+      finish: null, // Reset finish
+      painted: null, // Reset painted
     });
   };
 
@@ -20,6 +21,7 @@ const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
       subOption,
       color: null,
       finish: null,
+      painted: null, // Reset painted when subOption changes
     });
   };
 
@@ -30,40 +32,18 @@ const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
   const handleFinishSelection = (finish) => {
     setSelectedIronWood({ ...selectedIronWood, finish });
   };
-  console.log(selectedIronWood);
+
+  const handlePaintedSelection = (painted) => {
+    setSelectedIronWood({ ...selectedIronWood, painted });
+  };
+
   return (
     <div className="mt-9">
       <div className="relative mb-4 text-center">
         <div className="text-2xl font-bold">
-          {" "}
           <span className="pr-2.5 text-lg font-semibold text-c-blue">5</span>
           IronWood Options
         </div>
-        <button
-          type="button"
-          className="absolute top-1.5 right-0 px-2 text-xl"
-          onClick={() => setIsOpen({ ...isOpen, ironWood: !isOpen.ironWood })}
-        >
-          <div
-            className={`inline-block transition-colors ${
-              isOpen.ironWood ? "bg-blue-500" : ""
-            }`}
-          >
-            <svg
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className={`h-6 w-6 transition-colors ${
-                isOpen.ironWood ? "text-white" : "text-blue-500"
-              }`}
-            >
-              <path
-                fillRule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-        </button>
       </div>
 
       {/* Main Option Selection (Metal Frame or Fill Material) */}
@@ -81,7 +61,7 @@ const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
               value={idx}
               checked={selectedIronWood.selected === idx}
               onChange={() => handleSelection(idx)}
-            />{" "}
+            />
             {type}
           </label>
         ))}
@@ -165,33 +145,6 @@ const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
                     </label>
                   ))}
                 </div>
-
-                <div className="mt-4">
-                  <div className="mb-2 text-xl font-medium text-center">
-                    Select Finish:
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    {["Flat", "Glossy"].map((finish) => (
-                      <label
-                        key={finish}
-                        className={`cursor-pointer px-4 py-2 border rounded-lg transition-all ${
-                          selectedIronWood.finish === finish
-                            ? "selected"
-                            : "unselected"
-                        }`}
-                      >
-                        <input
-                          type="radio"
-                          name="finish"
-                          value={finish}
-                          checked={selectedIronWood.finish === finish}
-                          onChange={() => handleFinishSelection(finish)}
-                        />
-                        {finish}
-                      </label>
-                    ))}
-                  </div>
-                </div>
               </div>
             )}
           </motion.div>
@@ -208,33 +161,175 @@ const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
             className="mt-4"
           >
             <div className="mb-2 font-medium text-center">
-              Select Color for Fill Material:
+              Select Fill Material Type:
             </div>
             <div className="grid grid-cols-2 gap-4">
-              {["Wood", "Oak"].map((color) => (
+              {["Stain", "Weather Proof"].map((option) => (
                 <label
-                  key={color}
-                  style={{
-                    backgroundColor:
-                      selectedIronWood.color === color
-                        ? `${color.toLowerCase()} !important`
-                        : "",
-                  }}
+                  key={option}
                   className={`cursor-pointer px-4 py-2 border rounded-lg transition-all ${
-                    selectedIronWood.color === color ? "selected" : "unselected"
+                    selectedIronWood.subOption === option
+                      ? "selected"
+                      : "unselected"
                   }`}
                 >
                   <input
                     type="radio"
-                    name="fillMaterialColor"
-                    value={color}
-                    checked={selectedIronWood.color === color}
-                    onChange={() => handleColorSelection(color)}
+                    name="fillMaterialOption"
+                    value={option}
+                    checked={selectedIronWood.subOption === option}
+                    onChange={() => handleSubOptionSelection(option)}
                   />
-                  {color}
+                  {option}
                 </label>
               ))}
             </div>
+
+            {/* Stain Color Options */}
+            {selectedIronWood.subOption === "Stain" && (
+              <div className="mt-4">
+                <div className="mb-2 text-xl font-medium text-center">
+                  Select Color for Stain:
+                </div>
+                <div className="grid grid-cols-5 gap-4 place-items-stretch">
+                  {["Oak", "Cherry", "Walnut", "Mahogany", "Pine"].map(
+                    (color) => (
+                      <label
+                        key={color}
+                        style={{
+                          backgroundColor:
+                            selectedIronWood.color === color
+                              ? color.toLowerCase() + "!important"
+                              : "",
+                        }}
+                        className={`cursor-pointer px-4 py-2 border rounded-lg transition-all ${
+                          selectedIronWood.color === color
+                            ? "selected"
+                            : "unselected"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="color"
+                          value={color}
+                          checked={selectedIronWood.color === color}
+                          onChange={() => handleColorSelection(color)}
+                        />
+                        {color}
+                      </label>
+                    )
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Weather Proof Finish Options */}
+            {selectedIronWood.subOption === "Weather Proof" && (
+              <div className="mt-4">
+                <div className="mb-2 text-xl font-medium text-center">
+                  Select Weather Proof Finish:
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  {["No Finish", "Finish"].map((option, idx) => (
+                    <label
+                      key={option}
+                      className={`cursor-pointer px-4 py-2 border rounded-lg transition-all ${
+                        selectedIronWood.finish === (idx === 0)
+                          ? "selected"
+                          : "unselected"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="finish"
+                        value={option}
+                        checked={selectedIronWood.finish === (idx === 0)}
+                        onChange={() => handleFinishSelection(idx === 0)}
+                      />
+                      {option}
+                    </label>
+                  ))}
+                </div>
+
+                {/* Additional Finish Option for Weather Proof */}
+                {selectedIronWood.subOption === "Weather Proof" &&
+                  selectedIronWood.finish && (
+                    <div className="mt-4">
+                      <div className="mb-2 font-medium text-center">
+                        Is it Painted?
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        {["Yes", "No"].map((option, idx) => (
+                          <label
+                            key={option}
+                            className={`cursor-pointer px-4 py-2 border rounded-lg transition-all ${
+                              selectedIronWood.painted === (idx === 0)
+                                ? "selected"
+                                : "unselected"
+                            }`}
+                          >
+                            <input
+                              type="radio"
+                              name="painted"
+                              value={idx === 0}
+                              checked={selectedIronWood.painted === (idx === 0)}
+                              onChange={() => handlePaintedSelection(idx === 0)}
+                            />
+                            {option}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                {selectedIronWood.subOption === "Weather Proof" &&
+                  selectedIronWood.finish &&
+                  selectedIronWood.painted && (
+                    <div className="mt-4">
+                      <div className="mb-2 font-medium text-center">
+                        Please Choose Color
+                      </div>
+                      <div className="grid grid-cols-5 gap-4 place-items-stretch">
+                        {[
+                          "Black",
+                          "White",
+                          "Gray",
+                          "Silver",
+                          "Bronze",
+                          "Copper",
+                          "Blue",
+                          "Green",
+                          "Red",
+                          "Brown"
+                        ].map((color) => (
+                          <label
+                            key={color}
+                            style={{
+                              backgroundColor:
+                                selectedIronWood.color === color
+                                  ? color.toLowerCase() + "!important"
+                                  : "",
+                            }}
+                            className={`cursor-pointer px-4 py-2 border rounded-lg transition-all ${
+                              selectedIronWood.color === color
+                                ? "selected"
+                                : "unselected"
+                            }`}
+                          >
+                            <input
+                              type="radio"
+                              name="color"
+                              value={color}
+                              checked={selectedIronWood.color === color}
+                              onChange={() => handleColorSelection(color)}
+                            />
+                            {color}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

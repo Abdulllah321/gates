@@ -1,4 +1,4 @@
-import React, { Suspense, useContext } from "react";
+import React, { Suspense, useContext, useEffect } from "react";
 import { GatesContext } from "../GatesContext";
 import { useSearchParams } from "next/navigation";
 
@@ -106,13 +106,6 @@ const Head = () => {
       : isBoth
       ? "Both Style,"
       : "";
-    const pickets = isSingle
-      ? "Single Pickets,"
-      : isPuppy
-      ? "Puppy Pickets,"
-      : isDouble
-      ? "Double Pickets,"
-      : "";
     const ironWood =
       isVWood || isHWood
         ? "Vertical Ironwood"
@@ -122,14 +115,35 @@ const Head = () => {
         ? "DIY Wood"
         : "";
     const access = isAuto ? "Automatic Access," : isMan ? "Manual Access," : "";
-    setFt(feet);
-    setInch(inches);
-    return `${feet}ft ${inches}in Wide, ${
-      kit ? kit + " Kit, " : ""
-    }${panelType}, ${style} ${pickets} ${ironWood} ${access} ~${weight}lbs`;
+
+    return { feet, inches, weight, panelType, style, ironWood, access };
   }
 
-  // Determine the kit
+  useEffect(() => {
+    const { feet, inches } = calculateDimensions(width, null, isDual);
+    setFt(feet);
+    setInch(inches);
+  }, [
+    width,
+    isDual,
+    isSwing,
+    isSlide,
+    isDual,
+    isArch,
+    isFinials,
+    isBoth,
+    isSingle,
+    isPuppy,
+    isDouble,
+    isVWood,
+    isHWood,
+    isDiy,
+    isMan,
+    isAuto,
+    setFt,
+    setInch,
+  ]);
+
   const kit = isSwing ? "Swing" : isSlide ? "Slide" : null;
 
   return (
@@ -151,7 +165,15 @@ const Head = () => {
         </h1>
 
         <div className="mx-auto flex min-h-[4.5rem] items-center justify-center px-2 md:min-h-[3rem] md:py-6 md:text-lg lg:max-w-[70%]">
-          <h2>{calculateDimensions(width, kit, isDual)}</h2>
+          <h2>
+            {calculateDimensions(width, kit, isDual).feet}ft{" "}
+            {calculateDimensions(width, kit, isDual).inches}in Wide,{" "}
+            {calculateDimensions(width, kit, isDual).panelType},{" "}
+            {calculateDimensions(width, kit, isDual).style}{" "}
+            {calculateDimensions(width, kit, isDual).ironWood}{" "}
+            {calculateDimensions(width, kit, isDual).access} ~
+            {calculateDimensions(width, kit, isDual).weight}lbs
+          </h2>
         </div>
       </header>
     </Suspense>
