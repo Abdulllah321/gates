@@ -3,7 +3,7 @@ import { GatesContext } from "../GatesContext";
 import { useSearchParams } from "next/navigation";
 
 const Head = () => {
-  const { width, setFt, setInch, selectedType, selectedPicket } =
+  const { width, setFt, setInch, selectedType, selectedPicket, panelValue } =
     useContext(GatesContext);
   const searchParams = useSearchParams();
 
@@ -14,6 +14,7 @@ const Head = () => {
   const isSlide = sku && sku[1] === "2";
   // Panel
   const isDual = sku && sku[2] === "1";
+  const direction = (panelValue.selected === 0 && panelValue?.direction) || "";
   // Style
   const isArch = sku && (sku[3] === "1" || sku[3] === "3");
   const isFinials = sku && sku[3] === "2";
@@ -130,7 +131,10 @@ const Head = () => {
       weight += 39;
     }
 
-    const panelType = isDual ? "Dual Panels" : "Solo Panel";
+    const gateType = isSwing ? "Swing" : isSlide ? "Slide" : "";
+    const panelType =
+      gateType !== "" ? (isDual ? "Dual Panels" : "Solo Panel") : "";
+    const direction = gateType !== "" && panelType ==="Solo Panel"? panelValue.direction : "";
     const style = isArch
       ? "Arch Style,"
       : isFinials
@@ -147,18 +151,26 @@ const Head = () => {
         ? "DIY Wood"
         : "";
     const access = isAuto ? "Automatic Access," : isMan ? "Manual Access," : "";
-const picketsText = [selectedPickets, picketMaterial, picketType, picketOption]
-  .filter(Boolean)
-  .join(", ");
+    const picketsText = [
+      selectedPickets,
+      picketMaterial,
+      picketType,
+      picketOption,
+    ]
+      .filter(Boolean)
+      .join(", ");
+
     return {
       feet,
       inches,
       weight,
+      gateType,
       panelType,
       pickets: picketsText,
       style,
       ironWood,
       access,
+      direction,
     };
   }
 
@@ -173,10 +185,11 @@ const picketsText = [selectedPickets, picketMaterial, picketType, picketOption]
     isSlide,
     setFt,
     setInch,
-    selectedPickets, // add dependency
-    picketMaterial, // add dependency
-    picketType, // add dependency
-    picketOption, // add dependency
+    selectedPickets,
+    picketMaterial,
+    picketType,
+    picketOption,
+    direction,
   ]);
 
   const kit = isSwing ? "Swing" : isSlide ? "Slide" : null;
@@ -202,9 +215,14 @@ const picketsText = [selectedPickets, picketMaterial, picketType, picketOption]
 
         <div className="mx-auto flex min-h-[4.5rem] items-center justify-center px-2 md:min-h-[3rem] md:py-6 md:text-lg lg:max-w-[70%]">
           <h2>
-            {dimensions.feet}ft {dimensions.inches}in Wide,{" "}
-            {dimensions.panelType}, {dimensions.pickets}, {dimensions.style}{" "}
-            {dimensions.ironWood} {dimensions.access} ~ {dimensions.weight}lbs
+            {dimensions.feet}ft {dimensions.inches}in Wide
+            {dimensions.panelType && `, ${dimensions.panelType}`}
+            {dimensions.direction && `, ${dimensions.direction}`}
+            {dimensions.pickets && `, ${dimensions.pickets}`}
+            {dimensions.style && `, ${dimensions.style}`}
+            {dimensions.ironWood && `, ${dimensions.ironWood}`}
+            {dimensions.access && `, ${dimensions.access}`}~ {dimensions.weight}
+            lbs
           </h2>
         </div>
       </header>
