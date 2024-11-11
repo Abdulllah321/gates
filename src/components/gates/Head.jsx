@@ -3,7 +3,8 @@ import { GatesContext } from "../GatesContext";
 import { useSearchParams } from "next/navigation";
 
 const Head = () => {
-  const { width, setFt, setInch, selectedType } = useContext(GatesContext);
+  const { width, setFt, setInch, selectedType, selectedPicket } =
+    useContext(GatesContext);
   const searchParams = useSearchParams();
 
   const sku = searchParams.get("sku")?.split("-");
@@ -18,9 +19,37 @@ const Head = () => {
   const isFinials = sku && sku[3] === "2";
   const isBoth = sku && sku[3] === "3";
   // Pickets
-  const isSingle = sku && sku[4] === "1";
-  const isPuppy = sku && sku[4] === "2";
-  const isDouble = sku && sku[4] === "3";
+  const isPine = sku && sku[4] === "1";
+  const isCBoard = sku && sku[4] === "2";
+  const isHardwood = sku && sku[4] === "3";
+  const isCedar = sku && sku[4] === "4";
+  const isAcrylic = sku && sku[4] === "5";
+  const isTubing = sku && sku[4] === "6";
+  const isWire55 = sku && sku[4] === "7";
+  const selectedPickets = isPine
+    ? "Pine"
+    : isCBoard
+    ? "Composite Board"
+    : isHardwood
+    ? "Hardwood"
+    : isCedar
+    ? "Cedar"
+    : isAcrylic
+    ? "Acrylic"
+    : isTubing
+    ? "Tubing"
+    : isWire55
+    ? "Wire 55"
+    : "";
+  const picketMaterial =
+    selectedPicket?.material === 1
+      ? "Inlay"
+      : selectedPicket?.material === 2
+      ? "Flush"
+      : "";
+  const picketType = selectedPicket?.type || "";
+  const picketOption = selectedPicket?.option || "";
+
   // Wood Options
   const isVWood = sku && sku[5] === "1";
   const isHWood = sku && sku[5] === "2";
@@ -30,13 +59,29 @@ const Head = () => {
   const isAuto = sku && sku[6] === "2";
 
   function calculateDimensions(width, kit = null, isDual = false) {
-    const minWidth = 36;
-    const maxWidth = 256;
+    // Define width limits for different types
+    const maxFenceWidth = 120; // Fence panels up to 10 ft (120 inches)
+    const maxSingleSlideWidth = 144; // Single sliding gates up to 12 ft (144 inches)
+    const maxDoubleSlideWidth = 288; // Double sliding gates up to 24 ft (288 inches)
+    const maxSingleSwingWidth = 288; // Single swing gates up to 24 ft (288 inches)
+    const maxDoubleSwingWidth = 288; // Double swing gates up to 24 ft (288 inches)
+
+    // Adjust maxWidth based on gate type
+    let adjustedMaxWidth = maxSingleSwingWidth; // Default for single swing
+    if (isSlide && !isDual) adjustedMaxWidth = maxSingleSlideWidth;
+    if (isSlide && isDual) adjustedMaxWidth = maxDoubleSlideWidth;
+    if (isSwing && isDual) adjustedMaxWidth = maxDoubleSwingWidth;
+    if (!isSwing && !isSlide) adjustedMaxWidth = maxFenceWidth;
+
+    // Constrain the width to the calculated adjustedMaxWidth
+    width = Math.min(width, adjustedMaxWidth);
+
+    const minWidth = 36; // Minimum width in inches
 
     const minFeet = 3; // 3ft 0in at 36 width
     const minInches = 0;
-    const maxFeet = 21; // 21ft 4in at 256 width
-    const maxInches = 4;
+    const maxFeet = Math.floor(adjustedMaxWidth / 12);
+    const maxInches = adjustedMaxWidth % 12;
 
     // Calculate the total inches for the min and max width
     const totalMinInches = minFeet * 12 + minInches;
@@ -46,56 +91,43 @@ const Head = () => {
     const totalInches = Math.round(
       totalMinInches +
         ((width - minWidth) * (totalMaxInches - totalMinInches)) /
-          (maxWidth - minWidth)
+          (adjustedMaxWidth - minWidth)
     );
 
     const feet = Math.floor(totalInches / 12);
     const inches = totalInches % 12;
 
-    const baseMinWeight = isDiy ? 44 : 44; // Assuming 3lbs for base
-    const baseMaxWeight = isDiy ? 188 : 188; // Same for DIY
+    // Base and ironwood weights calculations
+    const baseMinWeight = isDiy ? 44 : 44;
+    const baseMaxWeight = isDiy ? 188 : 188;
 
     const ironwoodMinWeight = isVWood || isHWood ? 106 : baseMinWeight;
     const ironwoodMaxWeight = isVWood ? 626 : isHWood ? 638 : baseMaxWeight;
 
     let weight;
-
     if (isVWood || isHWood) {
       weight = Math.round(
         ironwoodMinWeight +
           ((width - minWidth) * (ironwoodMaxWeight - ironwoodMinWeight)) /
-            (maxWidth - minWidth)
+            (adjustedMaxWidth - minWidth)
       );
     } else {
       weight = Math.round(
         baseMinWeight +
           ((width - minWidth) * (baseMaxWeight - baseMinWeight)) /
-            (maxWidth - minWidth)
+            (adjustedMaxWidth - minWidth)
       );
     }
 
-    // Apply additional weight logic based on existing conditions
+    // Additional weight adjustments
     const increment =
-      Math.round(((width - minWidth) / (maxWidth - minWidth)) * 3) + 1;
+      Math.round(((width - minWidth) / (adjustedMaxWidth - minWidth)) * 3) + 1;
 
     if (isFinials || isBoth) {
       weight += increment;
     }
     if (isAuto) {
       weight += 39;
-    }
-    if (isSingle) {
-      weight = Math.round(
-        65 + ((width - minWidth) / (maxWidth - minWidth)) * (339 - 65)
-      );
-    } else if (isPuppy) {
-      weight = Math.round(
-        71 + ((width - minWidth) / (maxWidth - minWidth)) * (378 - 71)
-      );
-    } else if (isDouble) {
-      weight = Math.round(
-        86 + ((width - minWidth) / (maxWidth - minWidth)) * (490 - 86)
-      );
     }
 
     const panelType = isDual ? "Dual Panels" : "Solo Panel";
@@ -115,8 +147,19 @@ const Head = () => {
         ? "DIY Wood"
         : "";
     const access = isAuto ? "Automatic Access," : isMan ? "Manual Access," : "";
-
-    return { feet, inches, weight, panelType, style, ironWood, access };
+const picketsText = [selectedPickets, picketMaterial, picketType, picketOption]
+  .filter(Boolean)
+  .join(", ");
+    return {
+      feet,
+      inches,
+      weight,
+      panelType,
+      pickets: picketsText,
+      style,
+      ironWood,
+      access,
+    };
   }
 
   useEffect(() => {
@@ -128,23 +171,16 @@ const Head = () => {
     isDual,
     isSwing,
     isSlide,
-    isDual,
-    isArch,
-    isFinials,
-    isBoth,
-    isSingle,
-    isPuppy,
-    isDouble,
-    isVWood,
-    isHWood,
-    isDiy,
-    isMan,
-    isAuto,
     setFt,
     setInch,
+    selectedPickets, // add dependency
+    picketMaterial, // add dependency
+    picketType, // add dependency
+    picketOption, // add dependency
   ]);
 
   const kit = isSwing ? "Swing" : isSlide ? "Slide" : null;
+  const dimensions = calculateDimensions(width, kit, isDual);
 
   return (
     <Suspense>
@@ -166,13 +202,9 @@ const Head = () => {
 
         <div className="mx-auto flex min-h-[4.5rem] items-center justify-center px-2 md:min-h-[3rem] md:py-6 md:text-lg lg:max-w-[70%]">
           <h2>
-            {calculateDimensions(width, kit, isDual).feet}ft{" "}
-            {calculateDimensions(width, kit, isDual).inches}in Wide,{" "}
-            {calculateDimensions(width, kit, isDual).panelType},{" "}
-            {calculateDimensions(width, kit, isDual).style}{" "}
-            {calculateDimensions(width, kit, isDual).ironWood}{" "}
-            {calculateDimensions(width, kit, isDual).access} ~
-            {calculateDimensions(width, kit, isDual).weight}lbs
+            {dimensions.feet}ft {dimensions.inches}in Wide,{" "}
+            {dimensions.panelType}, {dimensions.pickets}, {dimensions.style}{" "}
+            {dimensions.ironWood} {dimensions.access} ~ {dimensions.weight}lbs
           </h2>
         </div>
       </header>
