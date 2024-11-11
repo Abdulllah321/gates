@@ -236,7 +236,7 @@ const Pickets = ({
               {types
                 .filter((type) => type.name === selectedMaterial.type)
                 .map((material, index) => (
-                  <div className="flex flex-wrap w-full ">
+                  <div className="flex flex-wrap w-full " key={index}>
                     {material.options.map((option, index) => (
                       <label
                         key={index}
