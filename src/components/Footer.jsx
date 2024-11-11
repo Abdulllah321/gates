@@ -1,5 +1,6 @@
-"use client"
+"use client";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react"; // Import useState for checkbox state
 import { FaArrowRight } from "react-icons/fa6";
 import { TfiEmail } from "react-icons/tfi";
@@ -36,26 +37,26 @@ const Footer = () => {
           </div>
           <div className="text-gray-300">
             <h1 className="mb-2 text-lg font-bold text-white">Links</h1>
+            <Link href="/">
+              <h5 className="relative mt-2 transition-all duration-500 translate-x-0 cursor-pointer w-max hover:text-white group hover:translate-x-4">
+                Home{" "}
+                <span className="absolute bottom-0 left-0 w-full h-px transition-all duration-500 origin-left scale-x-0 bg-white group-hover:scale-x-100 " />
+              </h5>
+            </Link>
+            <Link href="/gates">
             <h5 className="relative mt-2 transition-all duration-500 translate-x-0 cursor-pointer w-max hover:text-white group hover:translate-x-4">
-              Home{" "}
+              Gates/fences{" "}
               <span className="absolute bottom-0 left-0 w-full h-px transition-all duration-500 origin-left scale-x-0 bg-white group-hover:scale-x-100 " />
             </h5>
+            </Link>
+            <Link href="/accessories">
+
             <h5 className="relative mt-2 transition-all duration-500 translate-x-0 cursor-pointer w-max hover:text-white group hover:translate-x-4">
-              Service{" "}
+              Accessories{" "}
               <span className="absolute bottom-0 left-0 w-full h-px transition-all duration-500 origin-left scale-x-0 bg-white group-hover:scale-x-100 " />
             </h5>
-            <h5 className="relative mt-2 transition-all duration-500 translate-x-0 cursor-pointer w-max hover:text-white group hover:translate-x-4">
-              About Us{" "}
-              <span className="absolute bottom-0 left-0 w-full h-px transition-all duration-500 origin-left scale-x-0 bg-white group-hover:scale-x-100 " />
-            </h5>
-            <h5 className="relative mt-2 transition-all duration-500 translate-x-0 cursor-pointer w-max hover:text-white group hover:translate-x-4">
-              Shop{" "}
-              <span className="absolute bottom-0 left-0 w-full h-px transition-all duration-500 origin-left scale-x-0 bg-white group-hover:scale-x-100 " />
-            </h5>
-            <h5 className="relative mt-2 transition-all duration-500 translate-x-0 cursor-pointer w-max hover:text-white group hover:translate-x-4">
-              Contact{" "}
-              <span className="absolute bottom-0 left-0 w-full h-px transition-all duration-500 origin-left scale-x-0 bg-white group-hover:scale-x-100 " />
-            </h5>
+            </Link>
+           
           </div>
           <div className="text-gray-300 ">
             <h1 className="mb-2 text-lg font-bold text-white">Newsletter</h1>

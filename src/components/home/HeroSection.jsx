@@ -5,7 +5,7 @@ export default function HeroSection() {
   const router = useRouter();
 
   return (
-    <section className="relative h-screen px-8 pb-12 bg-black text-white flex items-end">
+    <section className="relative min-h-screen px-8 pb-12 bg-black text-white flex items-end">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -20,7 +20,7 @@ export default function HeroSection() {
         {/* Dark overlay */}
       </div>
 
-      <div className="flex  max-w-7xl mx-auto bottom-24 relative justify-between">
+      <div className="flex  max-w-7xl mx-auto bottom-24 relative justify-between flex-col md:flex-row">
         {/* Left Content - Heading */}
         <div className="relative z-10 mb-4 max-w-[50%]">
           <h1
@@ -41,7 +41,7 @@ export default function HeroSection() {
 
           {/* Gates/Fences Button */}
           <button
-            onClick={() => router.push("/shop/gates-fences")}
+            onClick={() => router.push("/gates")}
             className="mt-2 px-6 py-3 bg-yellow-500 text-black font-semibold rounded-md hover:bg-yellow-600 transition-all mr-2 shadow-lg hover:scale-105 transform transition duration-300"
           >
             Shop Gates & Fences
@@ -49,7 +49,7 @@ export default function HeroSection() {
 
           {/* Accessories Button */}
           <button
-            onClick={() => router.push("/shop/accessories")}
+            onClick={() => router.push("/accessories")}
             className="mt-2 px-6 py-3 border border-yellow-500 text-yellow-500 font-semibold rounded-md hover:bg-yellow-500 hover:text-black transition-all shadow-lg hover:scale-105 transform transition duration-300"
           >
             Shop Accessories

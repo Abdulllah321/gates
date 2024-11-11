@@ -121,7 +121,7 @@ const MobileSvg = () => {
 
   return (
     <div
-      className="sticky top-[45px] z-[9] rounded-br-lg rounded-bl-lg pb-1 backdrop-blur md:hidden"
+      className="sticky top-[45px] z-[9] rounded-br-lg rounded-bl-lg pb-1 backdrop-blur md:hidden z-50"
       style={{ backgroundColor: "rgba(255,255,255,.6)" }}
     >
       <div className="relative mx-auto" id="sketch-main-2">

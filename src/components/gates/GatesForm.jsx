@@ -264,44 +264,6 @@ const GatesForm = () => {
         />
         <div />{" "}
         <div>
-          <Suspense>
-            <AnimatePresence>
-              {isAuto && !getKit && (
-                <motion.div
-                  initial={{ height: 0 }}
-                  animate={{ height: "auto" }}
-                  exit={{ height: 0 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="px-4 py-4 mt-3 mb-1 font-semibold capitalize origin-top rounded-lg shadow-sm bg-c-red text-c-0"
-                >
-                  <div>
-                    <svg
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="100%"
-                      height="100%"
-                      className="mt-[-2px] inline-block h-5 w-5"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>{" "}
-                    You do not have a Kit selected so we don&apos;t know what
-                    automation you need. Please add automation through our Parts
-                    page instead.
-                  </div>{" "}
-                  <a className="inline-block" href="tel:800-879-8793">
-                    Confused? Call Us (800) 879-8793
-                  </a>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </Suspense>
-
           <div className="flex w-11/12 mx-auto mt-9 md:w-full lg:w-9/12 xl:w-7/12">
             <button
               className={`btn h-12 flex-grow rounded-full border-[3px] ${
@@ -352,17 +314,7 @@ const GatesForm = () => {
               </svg>
             </div>
           </div>
-          <div className="mt-6 mb-2 text-c-800">
-            <span className="text-lg font-bold text-c-1000">
-              Est. Ships In: <span className="text-c-green">4 Weeks</span>{" "}
-            </span>
-            <br />
-            Need your gate much sooner?
-            <br className="block md:inline" />
-            Select
-            <span className="font-bold text-c-blue">Expedite</span> during
-            checkout.
-          </div>
+        
         </div>
       </form>
     </div>

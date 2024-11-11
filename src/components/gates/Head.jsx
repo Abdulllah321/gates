@@ -3,8 +3,16 @@ import { GatesContext } from "../GatesContext";
 import { useSearchParams } from "next/navigation";
 
 const Head = () => {
-  const { width, setFt, setInch, selectedType, selectedPicket, panelValue } =
-    useContext(GatesContext);
+  const {
+    width,
+    setFt,
+    setInch,
+    selectedType,
+    selectedPicket,
+    panelValue,
+    selectedStyle,
+    selectedIronWood,
+  } = useContext(GatesContext);
   const searchParams = useSearchParams();
 
   const sku = searchParams.get("sku")?.split("-");
@@ -16,9 +24,14 @@ const Head = () => {
   const isDual = sku && sku[2] === "1";
   const direction = (panelValue.selected === 0 && panelValue?.direction) || "";
   // Style
+  const isRectangular = sku && sku[3] === "0";
   const isArch = sku && (sku[3] === "1" || sku[3] === "3");
   const isFinials = sku && sku[3] === "2";
   const isBoth = sku && sku[3] === "3";
+  const isCPeak = sku && sku[3] === "4";
+  const isSectional = sku && sku[3] === "5";
+  const ssPosition =
+    selectedStyle.selected === 5 ? selectedStyle?.position : "";
   // Pickets
   const isPine = sku && sku[4] === "1";
   const isCBoard = sku && sku[4] === "2";
@@ -52,12 +65,11 @@ const Head = () => {
   const picketOption = selectedPicket?.option || "";
 
   // Wood Options
-  const isVWood = sku && sku[5] === "1";
-  const isHWood = sku && sku[5] === "2";
   const isDiy = sku && sku[5] === "3";
   //access
-  const isMan = sku && sku[6] === "1";
-  const isAuto = sku && sku[6] === "2";
+  const isNoPost = sku && sku[6] === "0";
+  const isPostgate = sku && sku[6] === "1";
+  const isRetrofit = sku && sku[6] === "2";
 
   function calculateDimensions(width, kit = null, isDual = false) {
     // Define width limits for different types
@@ -98,27 +110,15 @@ const Head = () => {
     const feet = Math.floor(totalInches / 12);
     const inches = totalInches % 12;
 
-    // Base and ironwood weights calculations
+    // Base weight calculations
     const baseMinWeight = isDiy ? 44 : 44;
     const baseMaxWeight = isDiy ? 188 : 188;
 
-    const ironwoodMinWeight = isVWood || isHWood ? 106 : baseMinWeight;
-    const ironwoodMaxWeight = isVWood ? 626 : isHWood ? 638 : baseMaxWeight;
-
-    let weight;
-    if (isVWood || isHWood) {
-      weight = Math.round(
-        ironwoodMinWeight +
-          ((width - minWidth) * (ironwoodMaxWeight - ironwoodMinWeight)) /
-            (adjustedMaxWidth - minWidth)
-      );
-    } else {
-      weight = Math.round(
-        baseMinWeight +
-          ((width - minWidth) * (baseMaxWeight - baseMinWeight)) /
-            (adjustedMaxWidth - minWidth)
-      );
-    }
+    let weight = Math.round(
+      baseMinWeight +
+        ((width - minWidth) * (baseMaxWeight - baseMinWeight)) /
+          (adjustedMaxWidth - minWidth)
+    );
 
     // Additional weight adjustments
     const increment =
@@ -127,30 +127,34 @@ const Head = () => {
     if (isFinials || isBoth) {
       weight += increment;
     }
-    if (isAuto) {
+    if (isRetrofit) {
       weight += 39;
     }
 
     const gateType = isSwing ? "Swing" : isSlide ? "Slide" : "";
     const panelType =
       gateType !== "" ? (isDual ? "Dual Panels" : "Solo Panel") : "";
-    const direction = gateType !== "" && panelType ==="Solo Panel"? panelValue.direction : "";
-    const style = isArch
-      ? "Arch Style,"
-      : isFinials
-      ? "Finials Style,"
-      : isBoth
-      ? "Both Style,"
+    const direction =
+      gateType !== "" && panelType === "Solo Panel" ? panelValue.direction : "";
+    const style = [
+      isArch ? "Arch Style" : "",
+      isFinials ? "Finials Style" : "",
+      isBoth ? "Both Style" : "",
+      isCPeak ? "Center Peak Style" : "",
+      isSectional ? "Sectional Style" : "",
+      isRectangular ? "Rectangular Style" : "",
+      selectedStyle.selected === 5 ? ssPosition : "", // Add ssPosition when style is 5
+    ]
+      .filter(Boolean) // Remove any empty strings from the array
+      .join(", "); // Join all valid styles with commas
+
+    const access = isNoPost
+      ? "No Post or Hinges,"
+      : isPostgate
+      ? "Posts for Gates in"
+      : isRetrofit
+      ? "Retrofit"
       : "";
-    const ironWood =
-      isVWood || isHWood
-        ? "Vertical Ironwood"
-        : isHWood
-        ? "Horizontal Ironwood"
-        : isDiy
-        ? "DIY Wood"
-        : "";
-    const access = isAuto ? "Automatic Access," : isMan ? "Manual Access," : "";
     const picketsText = [
       selectedPickets,
       picketMaterial,
@@ -159,7 +163,7 @@ const Head = () => {
     ]
       .filter(Boolean)
       .join(", ");
-
+    const ironWoodText = generateIronWoodText();
     return {
       feet,
       inches,
@@ -168,10 +172,38 @@ const Head = () => {
       panelType,
       pickets: picketsText,
       style,
-      ironWood,
+      ironWood: ironWoodText,
       access,
       direction,
     };
+  }
+
+  function generateIronWoodText() {
+    const selectIronWood =
+      selectedIronWood.selected === 0
+        ? "Metal Frame"
+        : selectedIronWood.selected === 1
+        ? "Fill Material"
+        : "";
+    const material = selectedIronWood.subOption;
+    const color = selectedIronWood.color;
+    const weather =
+      selectedIronWood.subOption === "Weather Proof"
+        ? selectedIronWood.finish
+          ? "No Finish"
+          : "Finished"
+        : "";
+    const painted =
+      selectedIronWood.subOption === "Weather Proof" &&
+      selectedIronWood.finish &&
+      selectedIronWood.painted
+        ? "Painted"
+        : "";
+
+    const ironWoodText = [selectIronWood, material, weather, painted, color]
+      .filter(Boolean)
+      .join(", ");
+    return ironWoodText;
   }
 
   useEffect(() => {
@@ -190,6 +222,7 @@ const Head = () => {
     picketType,
     picketOption,
     direction,
+    selectedIronWood,
   ]);
 
   const kit = isSwing ? "Swing" : isSlide ? "Slide" : null;
@@ -221,7 +254,8 @@ const Head = () => {
             {dimensions.pickets && `, ${dimensions.pickets}`}
             {dimensions.style && `, ${dimensions.style}`}
             {dimensions.ironWood && `, ${dimensions.ironWood}`}
-            {dimensions.access && `, ${dimensions.access}`}~ {dimensions.weight}
+            {dimensions.access && `, ${dimensions.access}`} ~{" "}
+            {dimensions.weight}
             lbs
           </h2>
         </div>

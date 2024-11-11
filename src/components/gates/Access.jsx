@@ -90,7 +90,7 @@ const PostSystem = ({
             checked={selectedPostSystem.selected === 0}
             onChange={() => handleSelection(0)}
           />
-          New Post
+          No Post or Hinges
         </label>
 
         {/* In House Post System */}
@@ -106,7 +106,7 @@ const PostSystem = ({
             checked={selectedPostSystem.selected === 1}
             onChange={() => handleSelection(1)}
           />
-          In-House Post System
+          Posts for Gates in
         </label>
 
         {/* Retrofit */}
@@ -153,24 +153,25 @@ const PostSystem = ({
                 <li>
                   <div className="marker">
                     <p>
-                      <strong>Post Types:</strong> 4 bolt base bracket or buried
-                      in concrete.
+                      <strong>No Posts:</strong> You will supply your own posts
+                      and hinges.
                     </p>
                   </div>
                 </li>
                 <li>
                   <div className="marker">
                     <p>
-                      <strong>Size:</strong> 2.5” square for corners/gate posts;
-                      2” square for standard fence posts.
+                      <strong>Posts for Gate:</strong> House-mounted posts
+                      designed to match the gate, with hinges included.
                     </p>
                   </div>
                 </li>
                 <li>
                   <div className="marker">
                     <p>
-                      <strong>Mounting Brackets for:</strong> Chainlink, 4x4
-                      wood, existing tubing.
+                      <strong>Retrofit Option:</strong> Existing posts can be
+                      retrofitted by purchasing separate materials to adapt to
+                      existing wood, metal, or other structures.
                     </p>
                   </div>
                 </li>
