@@ -189,6 +189,111 @@ const GatesForm = () => {
         default:
           setPrice(0);
       }
+    } else if (height == 7) {
+      switch (ft) {
+        case 3:
+          setPrice(450 + 70 + 70);
+          break;
+        case 4:
+          setPrice(600 + 70 + 70);
+          break;
+        case 5:
+          setPrice(750 + 70 + 70);
+          break;
+        case 6:
+          setPrice(950 + 140 + 140);
+          break;
+        case 7:
+          setPrice(1150 + 140 + 140);
+          break;
+        case 8:
+          setPrice(1350 + 140 + 140);
+          break;
+        case 9:
+          setPrice(1550 + 280 + 280);
+          break;
+        case 10:
+          setPrice(1750 + 280 + 280);
+          break;
+        case 11:
+          setPrice(1950 + 280 + 280);
+          break;
+        case 12:
+          setPrice(1950 + 280 + 280);
+          break;
+        default:
+          setPrice(0);
+      }
+    } else if (height == 7) {
+      switch (ft) {
+        case 3:
+          setPrice(450 + 70 + 70);
+          break;
+        case 4:
+          setPrice(600 + 70 + 70);
+          break;
+        case 5:
+          setPrice(750 + 70 + 70);
+          break;
+        case 6:
+          setPrice(950 + 140 + 140);
+          break;
+        case 7:
+          setPrice(1150 + 140 + 140);
+          break;
+        case 8:
+          setPrice(1350 + 140 + 140);
+          break;
+        case 9:
+          setPrice(1550 + 280 + 280);
+          break;
+        case 10:
+          setPrice(1750 + 280 + 280);
+          break;
+        case 11:
+          setPrice(1950 + 280 + 280);
+          break;
+        case 12:
+          setPrice(1950 + 280 + 280);
+          break;
+        default:
+          setPrice(0);
+      }
+    } else if (height == 5) {
+      switch (ft) {
+        case 3:
+          setPrice(450 + 70 + 70 + 70);
+          break;
+        case 4:
+          setPrice(600 + 70 + 70 + 70);
+          break;
+        case 5:
+          setPrice(750 + 70 + 70 + 70);
+          break;
+        case 6:
+          setPrice(950 + 140 + 140 + 140);
+          break;
+        case 7:
+          setPrice(1150 + 140 + 140 + 140);
+          break;
+        case 8:
+          setPrice(1350 + 140 + 140 + 140);
+          break;
+        case 9:
+          setPrice(1550 + 280 + 280 + 280);
+          break;
+        case 10:
+          setPrice(1750 + 280 + 280 + 280);
+          break;
+        case 11:
+          setPrice(1950 + 280 + 280 + 280);
+          break;
+        case 12:
+          setPrice(1950 + 280 + 280 + 280);
+          break;
+        default:
+          setPrice(0);
+      }
     }
   }, [ft, height]);
 
