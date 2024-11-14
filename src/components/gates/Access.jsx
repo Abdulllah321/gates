@@ -9,7 +9,6 @@ const PostSystem = ({
 }) => {
   const handleSelection = (value) => {
     setSelectedPostSystem({
-      value: calculateValue(),
       selected: value,
     });
   };

@@ -11,7 +11,6 @@ const MotionSelector = ({
 }) => {
   const handleSelection = (value) => {
     setSelectedMotion({
-      value: calculateValue(selectedMotion.selected, width),
       selected: value,
     });
   };

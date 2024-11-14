@@ -11,7 +11,6 @@ const Style = ({
   const handleSelection = (value) => {
     setSelectedStyle({
       selected: value,
-      value: calculateValue(selectedStyle.selected, width),
     });
   };
 
