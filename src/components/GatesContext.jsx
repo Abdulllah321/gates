@@ -38,7 +38,7 @@ export const GatesProvider = ({ children }) => {
   });
   const [ft, setFt] = useState(3);
   const [inch, setInch] = useState(0);
-  const [height, setHeight] = useState(1);
+  const [height, setHeight] = useState(4);
   const [selectedType, setSelectedType] = useState("gate");
 
   const buildSKU = () => {

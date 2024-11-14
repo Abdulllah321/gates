@@ -14,23 +14,12 @@ const PostSystem = ({
     });
   };
 
-  function calculateValue() {
-    let value = 0;
-    if (selectedPostSystem.selected === 1) {
-      value = 150;
-    }
-    if (selectedPostSystem.selected === 2) {
-      value = 300;
-    }
-    return value;
-  }
+
 
   return (
     <div>
       <div className="relative mb-1 text-center mt-9">
-        <div className="absolute top-1.5 left-2 font-medium text-c-green">
-          +{calculateValue()}
-        </div>
+       
         <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
           <span className="pr-2.5 text-lg font-semibold text-c-blue">6</span>
           Post System

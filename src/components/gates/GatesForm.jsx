@@ -1,4 +1,4 @@
-import React, { Suspense, useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import MotionSelector from "./MotionSelector";
 import Panel from "./Panel";
 import Style from "./Style";
@@ -28,6 +28,7 @@ const GatesForm = () => {
     selectedType,
     ft,
     inch,
+    height,
   } = useContext(GatesContext);
   const [isOpen, setIsOpen] = useState({
     width: false,
@@ -38,6 +39,7 @@ const GatesForm = () => {
     ironWood: false,
     access: false,
   });
+  const [price, setPrice] = useState(0);
   const [isDisabled, setIsDisabled] = useState(false);
   const searchParams = useSearchParams();
   const sku = searchParams.get("sku")?.split("-");
@@ -45,32 +47,151 @@ const GatesForm = () => {
   const getKit = sku && sku[1] !== "0";
   const isSwing = sku && sku[1] === "1";
   const isSlide = sku && sku[1] === "2";
-
-  const price =
-    calculatePrice(width) +
-    kitValue.value +
-    selectedStyle.value +
-    selectedPicket.value +
-    selectedAccess.value;
-
-  const discountPercentage = 0.05; // 5% discount
-  const discountedPrice = (price - price * discountPercentage).toFixed(2); 
-  
-  function calculatePrice(width) {
-    const minWidth = 36;
-    const maxWidth = 256;
-    const minPrice = 1316;
-    const maxPrice = 2986;
-
-    if (width < minWidth || width > maxWidth) {
-      throw new Error("Width must be between 36 and 256");
+  useEffect(() => {
+    console.log(height);
+    if (height == 4) {
+      switch (ft) {
+        case 3:
+          setPrice(120);
+          break;
+        case 4:
+          setPrice(160);
+          break;
+        case 5:
+          setPrice(200);
+          break;
+        case 6:
+          setPrice(200);
+          break;
+        case 7:
+          setPrice(240);
+          break;
+        case 8:
+          setPrice(240);
+          break;
+        case 9:
+          setPrice(280);
+          break;
+        case 10:
+          setPrice(280);
+          break;
+        case 11:
+          setPrice(120);
+          break;
+        case 12:
+          setPrice(120);
+          break;
+        default:
+          setPrice(0);
+      }
+    } else if (height === 4 || height === "4") {
+      switch (ft) {
+        case 3:
+          setPrice(450);
+          break;
+        case 4:
+          setPrice(600);
+          break;
+        case 5:
+          setPrice(750);
+          break;
+        case 6:
+          setPrice(950);
+          break;
+        case 7:
+          setPrice(1150);
+          break;
+        case 8:
+          setPrice(1350);
+          break;
+        case 9:
+          setPrice(1550);
+          break;
+        case 10:
+          setPrice(1750);
+          break;
+        case 11:
+          setPrice(1950);
+          break;
+        case 12:
+          setPrice(1950);
+          break;
+        default:
+          setPrice(0);
+      }
+    } else if (height == 5) {
+      switch (ft) {
+        case 3:
+          setPrice(450 + 70);
+          break;
+        case 4:
+          setPrice(600 + 70);
+          break;
+        case 5:
+          setPrice(750 + 70);
+          break;
+        case 6:
+          setPrice(950 + 140);
+          break;
+        case 7:
+          setPrice(1150 + 140);
+          break;
+        case 8:
+          setPrice(1350 + 140);
+          break;
+        case 9:
+          setPrice(1550 + 280);
+          break;
+        case 10:
+          setPrice(1750 + 280);
+          break;
+        case 11:
+          setPrice(1950 + 280);
+          break;
+        case 12:
+          setPrice(1950 + 280);
+          break;
+        default:
+          setPrice(0);
+      }
+    } else if (height == 6) {
+      switch (ft) {
+        case 3:
+          setPrice(590);
+          break;
+        case 4:
+          setPrice(740);
+          break;
+        case 5:
+          setPrice(890);
+          break;
+        case 6:
+          setPrice(1230);
+          break;
+        case 7:
+          setPrice(1430);
+          break;
+        case 8:
+          setPrice(1630);
+          break;
+        case 9:
+          setPrice(2110);
+          break;
+        case 10:
+          setPrice(2310);
+          break;
+        case 11:
+          setPrice(2510);
+          break;
+        case 12:
+          setPrice(2510);
+          break;
+        default:
+          setPrice(0);
+      }
     }
+  }, [ft, height]);
 
-    const pricePerUnit = (maxPrice - minPrice) / (maxWidth - minWidth);
-    const price = minPrice + (width - minWidth) * pricePerUnit;
-
-    return Math.round(price);
-  }
   const handleAddToCart = () => {
     const generateUniqueId = () => {
       return `cart_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
@@ -87,7 +208,7 @@ const GatesForm = () => {
       selectedAccess,
       ft,
       inch,
-      price: discountedPrice,
+      price: price,
       type: selectedType,
     };
 
@@ -122,9 +243,6 @@ const GatesForm = () => {
           width={width}
         />{" "}
         <div className="relative mb-1 text-center mt-9">
-          <div className="absolute top-1.5 left-2 font-medium text-c-green">
-            ${calculatePrice(width)} {/* Display calculated price */}
-          </div>
           <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
             <span className="pr-2.5 text-lg font-semibold text-c-blue">3</span>
             Width
@@ -275,10 +393,7 @@ const GatesForm = () => {
               <div className="z-5 absolute inset-x-5 top-[9px] text-left">
                 <div className="-mt-0.5 text-xl text-c-900">Add To Cart</div>
                 <div className="absolute -top-[5px] -right-2 rounded-full bg-c-0 px-3 pb-1 pt-1 font-semibold text-c-green">
-                  <span className={`px-0.5 line-through text-c-500`}>
-                    ${price}
-                  </span>{" "}
-                  <span className="px-0.5 font-medium">${discountedPrice}</span>
+                  <span className={`px-0.5  text-c-500`}>${price}</span>{" "}
                 </div>
               </div>
             </button>{" "}
@@ -314,7 +429,6 @@ const GatesForm = () => {
               </svg>
             </div>
           </div>
-        
         </div>
       </form>
     </div>

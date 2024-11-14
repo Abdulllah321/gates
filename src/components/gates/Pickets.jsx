@@ -82,35 +82,11 @@ const Pickets = ({
     [selectedMaterial.option, setSelectedMaterial]
   );
 
-  const calculateValue = (selected, width) => {
-    let value;
-    let max, min;
-    if (selected === 1) {
-      value = 140;
-      min = 140;
-      max = 1020;
-    } else if (selected === 2) {
-      value = 175;
-      min = 175;
-      max = 1275;
-    } else if (selected === 3) {
-      value = 210;
-      min = 210;
-      max = 1530;
-    } else {
-      return (value = 0);
-    }
-
-    const adjustedVal = value + ((max - min) * (width - 36)) / (256 - 36);
-    return Math.round(adjustedVal);
-  };
 
   return (
     <div>
       <div className="relative mb-1 text-center mt-9">
-        <div className="absolute top-1.5 left-2 font-medium text-c-green">
-          +{calculateValue(selectedMaterial.selected, width)}
-        </div>
+    
         <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
           <span className="pr-2.5 text-lg font-semibold text-c-blue">4</span>
           Fill Material & Patterns

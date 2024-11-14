@@ -11,8 +11,9 @@ import { GatesContext } from "@/components/GatesContext";
 const Gates = () => {
   const scrollPositionRef = useRef(0);
   const [isMobile, setIsMobile] = useState(false);
-  const { selectedType } = useContext(GatesContext);
+  const { selectedType, ft, height } = useContext(GatesContext);
 
+  
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 786);
