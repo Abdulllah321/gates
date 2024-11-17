@@ -55,7 +55,7 @@ const Products = () => {
               <h2 className="mb-2 text-xl font-semibold text-gray-900">
                 {product.name}
               </h2>
-              <a className="font-semibold text-yellow-600 ">
+              <a className="font-semibold text-c-600 ">
                 {product.description}
               </a>
             </div>
