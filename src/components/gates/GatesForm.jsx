@@ -403,7 +403,7 @@ const GatesForm = () => {
                 width: 30px;
                 height: 26px;
                 border-radius: 4px;
-                background-color: #fbdb41;
+                background-color: #94a836;
                 border: 2px solid #eab308;
                 box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
                 cursor: col-resize;
@@ -414,8 +414,8 @@ const GatesForm = () => {
                 appearance: none;
                 width: 24px;
                 height: 24px;
-                background-color: #fbdb41;
-                border: 2px solid #eab308;
+                background-color: #94a836;
+                border: 2px solid #94a836;
                 box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
                 cursor: pointer;
                 transition: background-color 0.3s ease;
