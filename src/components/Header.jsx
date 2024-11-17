@@ -97,7 +97,7 @@ const Header = () => {
           id="logo"
           aria-label="Website logo"
         >
-          <Image src="/logo.png" width={120} height={100} alt="Logo" />
+          <Image src="/IMG-20241117-WA0059.jpg" width={120} height={100} alt="Logo" />
         </div>
 
         {/* Right Navigation */}
