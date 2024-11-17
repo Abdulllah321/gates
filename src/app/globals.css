@@ -89,9 +89,9 @@ body {
   flex-shrink: 0;
   height: 1rem;
   width: 1rem;
-  color: #2563eb;
+  color: #94a836;
   background-color: #fff;
-  border-color: #6b7280;
+  border-color: #94a836;
   border-width: 1px;
   --tw-shadow: 0 0 #0000;
 }
@@ -105,8 +105,8 @@ body {
   background-position: center !important;
   background-image: radial-gradient(
     circle,
-    rgb(253 224 71) 0%,
-    rgb(234 179 8) 100%
+    var(--c-400) 0%,
+    var(--c-600) 100%
   ) !important;
   border-width: 2px !important;
   border-color: var(--c-prime-dark) !important;
