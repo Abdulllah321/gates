@@ -1,4 +1,4 @@
-"use client";
+06 "use client";
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaTimes } from "react-icons/fa"; // Import the close icon
@@ -40,7 +40,7 @@ const Modal = ({ isOpen, onClose, type }) => {
                     placeholder="Your Message"
                     className="border p-2 mb-2 w-full"
                   />
-                  <button className="bg-yellow-500 text-white py-2 px-4 rounded">
+                  <button className="bg-green-600 text-white py-2 px-4 rounded">
                     Submit
                   </button>
                 </form>
