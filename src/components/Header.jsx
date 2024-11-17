@@ -206,7 +206,7 @@ const Header = () => {
                     className="flex items-center justify-between mb-4"
                   >
                     <Image
-                      src="/logo-inverse.png"
+                      src="/IMG-20241117-WA0059.jpg"
                       width={120}
                       height={100}
                       alt="Logo"
@@ -297,7 +297,7 @@ const Header = () => {
             className="fixed top-0 right-0 z-50 flex flex-col justify-between h-full p-12 text-gray-800 bg-white w-96"
           >
             <div className="flex items-center justify-between mb-4">
-              <Image src="/logo.png" width={120} height={100} alt="Logo" />
+              <Image src="/IMG-20241117-WA0059.jpg" width={120} height={100} alt="Logo" />
               <button
                 type="button"
                 className="p-2 rounded-full size-12 bg-[--background] flex items-center justify-center"
