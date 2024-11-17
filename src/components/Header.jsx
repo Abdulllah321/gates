@@ -112,7 +112,7 @@ const Header = () => {
                 className="text-2xl text-[--foreground] cursor-pointer"
                 aria-label="Shopping cart"
               />
-              <span className="absolute -bottom-1 -right-1 flex items-center justify-center w-4 h-4 text-xs text-[--foreground] bg-yellow-500 rounded-full">
+              <span className="absolute -bottom-1 -right-1 flex items-center justify-center w-4 h-4 text-xs text-[--foreground] bg-green-500 rounded-full">
                 {cart && cart.length}
               </span>
             </div>
