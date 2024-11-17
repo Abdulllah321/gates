@@ -66,7 +66,7 @@ const Footer = () => {
                 type="text"
                 className="flex-1 bg-transparent outline-none"
               />
-              <FaArrowRight className="cursor-pointer size-5 hover:text-yellow-500" />
+              <FaArrowRight className="cursor-pointer size-5 hover:text-green-500" />
               <div className="absolute left-0 w-full h-px bg-gray-500 -bottom-3"></div>
             </div>
             {/* Custom Checkbox */}
