@@ -63,7 +63,7 @@ export default function ServicesSection() {
             </div>
 
             {/* Service Content */}
-            <p className="text-yellow-500 font-medium text-sm uppercase mb-2">
+            <p className="text-green-500 font-medium text-sm uppercase mb-2">
               {service.slogan}
             </p>
             <h3 className="text-2xl font-semibold mb-3">{service.name}</h3>
@@ -72,7 +72,7 @@ export default function ServicesSection() {
             {/* Arrow Button */}
             <button
               onClick={() => router.push("/services")}
-              className="flex items-center gap-2 text-c-800 text-lg font-medium  group-hover:text-white rounded-full p-2 bg-transparent border border-yellow-600 group-hover:bg-yellow-600   transition-all duration-700"
+              className="flex items-center gap-2 text-c-800 text-lg font-medium  group-hover:text-white rounded-full p-2 bg-transparent border border-green-600 group-hover:bg-green-600   transition-all duration-700"
             >
               <FaArrowRight />
             </button>
