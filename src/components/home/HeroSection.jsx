@@ -42,7 +42,7 @@ export default function HeroSection() {
           {/* Gates/Fences Button */}
           <button
             onClick={() => router.push("/gates")}
-            className="mt-2 px-6 py-3 bg-yellow-500 text-black font-semibold rounded-md hover:bg-yellow-600 transition-all mr-2 shadow-lg hover:scale-105 transform transition duration-300"
+            className="mt-2 px-6 py-3 bg-green-200 text-black font-semibold rounded-md hover:bg-green-400 transition-all mr-2 shadow-lg hover:scale-105 transform transition duration-300"
           >
             Shop Gates & Fences
           </button>
@@ -50,7 +50,7 @@ export default function HeroSection() {
           {/* Accessories Button */}
           <button
             onClick={() => router.push("/accessories")}
-            className="mt-2 px-6 py-3 border border-yellow-500 text-yellow-500 font-semibold rounded-md hover:bg-yellow-500 hover:text-black transition-all shadow-lg hover:scale-105 transform transition duration-300"
+            className="mt-2 px-6 py-3 border border-green-500 text-green-500 font-semibold rounded-md hover:bg-green-500 hover:text-black transition-all shadow-lg hover:scale-105 transform transition duration-300"
           >
             Shop Accessories
           </button>
