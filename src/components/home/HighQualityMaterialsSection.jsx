@@ -116,7 +116,7 @@ const FeatureSection = ({ title, items, imageSrc, invert }) => {
         <ul className="space-y-4 text-lg md:text-xl text-gray-600">
           {items.map((item, index) => (
             <li key={index} className="flex items-center">
-              <FaHammer className="text-yellow-500 mr-4 w-10 h-10" />
+              <FaHammer className="text-green-500 mr-4 w-10 h-10" />
               {item}
             </li>
           ))}
