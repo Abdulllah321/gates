@@ -6,10 +6,10 @@
 :root {
   --background: #F6F5ED;
   --foreground: #181818;
-  --c-prime: rgb(250 204 21);
-  --c-prime-light: rgb(253 224 71);
-  --c-prime-dark: rgb(234 179 8);
-  --c-prime-black: rgb(202 138 4);
+  --c-prime: #bbd24a; /* Base green */
+  --c-prime-light: #d7e67b; /* Lighter green */
+  --c-prime-dark: #94a836; /* Darker green */
+  --c-prime-black: #7f8e2b; /* Darkest green */
   --c-green: rgb(34 197 94);
   --c-blue: rgb(59 130 246);
   --c-red: rgb(239 68 68);
@@ -18,12 +18,12 @@
   --c-50: #f9fafb;
   --c-100: #f3f4f6;
   --c-200: #e5e7eb;
-  --c-300: #d1d5db;
-  --c-400: #9ca3af;
-  --c-500: #6b7280;
-  --c-600: #4b5563;
-  --c-700: #374151;
-  --c-800: #1f2937;
+  --c-300: #d7e67b; /* Lighter green */
+  --c-400: #c5db5e; /* Light green */
+  --c-500: #bbd24a; /* Base green */
+  --c-600: #a6bc41; /* Slightly darker green */
+  --c-700: #94a836; /* Darker green */
+  --c-800: #7f8e2b; /* Darkest green */
   --c-900: #111827;
   --c-1000: #000000;
 }
