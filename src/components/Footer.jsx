@@ -17,7 +17,7 @@ const Footer = () => {
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col items-start justify-between py-12 space-y-6 md:flex-row">
           <Image
-            src={"/logo-inverse.png"}
+            src={"/IMG-20241117-WA0059.jpg"}
             alt="logo"
             width={100}
             height={100}
