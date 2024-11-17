@@ -72,7 +72,7 @@ export default function ServicesSection() {
             {/* Arrow Button */}
             <button
               onClick={() => router.push("/services")}
-              className="flex items-center gap-2 text-c-800 text-lg font-medium  group-hover:text-white rounded-full p-2 bg-transparent border border-green-600 group-hover:bg-green-600   transition-all duration-700"
+              className="flex items-center gap-2 text-c-800 text-lg font-medium  group-hover:text-white rounded-full p-2 bg-transparent border border-green-600 group-hover:bg-c-600   transition-all duration-700"
             >
               <FaArrowRight />
             </button>
