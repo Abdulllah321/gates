@@ -16,7 +16,7 @@ const CallToAction = () => {
   };
 
   return (
-    <section className="relative py-16 px-8 bg-yellow-50 text-gray-900 text-center overflow-hidden">
+    <section className="relative py-16 px-8 bg-c-50 text-gray-900 text-center overflow-hidden">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center mix-blend-overlay"
@@ -33,13 +33,13 @@ const CallToAction = () => {
       <div className="flex justify-center space-x-4 z-10 relative">
         <button
           onClick={() => openModal("quote")}
-          className="bg-yellow-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition"
+          className="bg-c-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition"
         >
           Get a Quote
         </button>
         <button
           onClick={() => openModal("contact")}
-          className="bg-transparent border-2 border-yellow-500 text-yellow-500 font-semibold py-3 px-6 rounded-lg hover:bg-yellow-500 hover:text-white transition"
+          className="bg-transparent border-2 border-c-500 text-c-500 font-semibold py-3 px-6 rounded-lg hover:bg-c-500 hover:text-white transition"
         >
           Contact Us
         </button>
