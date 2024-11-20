@@ -47,7 +47,7 @@ const IronWood = ({
         </div>{" "}
         <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
           <span className="pr-2.5 text-lg font-semibold text-c-blue">6</span>
-          Ironwood
+          Metal & Wood Options
         </div>{" "}
         <div className="absolute top-1.5 right-0">
           <button
