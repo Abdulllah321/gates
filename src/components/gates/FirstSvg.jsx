@@ -475,7 +475,7 @@ function FirstSvg() {
             <path fill="url(#img1)" d={bgPath} />
           </g>
 
-        <defs>
+        {/* <defs>
           <pattern
             id="img1"
             patternUnits="userSpaceOnUse"
@@ -500,7 +500,7 @@ function FirstSvg() {
               height="120"
             />
           </pattern>
-        </defs>
+        </defs> */}
 
         <g
           mask="url(#ironwoodMask)"

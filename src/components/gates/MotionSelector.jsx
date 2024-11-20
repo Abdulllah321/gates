@@ -95,7 +95,7 @@ const MotionSelector = ({
             checked={selectedMotion.selected === 1}
             onChange={() => handleSelection(1)}
           />{" "}
-          Bi Fold Swing
+          Swing
         </label>
 
         {/* Slide Option */}
@@ -111,7 +111,7 @@ const MotionSelector = ({
             checked={selectedMotion.selected === 2}
             onChange={() => handleSelection(2)}
           />{" "}
-          Bi Fold Slide
+          Slide
         </label>
       </div>
       <AnimatePresence>

@@ -5,9 +5,9 @@ const VerticalRangeInput = () => {
   const { height, setHeight } = useContext(GatesContext);
 
   return (
-    <label className="absolute left-0 z-50 flex items-center h-full md:-top-1/3 top-0">
+    <label className="absolute top-0 left-0 z-50 flex items-center h-full md:-top-1/3">
       {/* Custom Vertical Range Input */}
-      <div className="relative flex flex-col items-center rotate-90">
+      <div className="relative flex flex-col items-center -rotate-90">
         <input
           type="range"
           name="height"

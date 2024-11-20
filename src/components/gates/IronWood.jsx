@@ -42,7 +42,7 @@ const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
       <div className="relative mb-4 text-center">
         <div className="text-2xl font-bold">
           <span className="pr-2.5 text-lg font-semibold text-c-blue">5</span>
-          IronWood Options
+          Metal & Wood Options
         </div>
       </div>
 
