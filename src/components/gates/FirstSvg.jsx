@@ -352,45 +352,24 @@ function FirstSvg() {
             </>
           )}
 
-          {isPuppy && (
-            <>
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={96}
-                strokeDasharray="0.75,4.75"
-                d={`M ${isDual ? 122.175 : 124.3},48 0,48`}
-                style={{}}
-              />
+          <path
+            fill="none"
+            stroke="white"
+            strokeWidth={96}
+            strokeDasharray="0.75,4.75"
+            d={`M ${isDual ? 122.175 : 124.3},48 0,48`}
+            style={{}}
+          />
 
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={96}
-                strokeDasharray="0.75,4.75"
-                d={`M ${isDual ? 125.875 : 123.7},48 248,48`}
-                style={{}}
-              />
+          <path
+            fill="none"
+            stroke="white"
+            strokeWidth={96}
+            strokeDasharray="0.75,4.75"
+            d={`M ${isDual ? 125.875 : 123.7},48 248,48`}
+            style={{}}
+          />
 
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={16}
-                strokeDasharray="0.75,4.75"
-                d={`M ${isDual ? 119.125 : 121.55},74 0,74`}
-                style={{}}
-              />
-
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={16}
-                strokeDasharray="0.75,4.75"
-                d={`M ${isDual ? 128.575 : 126.45},74 248,74`}
-                style={{}}
-              />
-            </>
-          )}
           {isDouble && (
             <>
               {" "}
@@ -471,9 +450,9 @@ function FirstSvg() {
             </>
           )}{" "}
         </mask>
-          <g transform="translate(0,-7)">
-            <path fill="url(#img1)" d={bgPath} />
-          </g>
+        <g transform="translate(0,-7)">
+          <path fill="url(#img1)" d={bgPath} />
+        </g>
 
         {/* <defs>
           <pattern
@@ -502,10 +481,7 @@ function FirstSvg() {
           </pattern>
         </defs> */}
 
-        <g
-          mask="url(#ironwoodMask)"
-          fill="url(#img1)"
-        >
+        <g mask="url(#ironwoodMask)" fill="url(#img1)">
           <motion.path
             id="mainPath"
             d={finalPath}
