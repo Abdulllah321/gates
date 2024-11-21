@@ -27,7 +27,7 @@ const Header = () => {
     // setSidebarOpen(false);
     setCartOpen(false);
   };
-  
+
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     setCart(storedCartItems);
@@ -90,14 +90,24 @@ const Header = () => {
           id="logo"
           aria-label="Website logo"
         >
-          <Image src="/IMG-20241117-WA0059.jpg" width={120} height={100} alt="Logo" />
+          <Image
+            src="/IMG-20241117-WA0059.png"
+            width={120}
+            height={100}
+            alt="Logo"
+          />
         </div>
         <div
           className="relative block md:hidden"
           id="logo"
           aria-label="Website logo"
         >
-          <Image src="/IMG-20241117-WA0059.jpg" width={120} height={100} alt="Logo" />
+          <Image
+            src="/IMG-20241117-WA0059.png"
+            width={120}
+            height={100}
+            alt="Logo"
+          />
         </div>
 
         {/* Right Navigation */}
@@ -206,7 +216,7 @@ const Header = () => {
                     className="flex items-center justify-between mb-4"
                   >
                     <Image
-                      src="/IMG-20241117-WA0059.jpg"
+                      src="/IMG-20241117-WA0059.png"
                       width={120}
                       height={100}
                       alt="Logo"
@@ -297,7 +307,12 @@ const Header = () => {
             className="fixed top-0 right-0 z-50 flex flex-col justify-between h-full p-12 text-gray-800 bg-white w-96"
           >
             <div className="flex items-center justify-between mb-4">
-              <Image src="/IMG-20241117-WA0059.jpg" width={120} height={100} alt="Logo" />
+              <Image
+                src="/IMG-20241117-WA0059.png"
+                width={120}
+                height={100}
+                alt="Logo"
+              />
               <button
                 type="button"
                 className="p-2 rounded-full size-12 bg-[--background] flex items-center justify-center"

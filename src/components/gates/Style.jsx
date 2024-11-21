@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { GatesContext } from "../GatesContext";
 
 const Style = ({
   selectedStyle,
@@ -8,13 +9,12 @@ const Style = ({
   setIsOpen,
   width,
 }) => {
+  const { selectedType } = useContext(GatesContext);
   const handleSelection = (value) => {
     setSelectedStyle({
       selected: value,
     });
   };
-
- 
 
   const handlePositionSelection = (position) => {
     setSelectedStyle({ ...selectedStyle, position });
@@ -23,7 +23,6 @@ const Style = ({
   return (
     <div>
       <div className="relative mb-1 text-center mt-9">
-        
         <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
           <span className="pr-2.5 text-lg font-semibold text-c-blue">2</span>
           Style
@@ -62,7 +61,7 @@ const Style = ({
       </div>
 
       <div
-        className="grid grid-cols-4"
+        className={`grid ${selectedType === "gate" ? 'grid-cols-4': 'grid-cols-1'}`}
         style={{
           background:
             "linear-gradient(90deg, rgba(243, 244, 246, 0) 0%, rgb(243, 244, 246) 10%, rgb(243, 244, 246) 90%, rgba(243, 244, 246, 0) 100%)",
@@ -83,54 +82,57 @@ const Style = ({
           />
           Rectangular
         </label>
+        {selectedType === "gate" && (
+          <>
+            {/* Arch Option */}
+            <label
+              className={`${
+                selectedStyle.selected === 1 ? "selected" : "unselected"
+              } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-300 px-0 transition-all`}
+            >
+              <input
+                type="radio"
+                name="style"
+                value={1}
+                checked={selectedStyle.selected === 1}
+                onChange={() => handleSelection(1)}
+              />
+              Arch
+            </label>
 
-        {/* Arch Option */}
-        <label
-          className={`${
-            selectedStyle.selected === 1 ? "selected" : "unselected"
-          } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-300 px-0 transition-all`}
-        >
-          <input
-            type="radio"
-            name="style"
-            value={1}
-            checked={selectedStyle.selected === 1}
-            onChange={() => handleSelection(1)}
-          />
-          Arch
-        </label>
+            {/* Center Peak Option */}
+            <label
+              className={`${
+                selectedStyle.selected === 4 ? "selected" : "unselected"
+              } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-300 px-0 transition-all`}
+            >
+              <input
+                type="radio"
+                name="style"
+                value={4}
+                checked={selectedStyle.selected === 4}
+                onChange={() => handleSelection(4)}
+              />
+              Center Peak
+            </label>
 
-        {/* Center Peak Option */}
-        <label
-          className={`${
-            selectedStyle.selected === 4 ? "selected" : "unselected"
-          } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-300 px-0 transition-all`}
-        >
-          <input
-            type="radio"
-            name="style"
-            value={4}
-            checked={selectedStyle.selected === 4}
-            onChange={() => handleSelection(4)}
-          />
-          Center Peak
-        </label>
-
-        {/* Sectional Option */}
-        <label
-          className={`${
-            selectedStyle.selected === 5 ? "selected" : "unselected"
-          } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-500 px-0 transition-all`}
-        >
-          <input
-            type="radio"
-            name="style"
-            value={5}
-            checked={selectedStyle.selected === 5}
-            onChange={() => handleSelection(5)}
-          />
-          Sectional
-        </label>
+            {/* Sectional Option */}
+            <label
+              className={`${
+                selectedStyle.selected === 5 ? "selected" : "unselected"
+              } h-9 cursor-pointer select-none divide-x rounded-none border-b-2 border-t-2 border-c-500 px-0 transition-all`}
+            >
+              <input
+                type="radio"
+                name="style"
+                value={5}
+                checked={selectedStyle.selected === 5}
+                onChange={() => handleSelection(5)}
+              />
+              Sectional
+            </label>
+          </>
+        )}
       </div>
 
       <AnimatePresence>

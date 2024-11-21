@@ -45,7 +45,13 @@ export const GatesProvider = ({ children }) => {
     return `${width}-${kitValue.selected}-${panelValue.selected}-${selectedStyle.selected}-${selectedPicket.selected}-${selectedIronWood.selected}-${selectedAccess.selected}`;
   };
 
-  // Parse SKU from the URL and update state values
+  // useEffect(() => {
+  //   if (selectedType === "fence") {
+  //     setSelectedStyle({ selected: 0 });
+  //     setKitValue({ selected: 0 });
+  //   }
+  // }, [selectedType]); 
+
   useEffect(() => {
     const sku = searchParams.get("sku");
     const directionParam = searchParams.get("direction");
@@ -92,7 +98,6 @@ export const GatesProvider = ({ children }) => {
     }
   }, [searchParams]);
 
-  // Update URL query parameter when any state changes
   useEffect(() => {
     const sku = buildSKU();
     const params = new URLSearchParams(searchParams);

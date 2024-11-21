@@ -321,32 +321,41 @@ const GatesForm = () => {
     existingCart.push(cartItem);
     localStorage.setItem("cartItems", JSON.stringify(existingCart));
   };
+
+  useEffect(() => {
+    if (selectedType === "fence") {
+      setKitValue({ ...kitValue, selected: 0 });
+      setSelectedStyle({ ...selectedStyle, selected: 0 });
+    }
+  },[selectedType]);
   return (
     <div className="col-span-2 mt-2 md:col-span-1 md:pl-3 lg:pl-4">
       <form>
-        <MotionSelector
-          selectedMotion={kitValue}
-          setSelectedMotion={setKitValue}
-          setIsOpen={setIsOpen}
-          isOpen={isOpen}
-          width={width}
-          selectedType={selectedType}
-        />{" "}
-        <Panel
-          panelValue={panelValue}
-          setPanelValue={setPanelValue}
-          setIsOpen={setIsOpen}
-          isOpen={isOpen}
-          isSwing={isSwing}
-          isSlide={isSlide}
-        />
+ {selectedType === "gate"&&       <>
+          <MotionSelector
+            selectedMotion={kitValue}
+            setSelectedMotion={setKitValue}
+            setIsOpen={setIsOpen}
+            isOpen={isOpen}
+            width={width}
+            selectedType={selectedType}
+          />
+          <Panel
+            panelValue={panelValue}
+            setPanelValue={setPanelValue}
+            setIsOpen={setIsOpen}
+            isOpen={isOpen}
+            isSwing={isSwing}
+            isSlide={isSlide}
+          />
+        </>}
         <Style
           selectedStyle={selectedStyle}
           setSelectedStyle={setSelectedStyle}
           setIsOpen={setIsOpen}
           isOpen={isOpen}
           width={width}
-        />{" "}
+        />
         <div className="relative mb-1 text-center mt-9">
           <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
             <span className="pr-2.5 text-lg font-semibold text-c-blue">3</span>
