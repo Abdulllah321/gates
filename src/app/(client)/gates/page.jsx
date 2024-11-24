@@ -101,7 +101,7 @@ const Gates = () => {
                 Features
               </h2>
               <ul className="mt-4 text-gray-700 list-disc list-inside">
-                {selectedType === "fence"
+                {(selectedType === "fence"
                   ? [
                       {
                         label: "Material",
@@ -154,18 +154,15 @@ const Gates = () => {
                           "Sturdy round steel tubing, spaced 4 inches apart.",
                       },
                       {
-                        label: "DIY Wood",
-                        description: "Compatible with custom wood panels.",
-                      },
-                      {
                         label: "Post",
                         description: "Includes cane bolt(s) and gate latch.",
                       },
-                    ].map((feature, index) => (
-                      <li key={index} className="pb-2">
-                        <strong>{feature.label}:</strong> {feature.description}
-                      </li>
-                    ))}
+                    ]
+                ).map((feature, index) => (
+                  <li key={index} className="pb-2">
+                    <strong>{feature.label}:</strong> {feature.description}
+                  </li>
+                ))}
               </ul>
             </section>
 
@@ -189,7 +186,7 @@ const Gates = () => {
               </p>
             </section>
           </div>
-        </div>
+        </div>  
       </div>
     </Suspense>
   );
