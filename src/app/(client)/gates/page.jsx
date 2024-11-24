@@ -3,7 +3,13 @@ import Desktopsvg from "@/components/gates/Desktopsvg";
 import GatesForm from "@/components/gates/GatesForm";
 import Head from "@/components/gates/Head";
 import MobileSvg from "@/components/gates/MobileSvg";
-import React, { Suspense, useContext, useEffect, useRef, useState } from "react";
+import React, {
+  Suspense,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { motion } from "framer-motion";
 import ToggleGateFence from "@/components/ToggleGateFence";
 import { GatesContext } from "@/components/GatesContext";
@@ -13,7 +19,6 @@ const Gates = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { selectedType, ft, height } = useContext(GatesContext);
 
-  
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 786);
@@ -61,12 +66,9 @@ const Gates = () => {
         </div>
       }
     >
-      <div className="pb-10 mx-auto md:pb-5 max-w-7xl px-4">
+      <div className="px-4 pb-10 mx-auto md:pb-5 max-w-7xl">
         <Head />
-        {isMobile && (
-            
-            <MobileSvg />
-        )}
+        {isMobile && <MobileSvg />}
         <ToggleGateFence />
         <div className="relative grid grid-cols-1 gap-4 pt-0 pb-6 md:grid-cols-2 md:pt-4">
           {!isMobile && <Desktopsvg />}
@@ -81,18 +83,14 @@ const Gates = () => {
                 <span className="capitalize">{selectedType}</span>
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-gray-700">
-                Every gate is custom-designed just for you! Our skilled
-                ironworkers use heavy-duty steel to handcraft each gate to the
-                highest industry standards.
+                {selectedType === "fence"
+                  ? "Our fences are crafted to blend style and durability, offering the perfect solution for privacy and security."
+                  : "Each gate is custom-designed to meet your needs. Handcrafted using heavy-duty steel and finished to industry standards."}
               </p>
               <p className="mt-4 text-lg leading-relaxed text-gray-700">
-                Your gate will be American-made, thoroughly cleaned, and
-                finished with a protective anti-gassing primer and sleek black
-                satin powder-coat.
-              </p>
-              <p className="mt-4 text-lg font-bold leading-relaxed text-gray-700">
-                Enjoy your gate installation safely in the sunshine with a
-                partner!
+                {selectedType === "fence"
+                  ? "Choose from various materials, including wood, tempered glass, or steel, all finished with protective coatings for long-lasting performance."
+                  : "All gates are thoroughly cleaned and coated with a protective primer and satin black powder-coat for durability."}
               </p>
             </section>
 
@@ -103,48 +101,71 @@ const Gates = () => {
                 Features
               </h2>
               <ul className="mt-4 text-gray-700 list-disc list-inside">
-                {[
-                  {
-                    label: "Finish",
-                    description:
-                      "Thick satin black powder-coat with rust-preventing anti-gassing primer.",
-                  },
-                  {
-                    label: "Size",
-                    description:
-                      "6ft tall when set on v-track or 2 inches above the ground for swing.",
-                  },
-                  {
-                    label: "Swing Kit",
-                    description:
-                      "Includes heavy-duty hinges and 4x4 94-inch posts.",
-                  },
-                  {
-                    label: "Panels",
-                    description:
-                      "10ft+ wide panels ship in 2 bolt-connectable sections.",
-                  },
-                  {
-                    label: "Style",
-                    description: "Stylish arch with finials.",
-                  },
-                  {
-                    label: "Pickets",
-                    description: "Thick round steel tubing set 4 inches apart.",
-                  },
-                  {
-                    label: "DIY Ironwood",
-                    description: "Perfect for adding your own wood.",
-                  },
-                  {
-                    label: "Access",
-                    description: "Includes cane bolt(s) and/or gate latch.",
-                  },
-                ].map((feature, index) => (
-                  <li key={index} className="pb-2">
-                    <strong>{feature.label}:</strong> {feature.description}
-                  </li>
-                ))}
+                {selectedType === "fence"
+                  ? [
+                      {
+                        label: "Material",
+                        description:
+                          "Options include wood, tempered glass, or steel.",
+                      },
+                      {
+                        label: "Height",
+                        description:
+                          "Available in standard heights of 4ft, 6ft, and 8ft.",
+                      },
+                      {
+                        label: "Privacy",
+                        description:
+                          "Includes options for full privacy or semi-transparent designs.",
+                      },
+                      {
+                        label: "Finish",
+                        description:
+                          "Rust-resistant coatings and finishes for durability.",
+                      },
+                      {
+                        label: "Installation",
+                        description:
+                          "DIY-friendly or professional installation support available.",
+                      },
+                    ]
+                  : [
+                      {
+                        label: "Finish",
+                        description:
+                          "Rust-resistant satin black powder-coat with anti-gassing primer.",
+                      },
+                      {
+                        label: "Swing Kit",
+                        description: "Includes heavy-duty hinges and posts.",
+                      },
+                      {
+                        label: "Panels",
+                        description:
+                          "Wide panels shipped in bolt-connectable sections.",
+                      },
+                      {
+                        label: "Style",
+                        description: "Modern arch design with Center Peak.",
+                      },
+                      {
+                        label: "Pickets",
+                        description:
+                          "Sturdy round steel tubing, spaced 4 inches apart.",
+                      },
+                      {
+                        label: "DIY Wood",
+                        description: "Compatible with custom wood panels.",
+                      },
+                      {
+                        label: "Post",
+                        description: "Includes cane bolt(s) and gate latch.",
+                      },
+                    ].map((feature, index) => (
+                      <li key={index} className="pb-2">
+                        <strong>{feature.label}:</strong> {feature.description}
+                      </li>
+                    ))}
               </ul>
             </section>
 
@@ -155,39 +176,20 @@ const Gates = () => {
                 Free Shipping *
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-gray-700">
-                Orders to Alaska and Hawaii incur a flat rate of $750. All other
-                US states enjoy complimentary shipping.
+                Free shipping to most US states. Orders to Alaska and Hawaii
+                incur a flat rate of $750.
               </p>
               <p className="mt-4 text-lg leading-relaxed text-gray-700">
-                Delivery typically takes 3-5 business days. Unloading products
-                safely with assistance is your responsibility.
+                Delivery within 3-5 business days. Assistance is required for
+                unloading upon delivery.
               </p>
               <p className="mt-4 text-lg leading-relaxed text-gray-700">
-                Please inspect your shipment for concealed damages and missing
-                items before signing for delivery.
+                Inspect shipments for damages or missing items before signing
+                for delivery.
               </p>
             </section>
           </div>
         </div>
-
-        <iframe
-          style={{
-            display: "block",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            overflow: "hidden",
-            border: 0,
-            opacity: 0,
-            pointerEvents: "none",
-            zIndex: -1,
-          }}
-          aria-hidden="true"
-          tabIndex={-1}
-          src="about:blank"
-        />
       </div>
     </Suspense>
   );

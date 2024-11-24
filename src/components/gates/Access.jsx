@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { GatesContext } from "../GatesContext";
 
 const PostSystem = ({
   selectedPostSystem,
   setSelectedPostSystem,
   isOpen,
   setIsOpen,
-}) => {
+}) => {  const { selectedType } = useContext(GatesContext);
+
   const handleSelection = (value) => {
     setSelectedPostSystem({
       selected: value,
@@ -18,9 +20,11 @@ const PostSystem = ({
   return (
     <div>
       <div className="relative mb-1 text-center mt-9">
-       
         <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
-          <span className="pr-2.5 text-lg font-semibold text-c-blue">6</span>
+          <span className="pr-2.5 text-lg font-semibold text-c-blue">
+            {" "}
+            {selectedType === "gate" ? 6 : 5}
+          </span>
           Post System
         </div>
         <div className="absolute top-1.5 right-0">

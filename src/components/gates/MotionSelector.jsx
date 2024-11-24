@@ -142,15 +142,6 @@ const MotionSelector = ({
                 <li>
                   <div className="marker">
                     <p>
-                      <strong>None:</strong> You can use our{" "}
-                      <a href="/category/parts">Individual Parts</a> page to
-                      build your own, even more custom, gate kit.
-                    </p>
-                  </div>
-                </li>
-                <li>
-                  <div className="marker">
-                    <p>
                       <strong>Swing:</strong> Includes heavy duty hinges and 4x4
                       94 inch heavy/regular posts with caps. Swings open over
                       180 degrees without automation.

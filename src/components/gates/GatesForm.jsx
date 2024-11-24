@@ -327,28 +327,30 @@ const GatesForm = () => {
       setKitValue({ ...kitValue, selected: 0 });
       setSelectedStyle({ ...selectedStyle, selected: 0 });
     }
-  },[selectedType]);
+  }, [selectedType]);
   return (
     <div className="col-span-2 mt-2 md:col-span-1 md:pl-3 lg:pl-4">
       <form>
- {selectedType === "gate"&&       <>
-          <MotionSelector
-            selectedMotion={kitValue}
-            setSelectedMotion={setKitValue}
-            setIsOpen={setIsOpen}
-            isOpen={isOpen}
-            width={width}
-            selectedType={selectedType}
-          />
-          <Panel
-            panelValue={panelValue}
-            setPanelValue={setPanelValue}
-            setIsOpen={setIsOpen}
-            isOpen={isOpen}
-            isSwing={isSwing}
-            isSlide={isSlide}
-          />
-        </>}
+        {selectedType === "gate" && (
+          <>
+            <MotionSelector
+              selectedMotion={kitValue}
+              setSelectedMotion={setKitValue}
+              setIsOpen={setIsOpen}
+              isOpen={isOpen}
+              width={width}
+              selectedType={selectedType}
+            />
+            <Panel
+              panelValue={panelValue}
+              setPanelValue={setPanelValue}
+              setIsOpen={setIsOpen}
+              isOpen={isOpen}
+              isSwing={isSwing}
+              isSlide={isSlide}
+            />
+          </>
+        )}
         <Style
           selectedStyle={selectedStyle}
           setSelectedStyle={setSelectedStyle}
@@ -358,7 +360,9 @@ const GatesForm = () => {
         />
         <div className="relative mb-1 text-center mt-9">
           <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
-            <span className="pr-2.5 text-lg font-semibold text-c-blue">3</span>
+            <span className="pr-2.5 text-lg font-semibold text-c-blue">
+              {selectedType === "gate" ? 3 : 2}
+            </span>
             Width
           </div>
           <div className="absolute top-1.5 right-0">
@@ -464,6 +468,15 @@ const GatesForm = () => {
                           shown, let us know. Unless requested otherwise, all
                           gates are 6ft tall when set on v-track (slide) or 2
                           inches above the ground (swing).
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="marker">
+                        <p>
+                          <strong>Height Options:</strong> Available heights
+                          range from 4ft to 8ft. Please specify your desired
+                          height during the order.
                         </p>
                       </div>
                     </li>

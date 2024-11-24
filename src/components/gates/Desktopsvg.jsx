@@ -6,6 +6,7 @@ import { GsapAnimation } from "../triggerGsapAnimation";
 import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import VerticalRangeInput from "./VerticalRangeInput";
+import { useGSAP } from "@gsap/react";
 
 const Desktopsvg = () => {
   const { width, ft, inch, height } = useContext(GatesContext);
@@ -18,7 +19,7 @@ const Desktopsvg = () => {
   const isLeft = direction === "Left to Right";
   const isSolo = sku && sku[2] === "0";
 
-  useEffect(() => {
+  useGSAP(() => {
     GsapAnimation("#HDim path:nth-child(1)", {
       d: `M ${95 - currentWidth * 0.5} 40, ${95 - currentWidth * 0.5} 11`,
       ease: "power1.inOut",
@@ -156,13 +157,17 @@ const Desktopsvg = () => {
     <Suspense>
       <div className="hidden col-span-2 row-span-1 mb-8 md:col-span-1 md:mt-0 md:mb-0 md:block md:pr-3 lg:pr-4">
         {" "}
-        <VerticalRangeInput />
         <div className="sticky top-14 md:top-28">
           <div className="h-40 sm:h-72 md:h-auto">
             <div className="relative mx-auto" id="sketch-main">
               <div id="sketch-scan">
                 <FirstSvg />
                 <div className="-mt-3 md:-mt-4">
+                  <VerticalRangeInput
+                    style={{
+                      left: 100 - currentWidth ,
+                    }}
+                  />
                   <AnimatePresence>
                     {isSwing && (
                       <motion.div

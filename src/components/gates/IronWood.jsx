@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { GatesContext } from "../GatesContext";
 
 const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
   const [isOpen, setIsOpen] = useState({ ironWood: false });
+  const { selectedType } = useContext(GatesContext);
 
   const handleSelection = (value) => {
     setSelectedIronWood({
@@ -41,7 +43,8 @@ const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
     <div className="mt-9">
       <div className="relative mb-4 text-center">
         <div className="text-2xl font-bold">
-          <span className="pr-2.5 text-lg font-semibold text-c-blue">5</span>
+          <span className="pr-2.5 text-lg font-semibold text-c-blue">            {selectedType === "gate" ? 5 : 4}
+</span>
           Metal & Wood Options
         </div>
       </div>
@@ -290,7 +293,7 @@ const IronWood = ({ selectedIronWood, setSelectedIronWood }) => {
                     </div>
                   )}
               </div>
-            )}
+            )}  
             {/* Stain Color Options */}
             {selectedIronWood.subOption === "Finish" &&
               selectedIronWood.finish && (

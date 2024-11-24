@@ -1,6 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { MdOutlineTerminal } from "react-icons/md";
+import { GatesContext } from "../GatesContext";
 
 const types = [
   {
@@ -32,6 +33,7 @@ const Pickets = ({
   selectedPicket: selectedMaterial,
   setSelectedPicket: setSelectedMaterial,
 }) => {
+  const {selectedType} = useContext(GatesContext)
   const handleMaterialSelection = useCallback(
     (value) => {
       // Update selected material only if the value is different
@@ -86,9 +88,10 @@ const Pickets = ({
   return (
     <div>
       <div className="relative mb-1 text-center mt-9">
-    
         <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
-          <span className="pr-2.5 text-lg font-semibold text-c-blue">4</span>
+          <span className="pr-2.5 text-lg font-semibold text-c-blue">
+            {selectedType === "gate" ? 4 : 3}
+          </span>
           Fill Material & Patterns
         </div>
         <div className="absolute top-1.5 right-0">
@@ -260,22 +263,27 @@ const Pickets = ({
             <div className="pb-2">
               <ul className="mt-2">
                 <li>
-                  <strong>Space or no space:</strong> Decide whether to have
-                  spacing between material or flush fit.
+                  <strong>Spacing Options:</strong> Decide whether to include
+                  spacing between pickets for an open look or opt for a flush
+                  fit for added privacy.
                 </li>
                 <li>
-                  <strong>Tongue or Groove:</strong> Available for wood options.
+                  <strong>Wood Joinery Styles:</strong> Select between{" "}
+                  <em>Tongue and Groove</em> for seamless wood connections.
                 </li>
                 <li>
-                  <strong>Non-Wood Options:</strong> Stainless steel wire @ 4” /
-                  Acrylic panels with/without privacy tint / Tempered glass
-                  with/without privacy tint.
+                  <strong>Non-Wood Alternatives:</strong> Choose from stainless
+                  steel wire (4-inch spacing), acrylic panels with or without
+                  privacy tint, and tempered glass with or without privacy tint.
                 </li>
                 <li>
-                  <strong>Metal Frame:</strong> Mandatory for all selections.
+                  <strong>Frame Requirement:</strong> A metal frame is required
+                  for all picket designs to ensure structural integrity.
                 </li>
                 <li>
-                  <strong>Finish:</strong> Choose between paint or powder coat.
+                  <strong>Finishing Choices:</strong> Customize your design with
+                  a paint finish or a powder-coated finish for enhanced
+                  durability and style.
                 </li>
               </ul>
             </div>

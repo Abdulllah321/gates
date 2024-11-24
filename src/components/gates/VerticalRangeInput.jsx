@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
 import { GatesContext } from "../GatesContext";
 
-const VerticalRangeInput = () => {
+const VerticalRangeInput = ( { className , style}) => {
   const { height, setHeight } = useContext(GatesContext);
 
   return (
-    <label className="absolute top-0 left-0 z-50 flex items-center h-full md:-top-1/3">
+    <label
+      className={`relative top-[70px] left-0 z-50 flex items-center h-full md:-top-[80px]  ${className}`}
+      style={style}
+    >
       {/* Custom Vertical Range Input */}
       <div className="relative flex flex-col items-center -rotate-90">
         <input

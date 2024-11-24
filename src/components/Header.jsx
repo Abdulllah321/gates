@@ -95,6 +95,7 @@ const Header = () => {
             width={120}
             height={100}
             alt="Logo"
+            className="scale-105"
           />
         </div>
         <div

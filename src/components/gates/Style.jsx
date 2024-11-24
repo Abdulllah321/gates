@@ -24,7 +24,9 @@ const Style = ({
     <div>
       <div className="relative mb-1 text-center mt-9">
         <div className="col-span-1 mt-1.5 mb-1 text-2xl font-bold">
-          <span className="pr-2.5 text-lg font-semibold text-c-blue">2</span>
+          <span className="pr-2.5 text-lg font-semibold text-c-blue">
+            {selectedType === "gate" ? 2 : 1}
+          </span>
           Style
         </div>
         <div className="absolute top-1.5 right-0">
@@ -61,7 +63,9 @@ const Style = ({
       </div>
 
       <div
-        className={`grid ${selectedType === "gate" ? 'grid-cols-4': 'grid-cols-1'}`}
+        className={`grid ${
+          selectedType === "gate" ? "grid-cols-4" : "grid-cols-1"
+        }`}
         style={{
           background:
             "linear-gradient(90deg, rgba(243, 244, 246, 0) 0%, rgb(243, 244, 246) 10%, rgb(243, 244, 246) 90%, rgba(243, 244, 246, 0) 100%)",
@@ -180,7 +184,6 @@ const Style = ({
           </motion.div>
         )}
       </AnimatePresence>
-
       <AnimatePresence>
         {isOpen.style && (
           <motion.div
@@ -198,46 +201,78 @@ const Style = ({
               damping: 5,
             }}
             className="pl-4 pr-1 overflow-hidden text-left rounded-b-md bg-c-50 md:mx-2"
-            style={{}}
           >
             <div className="pb-2">
               <div className="py-2 text-lg font-semibold text-center capitalize">
-                Classic styles on modern gates
-              </div>{" "}
-              <hr />{" "}
+                {selectedType === "fence"
+                  ? "Fence Styles"
+                  : "Classic Styles on Modern Gates"}
+              </div>
+              <hr />
               <ul className="mt-2">
-                <li>
-                  <div className="marker">
-                    <p>
-                      <strong>None:</strong> Sometimes a flat top is all you
-                      need.
-                    </p>
-                  </div>
-                </li>
-                <li>
-                  <div className="marker">
-                    <p>
-                      <strong>Arch:</strong> Rounds the shoulders of your gate
-                      down approximately 1ft for a luxurious sunrise shape.
-                    </p>
-                  </div>
-                </li>
-                <li>
-                  <div className="marker">
-                    <p>
-                      <strong>Finials:</strong> Makes your gate even more
-                      intimidating. Adds 2 inches to the total height.
-                    </p>
-                  </div>
-                </li>
-                <li>
-                  <div className="marker">
-                    <p>
-                      <strong>Both:</strong> There&aspos;s nothing more stylish
-                      than an arch with finials.
-                    </p>
-                  </div>
-                </li>
+                {selectedType === "fence" ? (
+                  <li>
+                    <div className="marker">
+                      <p>
+                        <strong>Rectangular:</strong> A classic straight-edge
+                        design that offers a timeless look.
+                      </p>
+                    </div>
+                  </li>
+                ) : (
+                  <>
+                    <li>
+                      <div className="marker">
+                        <p>
+                          <strong>Rectangular:</strong> A classic straight-edge
+                          design that offers a timeless look.
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="marker">
+                        <p>
+                          <strong>Arch:</strong> Adds a rounded top for an
+                          elegant sunrise effect.
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="marker">
+                        <p>
+                          <strong>Center Peak:</strong> Creates a bold statement
+                          with a peak in the center of the gate.
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="marker">
+                        <p>
+                          <strong>Sectional:</strong> Offers a modular design
+                          with additional options:
+                        </p>
+                        <ul className="mt-2 ml-4">
+                          <li>
+                            <div className="marker">
+                              <p>
+                                <strong>Sectional Bottom:</strong> Features a
+                                segmented bottom for a unique appearance.
+                              </p>
+                            </div>
+                          </li>
+                          <li>
+                            <div className="marker">
+                              <p>
+                                <strong>Sectional Top:</strong> Adds segmented
+                                detailing to the top for added style.
+                              </p>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           </motion.div>
