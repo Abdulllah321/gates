@@ -126,7 +126,7 @@ const Head = () => {
     setInch(inches);
     return `${feet}ft ${inches}in Wide, ${
       kit ? kit + " Kit, " : ""
-    }${panelType}, ${style} ${pickets} ${ironWood} ${access} ~${weight}lbs`;
+    }${panelType}, ${style} ${pickets} ${ironWood} ${access}`;
   }
 
   // Determine the kit
