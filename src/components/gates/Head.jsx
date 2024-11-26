@@ -254,9 +254,7 @@ const Head = () => {
             {dimensions.pickets && `, ${dimensions.pickets}`}
             {dimensions.style && `, ${dimensions.style}`}
             {dimensions.ironWood && `, ${dimensions.ironWood}`}
-            {dimensions.access && `, ${dimensions.access}`} ~{" "}
-            {dimensions.weight}
-            lbs
+            {dimensions.access && `, ${dimensions.access}`}
           </h2>
         </div>
       </header>
