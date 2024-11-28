@@ -128,11 +128,11 @@ const MobileSvg = () => {
         {" "}
         <VerticalRangeInput
           style={{
-            left: 50 - currentWidth /1.5,
+            left: 50 - currentWidth / 1.5,
           }}
         />
         <div id="sketch-scan">
-          <FirstSvg />
+            <FirstSvg />
           <div className="-mt-3 md:-mt-4">
             <AnimatePresence>
               {isSwing && (

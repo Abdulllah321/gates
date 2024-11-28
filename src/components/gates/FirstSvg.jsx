@@ -184,88 +184,43 @@ function FirstSvg() {
 
   return (
     <Suspense>
-      <motion.svg
-        viewBox="-1 -1 250 96"
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-full"
-      >
-        <mask id="finialMasks" x={0} y={0}>
-          {(isFinials || isBoth) && (
-            <>
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={96}
-                strokeDasharray="0.75,4.75"
-                d={`M ${isDual ? 122.175 : 124.3},48 0,48`}
-              />
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={96}
-                strokeDasharray="0.75,4.75"
-                d={`M ${isDual ? 125.825 : 123.7},48 248,48`}
-              />
-            </>
-          )}
-        </mask>
-        <mask id="picketMask" x={0} y={0}>
-          <AnimatePresence>
-            {!isRec && isSectional && (
-              <motion.path
-                id="picketPath"
-                d={`M ${142 + (width - 36) * 0.5},66 ${
-                  106 - (width - 36) * 0.5
-                },66`}
-                strokeWidth={2}
-                fill="none"
-                stroke="white"
-                initial="hidden"
-                animate="visible"
-                exit={"hidden"}
-                variants={{
-                  hidden: { pathLength: 0 },
-                  visible: {
-                    pathLength: 1,
-                    transition: { duration: 1, ease: "easeInOut" },
-                  },
-                }}
-              />
-            )}
-          </AnimatePresence>
-          <AnimatePresence>
-            {isDiy && width > 60 && width < 119 && (
+      {/* <div className="scale-80"> */}
+        <motion.svg
+          viewBox="-1 -1 250 96"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full"
+        >
+          <mask id="finialMasks" x={0} y={0}>
+            {(isFinials || isBoth) && (
               <>
-                <motion.path
+                <path
                   fill="none"
                   stroke="white"
-                  strokeWidth={2}
-                  d="M 124,12 124,96"
-                  initial="hidden"
-                  animate="visible"
-                  exit={"hidden"}
-                  variants={{
-                    hidden: { pathLength: 0 },
-                    visible: {
-                      pathLength: 1,
-                      transition: { duration: 1, ease: "easeInOut" },
-                    },
-                  }}
+                  strokeWidth={96}
+                  strokeDasharray="0.75,4.75"
+                  d={`M ${isDual ? 122.175 : 124.3},48 0,48`}
+                />
+                <path
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={96}
+                  strokeDasharray="0.75,4.75"
+                  d={`M ${isDual ? 125.825 : 123.7},48 248,48`}
                 />
               </>
             )}
-          </AnimatePresence>
-          <AnimatePresence>
-            {isDiy && width > 119 && (
-              <>
+          </mask>
+          <mask id="picketMask" x={0} y={0}>
+            <AnimatePresence>
+              {!isRec && isSectional && (
                 <motion.path
-                  id={"diyleft"}
+                  id="picketPath"
+                  d={`M ${142 + (width - 36) * 0.5},66 ${
+                    106 - (width - 36) * 0.5
+                  },66`}
+                  strokeWidth={2}
                   fill="none"
                   stroke="white"
-                  strokeWidth={2}
-                  d={`M ${94 - (width - 120) * 0.25},12 ${
-                    94 - (width - 120) * 0.25
-                  },96`}
                   initial="hidden"
                   animate="visible"
                   exit={"hidden"}
@@ -277,184 +232,230 @@ function FirstSvg() {
                     },
                   }}
                 />
-                <motion.path
-                  id={"diyRight"}
+              )}
+            </AnimatePresence>
+            <AnimatePresence>
+              {isDiy && width > 60 && width < 119 && (
+                <>
+                  <motion.path
+                    fill="none"
+                    stroke="white"
+                    strokeWidth={2}
+                    d="M 124,12 124,96"
+                    initial="hidden"
+                    animate="visible"
+                    exit={"hidden"}
+                    variants={{
+                      hidden: { pathLength: 0 },
+                      visible: {
+                        pathLength: 1,
+                        transition: { duration: 1, ease: "easeInOut" },
+                      },
+                    }}
+                  />
+                </>
+              )}
+            </AnimatePresence>
+            <AnimatePresence>
+              {isDiy && width > 119 && (
+                <>
+                  <motion.path
+                    id={"diyleft"}
+                    fill="none"
+                    stroke="white"
+                    strokeWidth={2}
+                    d={`M ${94 - (width - 120) * 0.25},12 ${
+                      94 - (width - 120) * 0.25
+                    },96`}
+                    initial="hidden"
+                    animate="visible"
+                    exit={"hidden"}
+                    variants={{
+                      hidden: { pathLength: 0 },
+                      visible: {
+                        pathLength: 1,
+                        transition: { duration: 1, ease: "easeInOut" },
+                      },
+                    }}
+                  />
+                  <motion.path
+                    id={"diyRight"}
+                    fill="none"
+                    stroke="white"
+                    strokeWidth={2}
+                    d={`M ${154 + (width - 120) * 0.25},12 ${
+                      154 + (width - 120) * 0.25
+                    },96`}
+                    initial="hidden"
+                    animate="visible"
+                    exit={"hidden"}
+                    variants={{
+                      hidden: { pathLength: 0 },
+                      visible: {
+                        pathLength: 1,
+                        transition: { duration: 1, ease: "easeInOut" },
+                      },
+                    }}
+                  />
+                </>
+              )}
+            </AnimatePresence>
+
+            {width > 119 && !isDual && (
+              <>
+                <path
+                  d="M 125,12 125,96"
+                  strokeWidth={2}
                   fill="none"
                   stroke="white"
+                />
+                <path
+                  d="M 123,12 123,96"
                   strokeWidth={2}
-                  d={`M ${154 + (width - 120) * 0.25},12 ${
-                    154 + (width - 120) * 0.25
-                  },96`}
-                  initial="hidden"
-                  animate="visible"
-                  exit={"hidden"}
-                  variants={{
-                    hidden: { pathLength: 0 },
-                    visible: {
-                      pathLength: 1,
-                      transition: { duration: 1, ease: "easeInOut" },
-                    },
-                  }}
+                  fill="none"
+                  stroke="white"
                 />
               </>
             )}
-          </AnimatePresence>
+            {isDual && (
+              <>
+                <path
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={2}
+                  d={`M 125.5,12 125.5,96`}
+                />
 
-          {width > 119 && !isDual && (
-            <>
-              <path
-                d="M 125,12 125,96"
-                strokeWidth={2}
-                fill="none"
-                stroke="white"
-              />
-              <path
-                d="M 123,12 123,96"
-                strokeWidth={2}
-                fill="none"
-                stroke="white"
-              />
-            </>
-          )}
-          {isDual && (
-            <>
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={2}
-                d={`M 125.5,12 125.5,96`}
-              />
+                <path
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={2}
+                  d="M 122.5,12 122.5,96"
+                />
+              </>
+            )}
+            {isSingal && (
+              <>
+                <path
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={96}
+                  strokeDasharray="0.75,4.75"
+                  d={`M ${isDual ? 122.175 : 124.3},48 0,48`}
+                />
+                <path
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={96}
+                  strokeDasharray="0.75,4.75"
+                  d={`M ${isDual ? 125.875 : 123.7},48 248,48`}
+                />
+              </>
+            )}
 
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={2}
-                d="M 122.5,12 122.5,96"
-              />
-            </>
-          )}
-          {isSingal && (
-            <>
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={96}
-                strokeDasharray="0.75,4.75"
-                d={`M ${isDual ? 122.175 : 124.3},48 0,48`}
-              />
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={96}
-                strokeDasharray="0.75,4.75"
-                d={`M ${isDual ? 125.875 : 123.7},48 248,48`}
-              />
-            </>
-          )}
+            <path
+              fill="none"
+              stroke="white"
+              strokeWidth={96}
+              strokeDasharray="0.75,4.75"
+              d={`M ${isDual ? 122.175 : 124.3},48 0,48`}
+              style={{}}
+            />
 
-          <path
-            fill="none"
-            stroke="white"
-            strokeWidth={96}
-            strokeDasharray="0.75,4.75"
-            d={`M ${isDual ? 122.175 : 124.3},48 0,48`}
-            style={{}}
-          />
+            <path
+              fill="none"
+              stroke="white"
+              strokeWidth={96}
+              strokeDasharray="0.75,4.75"
+              d={`M ${isDual ? 125.875 : 123.7},48 248,48`}
+              style={{}}
+            />
 
-          <path
-            fill="none"
-            stroke="white"
-            strokeWidth={96}
-            strokeDasharray="0.75,4.75"
-            d={`M ${isDual ? 125.875 : 123.7},48 248,48`}
-            style={{}}
-          />
+            {isDouble && (
+              <>
+                {" "}
+                <path
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={2}
+                  d="M 125,12 125,96"
+                  style={{}}
+                />
+                <path
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={2}
+                  d="M 123,12 123,96"
+                  style={{}}
+                />
+                <path
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={96}
+                  strokeDasharray="0.75,4.75"
+                  d="M 124.3,48 0,48"
+                  style={{}}
+                />
+                <path
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={96}
+                  strokeDasharray="0.75,4.75"
+                  d="M 123.7,48 248,48"
+                  style={{}}
+                />
+                <path
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={96}
+                  strokeDasharray="0.75,4.75"
+                  d="M 121.55,48 0,48"
+                  style={{}}
+                />
+                <path
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={96}
+                  strokeDasharray="0.75,4.75"
+                  d="M 126.45,48 248,48"
+                  style={{}}
+                />
+              </>
+            )}
+          </mask>
+          <mask id="ironwoodMask" x={0} y={0}>
+            {isVWood && (
+              <>
+                <path
+                  fill="none"
+                  stroke="gray"
+                  strokeWidth={96}
+                  strokeDasharray="0.125,5.5"
+                  d="M 0.25,48 248,48"
+                  style={{}}
+                />
+              </>
+            )}
+            {isHWood && (
+              <>
+                {" "}
+                <rect fill="white" className="w-full h-full" style={{}} />
+                <path
+                  fill="none"
+                  stroke="gray"
+                  strokeWidth={width}
+                  strokeDasharray="0.125,5.5"
+                  d="M 124.2,0 124.2,96"
+                  style={{}}
+                />
+              </>
+            )}{" "}
+          </mask>
+          <g transform="translate(0,-7)">
+            <path fill="url(#img1)" d={bgPath} />
+          </g>
 
-          {isDouble && (
-            <>
-              {" "}
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={2}
-                d="M 125,12 125,96"
-                style={{}}
-              />
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={2}
-                d="M 123,12 123,96"
-                style={{}}
-              />
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={96}
-                strokeDasharray="0.75,4.75"
-                d="M 124.3,48 0,48"
-                style={{}}
-              />
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={96}
-                strokeDasharray="0.75,4.75"
-                d="M 123.7,48 248,48"
-                style={{}}
-              />
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={96}
-                strokeDasharray="0.75,4.75"
-                d="M 121.55,48 0,48"
-                style={{}}
-              />
-              <path
-                fill="none"
-                stroke="white"
-                strokeWidth={96}
-                strokeDasharray="0.75,4.75"
-                d="M 126.45,48 248,48"
-                style={{}}
-              />
-            </>
-          )}
-        </mask>
-        <mask id="ironwoodMask" x={0} y={0}>
-          {isVWood && (
-            <>
-              <path
-                fill="none"
-                stroke="gray"
-                strokeWidth={96}
-                strokeDasharray="0.125,5.5"
-                d="M 0.25,48 248,48"
-                style={{}}
-              />
-            </>
-          )}
-          {isHWood && (
-            <>
-              {" "}
-              <rect fill="white" className="w-full h-full" style={{}} />
-              <path
-                fill="none"
-                stroke="gray"
-                strokeWidth={width}
-                strokeDasharray="0.125,5.5"
-                d="M 124.2,0 124.2,96"
-                style={{}}
-              />
-            </>
-          )}{" "}
-        </mask>
-        <g transform="translate(0,-7)">
-          <path fill="url(#img1)" d={bgPath} />
-        </g>
-
-        {/* <defs>
+          {/* <defs>
           <pattern
             id="img1"
             patternUnits="userSpaceOnUse"
@@ -481,26 +482,46 @@ function FirstSvg() {
           </pattern>
         </defs> */}
 
-        <g mask="url(#ironwoodMask)" fill="url(#img1)">
-          <motion.path
-            id="mainPath"
-            d={finalPath}
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { pathLength: 0 },
-              visible: {
-                pathLength: 1,
-                transition: { duration: 1, ease: "easeInOut" },
-              },
-            }}
-          />
-        </g>
+          <g mask="url(#ironwoodMask)" fill="url(#img1)">
+            <motion.path
+              id="mainPath"
+              d={finalPath}
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { pathLength: 0 },
+                visible: {
+                  pathLength: 1,
+                  transition: { duration: 1, ease: "easeInOut" },
+                },
+              }}
+            />
+          </g>
 
-        <g mask="url(#picketMask)">
+          <g mask="url(#picketMask)">
+            <motion.path
+              id="picketsPath"
+              d={picketsPath}
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { pathLength: 0 },
+                visible: {
+                  pathLength: 1,
+                  transition: { duration: 1, ease: "easeInOut" },
+                },
+              }}
+            />
+          </g>
+
+          <path d={finalPath} mask="url(#finialMasks)" id="finialPath" />
+
           <motion.path
             id="picketsPath"
             d={picketsPath}
+            className="stroke-current text-c-1000"
+            fillOpacity={0}
+            strokeWidth={2}
             initial="hidden"
             animate="visible"
             variants={{
@@ -511,54 +532,35 @@ function FirstSvg() {
               },
             }}
           />
-        </g>
+          {isDual && (
+            <path
+              fill="none"
+              stroke="white"
+              strokeWidth="1.1"
+              d="M 123.95,10 123.95,84"
+              style={{}}
+            />
+          )}
 
-        <path d={finalPath} mask="url(#finialMasks)" id="finialPath" />
-
-        <motion.path
-          id="picketsPath"
-          d={picketsPath}
-          className="stroke-current text-c-1000"
-          fillOpacity={0}
-          strokeWidth={2}
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { pathLength: 0 },
-            visible: {
-              pathLength: 1,
-              transition: { duration: 1, ease: "easeInOut" },
-            },
-          }}
-        />
-        {isDual && (
-          <path
-            fill="none"
-            stroke="white"
-            strokeWidth="1.1"
-            d="M 123.95,10 123.95,84"
-            style={{}}
+          {/* ------------- swing paths ------------- */}
+          <SwingPaths
+            isSwing={isSwing}
+            width={width}
+            isMounted={isMounted}
+            isDual={isDual}
+            direction={direction}
+            isCPeak={isCPeak}
+            isArch={isArch || isBoth}
           />
-        )}
-
-        {/* ------------- swing paths ------------- */}
-        <SwingPaths
-          isSwing={isSwing}
-          width={width}
-          isMounted={isMounted}
-          isDual={isDual}
-          direction={direction}
-          isCPeak={isCPeak}
-          isArch={isArch || isBoth}
-        />
-        {/* ------------- Slide paths ------------- */}
-        <SlidePaths
-          isSlide={isSlide}
-          width={width}
-          isMounted={isMounted}
-          isDual={isDual}
-        />
-      </motion.svg>
+          {/* ------------- Slide paths ------------- */}
+          <SlidePaths
+            isSlide={isSlide}
+            width={width}
+            isMounted={isMounted}
+            isDual={isDual}
+          />
+        </motion.svg>
+      {/* </div> */}
     </Suspense>
   );
 }

@@ -8,6 +8,7 @@ import Access from "./Access";
 import { GatesContext } from "../GatesContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
+import { useCart } from "../CartContext";
 
 const GatesForm = () => {
   const {
@@ -41,6 +42,7 @@ const GatesForm = () => {
   });
   const [price, setPrice] = useState(0);
   const [isDisabled, setIsDisabled] = useState(false);
+  const { addToCart } = useCart();
   const searchParams = useSearchParams();
   const sku = searchParams.get("sku")?.split("-");
   const isAuto = sku && sku[6] === "2";
@@ -317,9 +319,7 @@ const GatesForm = () => {
       type: selectedType,
     };
 
-    const existingCart = JSON.parse(localStorage.getItem("cartItems")) || [];
-    existingCart.push(cartItem);
-    localStorage.setItem("cartItems", JSON.stringify(existingCart));
+    addToCart(cartItem);
   };
 
   useEffect(() => {
@@ -404,7 +404,7 @@ const GatesForm = () => {
               type="range"
               name="width"
               min={36}
-              max={256}
+              max={200}
               value={width}
               onChange={(e) => setWidth(Number(e.target.value))}
               className="border-t border-b border-gray-400 w-full !h-3 bg-gray-100 outline-none appearance-none range-slider focus:ring-2 focus:ring-c-prime-light hover:bg-c-prime"

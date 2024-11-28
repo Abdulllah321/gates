@@ -13,12 +13,13 @@ import Link from "next/link";
 import { TiSocialFacebook } from "react-icons/ti";
 import { FaFacebookF, FaTwitter } from "react-icons/fa6";
 import Cart from "./Cart";
+import { useCart } from "./CartContext";
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const [cart, setCart] = useState([]); // Initialize state for cart items
+  const { cart } = useCart();
 
   const containerRef = useRef(null);
 
@@ -28,11 +29,6 @@ const Header = () => {
     setCartOpen(false);
   };
 
-  useEffect(() => {
-    const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    setCart(storedCartItems);
-  }, []);
-  // Handle closing on clicking outside of elements
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {

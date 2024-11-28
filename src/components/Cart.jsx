@@ -2,15 +2,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useCart } from "./CartContext";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const { cart: cartItems, removeFromCart } = useCart();
   const [totalAmount, setTotalAmount] = useState(0);
-
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("cartItems")) || [];
-    setCartItems(items);
-  }, []);
 
   useEffect(() => {
     const total = cartItems.reduce(
@@ -21,9 +17,7 @@ const Cart = () => {
   }, [cartItems]);
 
   const removeItem = (index) => {
-    const updatedItems = cartItems.filter((item, i) => item._id !== index);
-    setCartItems(updatedItems);
-    localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+  removeFromCart(index);
   };
 
   // Utility function to format gate/fence configuration
@@ -159,7 +153,6 @@ const Cart = () => {
           <div className="mt-4 text-lg font-bold text-yellow-300">
             Total Amount: ${totalAmount.toFixed(2)}
           </div>
-          
         </div>
       )}
     </div>
