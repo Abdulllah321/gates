@@ -191,11 +191,11 @@ const Header = () => {
 
           {/* Search Icon */}
           <div className="relative">
-            <SlMagnifier
+{/*             <SlMagnifier
               className="text-2xl text-[--foreground] cursor-pointer"
               onClick={() => setSearchOpen(!searchOpen)}
               aria-label="Search"
-            />
+            /> */}
             <AnimatePresence>
               {searchOpen && (
                 <motion.div
@@ -283,7 +283,7 @@ const Header = () => {
           </div>
 
           {/* Sidebar Icon */}
-          <div className="relative">
+          <div className="relative md:block hidden">
             <IoAppsOutline
               className="text-2xl text-[--foreground] cursor-pointer"
               onClick={() => setSidebarOpen(!sidebarOpen)}
