@@ -296,7 +296,7 @@ Pre fab Gates              </Link>
           </div>
 
           {/* Sidebar Icon */}
-          <div className="relative md:block hidden">
+          <div className="relative md:hidden block">
             <IoAppsOutline
               className="text-2xl text-[--foreground] cursor-pointer"
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -339,11 +339,23 @@ Pre fab Gates              </Link>
               <Link href="/gates" className="text-lg font-medium text-gray-800">
                 Gates/Fences
               </Link>
-              <Link
+{/*               <Link
                 href="/accessories"
                 className="text-lg font-medium text-gray-800"
               >
                 Accessories
+              </Link> */}
+              <Link
+                href="https://moderngateandfence.com/Pre-Fab/product-category/fence-panels/"
+                className="text-lg font-medium text-gray-800"
+              >
+                Fence Panels
+              </Link>
+              <Link
+                href="https://moderngateandfence.com/Pre-Fab/product-category/pre-fab-gates/"
+                className="text-lg font-medium text-gray-800"
+              >
+                Pre fab Gates
               </Link>
             </nav>
             <footer className="flex justify-between mt-4">
