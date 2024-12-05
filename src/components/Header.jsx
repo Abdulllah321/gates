@@ -71,12 +71,25 @@ const Header = () => {
             </li>
             <li>
               <Link
+                href="https://moderngateandfence.com/Pre-Fab/product-category/fence-panels/"
+                className="text-lg font-medium text-[--foreground] hover:text-gray-300"
+              >
+Fence Panels              </Link>
+            </li>   <li>
+              <Link
+                href="https://moderngateandfence.com/Pre-Fab/product-category/pre-fab-gates/"
+                className="text-lg font-medium text-[--foreground] hover:text-gray-300"
+              >
+Pre fab Gates              </Link>
+            </li>
+{/*             <li>
+              <Link
                 href="/accessories"
                 className="text-lg font-medium text-[--foreground] hover:text-gray-300"
               >
                 Accessories
               </Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
 
